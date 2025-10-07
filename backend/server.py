@@ -721,9 +721,11 @@ async def get_user_orders(
     current_user: User = Depends(get_current_user)
 ):
     skip = (page - 1) * limit
-    orders = await db.orders.find(
-        {"user_id": current_user.id}
-    ).sort([("created_at", -1)]).skip(skip).limit(limit).to_list(None)
+    orders_cursor = db.orders.find(
+        {"user_id": current_user.id},
+        {"_id": 0}
+    ).sort([("created_at", -1)]).skip(skip).limit(limit)
+    orders = await orders_cursor.to_list(None)
     
     total = await db.orders.count_documents({"user_id": current_user.id})
     
