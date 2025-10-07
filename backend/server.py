@@ -381,7 +381,7 @@ class RecommendationEngine:
         # Fetch menu item details
         recommendations = []
         for menu_item_id, score in top_items:
-            menu_item = await self.db.menu_items.find_one({"id": menu_item_id})
+            menu_item = await self.db.menu_items.find_one({"id": menu_item_id}, {"_id": 0})
             if menu_item and menu_item.get('available', True):
                 menu_item['recommendation_score'] = score
                 recommendations.append(menu_item)
