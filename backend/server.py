@@ -621,7 +621,8 @@ async def get_restaurant_menu(restaurant_id: str, category: str = None):
     if category:
         query["category"] = category
     
-    menu_items = await db.menu_items.find(query).to_list(None)
+    menu_items_cursor = db.menu_items.find(query, {"_id": 0})
+    menu_items = await menu_items_cursor.to_list(None)
     return {"menu_items": menu_items}
 
 @api_router.get("/cuisines")
