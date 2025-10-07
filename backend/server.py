@@ -463,10 +463,12 @@ class RecommendationEngine:
 
     async def get_popular_items(self, limit: int = 20):
         """Get popular menu items as fallback recommendations"""
-        menu_items = await self.db.menu_items.find(
+        menu_items_cursor = self.db.menu_items.find(
             {"available": True},
+            {"_id": 0},
             sort=[("popularity_score", -1), ("order_count", -1)]
-        ).to_list(limit)
+        ).limit(limit)
+        menu_items = await menu_items_cursor.to_list(None)
         
         for item in menu_items:
             item['recommendation_reason'] = 'Popular choice'
