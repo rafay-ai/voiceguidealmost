@@ -602,7 +602,8 @@ async def get_restaurants(page: int = 1, limit: int = 10, cuisine: str = None):
     if cuisine:
         query["cuisine"] = {"$in": [cuisine]}
     
-    restaurants = await db.restaurants.find(query).skip(skip).limit(limit).to_list(None)
+    restaurants_cursor = db.restaurants.find(query, {"_id": 0}).skip(skip).limit(limit)
+    restaurants = await restaurants_cursor.to_list(None)
     total = await db.restaurants.count_documents(query)
     
     return {
