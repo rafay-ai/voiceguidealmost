@@ -421,7 +421,8 @@ class RecommendationEngine:
             query = base_query
 
         # Get items and score them
-        menu_items = await self.db.menu_items.find(query).to_list(limit * 3)
+        menu_items_cursor = self.db.menu_items.find(query, {"_id": 0}).limit(limit * 3)
+        menu_items = await menu_items_cursor.to_list(None)
         
         # Score items based on preferences
         scored_items = []
