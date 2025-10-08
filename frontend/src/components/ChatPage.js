@@ -148,7 +148,7 @@ const ChatPage = ({ user }) => {
     "Recommend vegetarian options",
     "Show me desserts",
     "I'm craving Chinese food",
-    "Fast food under ₹300"
+    "Fast food under PKR 300"
   ];
 
   return (
