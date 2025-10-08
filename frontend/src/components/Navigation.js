@@ -29,6 +29,7 @@ const Navigation = ({ user, onLogout }) => {
     { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'Voice Chat', href: '/chat', icon: MessageCircle },
     { name: 'Restaurants', href: '/restaurants', icon: Store },
+    { name: 'Orders', href: '/orders', icon: Package },
     { name: 'Profile', href: '/profile', icon: User },
   ];
 
