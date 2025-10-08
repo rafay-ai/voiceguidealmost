@@ -74,6 +74,20 @@ const Navigation = ({ user, onLogout }) => {
 
           {/* User Menu */}
           <div className="hidden sm:flex sm:items-center sm:space-x-4">
+            {/* Cart Button */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+              data-testid="cart-button"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {cart.itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center font-semibold">
+                  {cart.itemCount}
+                </span>
+              )}
+            </button>
+            
             <span className="text-sm text-gray-700">Hello, {user.username}</span>
             <button
               onClick={onLogout}
