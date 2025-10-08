@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Search, Filter, Star, Clock, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Filter, Star, Clock, MapPin, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import LoadingSpinner from './ui/LoadingSpinner';
+import RestaurantModal from './RestaurantModal';
 
 const RestaurantsPage = ({ user }) => {
   const [searchParams, setSearchParams] = useSearchParams();
