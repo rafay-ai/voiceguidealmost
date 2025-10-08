@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
@@ -8,8 +8,12 @@ import {
   LogOut, 
   Menu, 
   X,
-  Mic
+  Mic,
+  ShoppingBag,
+  Package
 } from 'lucide-react';
+import { useCart } from './CartContext';
+import CartDrawer from './CartDrawer';
 
 const Navigation = ({ user, onLogout }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
