@@ -264,7 +264,7 @@ html {
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
 }
 
-/* Responsive design */
+/* Mobile Optimizations */
 @media (max-width: 768px) {
   .cuisine-grid {
     grid-template-columns: 1fr;
@@ -275,6 +275,73 @@ html {
   .chat-bubble-user,
   .chat-bubble-assistant {
     max-width: 90%;
+  }
+  
+  /* Mobile-first button sizing */
+  .btn-primary,
+  .btn-secondary {
+    min-height: 44px; /* iOS recommended tap target */
+    font-size: 16px; /* Prevents iOS zoom on input */
+  }
+  
+  /* Mobile input improvements */
+  .input-field {
+    font-size: 16px; /* Prevents iOS zoom */
+    min-height: 44px;
+  }
+  
+  /* Mobile navigation improvements */
+  .voice-button {
+    width: 56px;
+    height: 56px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  /* Mobile card adjustments */
+  .restaurant-card {
+    margin-bottom: 16px;
+  }
+  
+  .menu-item {
+    padding: 12px;
+  }
+  
+  /* Mobile modal improvements */
+  .glass {
+    margin: 8px;
+    max-height: calc(100vh - 16px);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small mobile devices */
+  .font-display {
+    font-size: 2.5rem;
+  }
+  
+  .text-5xl {
+    font-size: 2.25rem;
+  }
+  
+  .text-4xl {
+    font-size: 2rem;
+  }
+  
+  /* Tighter spacing on small screens */
+  .p-8 {
+    padding: 1rem;
+  }
+  
+  .p-6 {
+    padding: 0.75rem;
+  }
+  
+  /* Smaller buttons for very small screens */
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }
 
