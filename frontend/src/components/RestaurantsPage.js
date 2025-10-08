@@ -304,6 +304,14 @@ const RestaurantsPage = ({ user }) => {
           </>
         )}
       </div>
+      
+      {/* Restaurant Modal */}
+      {selectedRestaurant && (
+        <RestaurantModal 
+          restaurant={selectedRestaurant}
+          onClose={() => setSelectedRestaurant(null)}
+        />
+      )}
     </div>
   );
 };
