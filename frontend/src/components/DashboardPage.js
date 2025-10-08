@@ -20,20 +20,15 @@ const DashboardPage = ({ user }) => {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-      const [recommendationsRes, cuisinesRes] = await Promise.all([
+      const [recommendationsRes, cuisinesRes, ordersRes] = await Promise.all([
         axios.get('/api/recommendations?limit=8'),
-        axios.get('/api/cuisines')
+        axios.get('/api/cuisines'),
+        axios.get('/api/orders?limit=5')
       ]);
       
       setRecommendations(recommendationsRes.data.recommendations);
       setCuisines(cuisinesRes.data.cuisines.slice(0, 6)); // Show 6 cuisines
-      
-      // Simulate user stats (would come from API)
-      setStats({
-        totalOrders: 24,
-        favoriteCuisine: user.favorite_cuisines?.[0] || 'Pakistani',
-        avgDeliveryTime: '22 min'
-      });
+      setUserOrders(ordersRes.data.orders);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
       toast.error('Failed to load dashboard data');
