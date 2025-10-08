@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Star, Clock, Sparkles, MessageCircle, Store, TrendingUp } from 'lucide-react';
+import { Star, Clock, Sparkles, MessageCircle, Store, TrendingUp, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import LoadingSpinner from './ui/LoadingSpinner';
+import { useCart } from './CartContext';
 
 const DashboardPage = ({ user }) => {
   const [recommendations, setRecommendations] = useState([]);
