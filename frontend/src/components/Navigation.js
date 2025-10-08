@@ -174,6 +174,12 @@ const Navigation = ({ user, onLogout }) => {
           </div>
         </div>
       )}
+      
+      {/* Cart Drawer */}
+      <CartDrawer 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+      />
     </nav>
   );
 };
