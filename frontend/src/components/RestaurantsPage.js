@@ -228,7 +228,7 @@ const RestaurantsPage = ({ user }) => {
                     <button 
                       className="w-full btn-primary py-3 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={!restaurant.is_active}
-                      onClick={() => toast.info('Menu view coming soon!')}
+                      onClick={() => setSelectedRestaurant(restaurant)}
                     >
                       {restaurant.is_active ? 'View Menu' : 'Closed'}
                     </button>
