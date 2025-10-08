@@ -10,11 +10,8 @@ const DashboardPage = ({ user }) => {
   const [recommendations, setRecommendations] = useState([]);
   const [cuisines, setCuisines] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({
-    totalOrders: 0,
-    favoritesCuisine: 'Not set',
-    avgDeliveryTime: '25 min'
-  });
+  const [userOrders, setUserOrders] = useState([]);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetchDashboardData();
