@@ -17,7 +17,13 @@ import CartDrawer from './CartDrawer';
 
 const Navigation = ({ user, onLogout }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
+  const { cart, fetchCart } = useCart();
+  
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
