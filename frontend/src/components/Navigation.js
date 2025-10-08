@@ -99,8 +99,22 @@ const Navigation = ({ user, onLogout }) => {
             </button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="sm:hidden flex items-center">
+          {/* Mobile menu button and cart */}
+          <div className="sm:hidden flex items-center space-x-2">
+            {/* Mobile Cart Button */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 rounded-lg text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition-colors"
+              data-testid="mobile-cart-button"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {cart.itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center font-semibold">
+                  {cart.itemCount}
+                </span>
+              )}
+            </button>
+            
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition-colors"
