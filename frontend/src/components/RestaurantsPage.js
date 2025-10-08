@@ -8,6 +8,7 @@ import RestaurantModal from './RestaurantModal';
 
 const RestaurantsPage = ({ user }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
   const [cuisines, setCuisines] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,7 @@ const RestaurantsPage = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(false);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   const restaurantsPerPage = 6;
 
