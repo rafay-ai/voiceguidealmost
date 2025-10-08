@@ -88,11 +88,14 @@ const DashboardPage = ({ user }) => {
             <p className="text-blue-100">Explore all available options</p>
           </Link>
           
-          <div className="card-hover p-8 bg-gradient-to-br from-green-500 to-teal-500 text-white rounded-2xl text-center">
+          <Link
+            to="/orders"
+            className="card-hover p-8 bg-gradient-to-br from-green-500 to-teal-500 text-white rounded-2xl text-center block"
+          >
             <TrendingUp className="w-12 h-12 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold mb-2">{stats.totalOrders} Orders</h3>
+            <h3 className="text-xl font-semibold mb-2">{userOrders.length} Orders</h3>
             <p className="text-green-100">Your ordering history</p>
-          </div>
+          </Link>
         </div>
 
         {/* User Stats */}
