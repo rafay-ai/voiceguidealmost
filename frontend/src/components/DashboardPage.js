@@ -102,15 +102,20 @@ const DashboardPage = ({ user }) => {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="glass p-6 rounded-2xl text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Total Orders</h3>
-            <p className="text-3xl font-bold text-orange-500">{stats.totalOrders}</p>
+            <p className="text-3xl font-bold text-orange-500">{userOrders.length}</p>
           </div>
           <div className="glass p-6 rounded-2xl text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Favorite Cuisine</h3>
-            <p className="text-xl font-medium text-gray-700">{stats.favoriteCuisine}</p>
+            <p className="text-xl font-medium text-gray-700">{user.favorite_cuisines?.[0] || 'Not set'}</p>
           </div>
           <div className="glass p-6 rounded-2xl text-center">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Avg. Delivery</h3>
-            <p className="text-xl font-medium text-gray-700">{stats.avgDeliveryTime}</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Last Order</h3>
+            <p className="text-xl font-medium text-gray-700">
+              {userOrders.length > 0 ? 
+                new Date(userOrders[0].created_at).toLocaleDateString() : 
+                'No orders yet'
+              }
+            </p>
           </div>
         </div>
 
