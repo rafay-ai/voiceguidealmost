@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, status, Request
+from fastapi import FastAPI, APIRouter, HTTPException, Depends, status, Request, BackgroundTasks
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -20,6 +20,10 @@ import google.generativeai as genai
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 import json
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import re
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -32,8 +36,15 @@ db = client[os.environ['DB_NAME']]
 # Configure Gemini
 genai.configure(api_key=os.environ['GEMINI_API_KEY'])
 
+# Email Configuration
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+EMAIL_ADDRESS = "abdulrafayy277@gmail.com"
+EMAIL_PASSWORD = "brga pzaw ujok cbmb"
+EMAIL_FROM_NAME = "VoiceGuide"
+
 # Create the main app
-app = FastAPI(title="Voice Guide API", version="1.0.0")
+app = FastAPI(title="Voice Guide API", version="2.0.0")
 api_router = APIRouter(prefix="/api")
 
 # JWT Configuration
@@ -45,6 +56,34 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 hours
 security = HTTPBearer()
 executor = ThreadPoolExecutor(max_workers=4)
 
+# Karachi Areas Data
+KARACHI_AREAS = {
+    "District Central": [
+        "Gulberg", "Federal B Area", "North Nazimabad", "Nazimabad", 
+        "Buffer Zone", "New Karachi", "North Karachi", "Gulshan-e-Iqbal"
+    ],
+    "District East": [
+        "Gulistan-e-Jauhar", "Gulshan-e-Iqbal", "University Road", 
+        "Karsaz", "Drigh Road", "Faisal Cantonment", "Malir"
+    ],
+    "District South": [
+        "Clifton", "Defence (DHA)", "Garden", "Saddar", "Civil Lines", 
+        "Arambagh", "Kharadar", "Mithadar", "Soldier Bazar"
+    ],
+    "District West": [
+        "Orangi Town", "Baldia Town", "SITE", "Manghopir", 
+        "Mauripur", "Keamari", "Fish Harbour"
+    ],
+    "District Malir": [
+        "Malir", "Airport", "Jinnah Terminal", "Korangi", 
+        "Landhi", "Shah Faisal Colony", "Bin Qasim"
+    ],
+    "District Korangi": [
+        "Korangi", "Landhi", "Shah Faisal Colony", "Model Colony", 
+        "Allama Iqbal Town", "Zaman Town"
+    ]
+}
+
 # --- Data Models ---
 class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -55,6 +94,10 @@ class User(BaseModel):
     dietary_restrictions: List[str] = Field(default_factory=list)
     favorite_cuisines: List[str] = Field(default_factory=list)
     spice_preference: str = "medium"
+    addresses: List[Dict[str, Any]] = Field(default_factory=list)
+    default_address_id: Optional[str] = None
+    phone: Optional[str] = None
+    preferences_set: bool = False
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -62,10 +105,21 @@ class UserCreate(BaseModel):
     username: str
     email: str
     password: str
+    phone: Optional[str] = None
 
 class UserLogin(BaseModel):
     email: str
     password: str
+
+class Address(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    label: str  # Home, Office, etc.
+    district: str
+    area: str
+    street_address: str
+    landmark: Optional[str] = None
+    phone: str
+    is_default: bool = False
 
 class Restaurant(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -78,6 +132,7 @@ class Restaurant(BaseModel):
     delivery_fee: float
     minimum_order: float
     is_active: bool = True
+    image: str = "/api/placeholder/restaurant"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class MenuItem(BaseModel):
@@ -100,6 +155,21 @@ class MenuItem(BaseModel):
     rating_count: int = 0
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+class CartItem(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    menu_item_id: str
+    restaurant_id: str
+    quantity: int
+    special_instructions: str = ""
+    added_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class CartItemAdd(BaseModel):
+    menu_item_id: str
+    restaurant_id: str
+    quantity: int = 1
+    special_instructions: str = ""
+
 class OrderItem(BaseModel):
     menu_item_id: str
     quantity: int
@@ -121,6 +191,11 @@ class Order(BaseModel):
     actual_delivery_time: Optional[datetime] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class CheckoutRequest(BaseModel):
+    address_id: str
+    payment_method: str  # "easypaisa" or "cod"
+    special_instructions: str = ""
 
 class ChatMessage(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -145,6 +220,11 @@ class ChatRequest(BaseModel):
     user_id: str
     session_id: Optional[str] = None
 
+class PreferencesSetup(BaseModel):
+    favorite_cuisines: List[str]
+    dietary_restrictions: List[str]
+    spice_preference: str
+
 # --- Helper Functions ---
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
@@ -165,12 +245,99 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
         user_id: str = payload.get("sub")
         if user_id is None:
             raise HTTPException(status_code=401, detail="Invalid authentication credentials")
-        user = await db.users.find_one({"id": user_id})
+        user = await db.users.find_one({"id": user_id}, {"_id": 0})
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
         return User(**user)
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+
+def generate_order_number():
+    """Generate unique order number"""
+    import random
+    return f"VG{datetime.now().strftime('%Y%m%d')}{random.randint(1000, 9999)}"
+
+# --- Email Service ---
+async def send_order_confirmation_email(user_email: str, user_name: str, order: dict, order_items: List[dict]):
+    """Send order confirmation email"""
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = f"{EMAIL_FROM_NAME} <{EMAIL_ADDRESS}>"
+        msg['To'] = user_email
+        msg['Subject'] = f"Order Confirmation - {order['order_number']}"
+        
+        # Calculate total
+        total_amount = order['pricing']['total']
+        
+        # Create HTML email body
+        html_body = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #f97316, #fb7185); padding: 20px; text-align: center;">
+                <h1 style="color: white; margin: 0;">Voice Guide</h1>
+                <p style="color: white; margin: 5px 0;">Order Confirmation</p>
+            </div>
+            
+            <div style="padding: 20px; background: #f8f9fa;">
+                <h2 style="color: #333;">Hi {user_name},</h2>
+                <p>Thank you for your order! Your food is being prepared and will be delivered soon.</p>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h3 style="color: #f97316; margin-top: 0;">Order Details</h3>
+                    <p><strong>Order Number:</strong> {order['order_number']}</p>
+                    <p><strong>Status:</strong> {order['order_status'].title()}</p>
+                    <p><strong>Payment Method:</strong> {order['payment_method'].title()}</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h3 style="color: #f97316; margin-top: 0;">Items Ordered</h3>
+        """
+        
+        for item in order_items:
+            html_body += f"""
+                    <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                        <p style="margin: 0;"><strong>{item['name']}</strong></p>
+                        <p style="margin: 0; color: #666;">Quantity: {item['quantity']} × PKR {item['price']}</p>
+                        {f"<p style='margin: 0; color: #888; font-style: italic;'>Note: {item['special_instructions']}</p>" if item.get('special_instructions') else ""}
+                    </div>
+            """
+        
+        html_body += f"""
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h3 style="color: #f97316; margin-top: 0;">Delivery Address</h3>
+                    <p style="margin: 0;">{order['delivery_address']['area']}, {order['delivery_address']['district']}</p>
+                    <p style="margin: 0;">{order['delivery_address']['street_address']}</p>
+                    <p style="margin: 0;">Phone: {order['delivery_address']['phone']}</p>
+                </div>
+                
+                <div style="background: #f97316; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <h2 style="margin: 0;">Total: PKR {total_amount}</h2>
+                </div>
+                
+                <p style="text-align: center; margin-top: 20px; color: #666;">
+                    Thank you for choosing Voice Guide!<br>
+                    Track your order in the app for real-time updates.
+                </p>
+            </div>
+        </body>
+        </html>
+        """
+        
+        msg.attach(MIMEText(html_body, 'html'))
+        
+        # Send email
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+        
+        print(f"✅ Order confirmation email sent to {user_email}")
+        
+    except Exception as e:
+        print(f"❌ Failed to send email: {e}")
 
 # --- Recommendation Engine ---
 class RecommendationEngine:
@@ -179,15 +346,16 @@ class RecommendationEngine:
 
     async def get_user_order_history(self, user_id: str, limit: int = 50):
         """Get user's order history for recommendations"""
-        orders = await self.db.orders.find(
+        orders_cursor = self.db.orders.find(
             {"user_id": user_id}, 
+            {"_id": 0},
             sort=[("created_at", -1)]
-        ).to_list(limit)
-        return orders
+        ).limit(limit)
+        return await orders_cursor.to_list(None)
 
     async def get_user_preferences_vector(self, user_id: str):
         """Create user preference vector based on order history and explicit preferences"""
-        user = await self.db.users.find_one({"id": user_id})
+        user = await self.db.users.find_one({"id": user_id}, {"_id": 0})
         if not user:
             return None
 
@@ -204,10 +372,10 @@ class RecommendationEngine:
             weight = time_decay ** i  # More recent orders have higher weight
             
             for item in order.get('items', []):
-                menu_item = await self.db.menu_items.find_one({"id": item['menu_item_id']})
+                menu_item = await self.db.menu_items.find_one({"id": item['menu_item_id']}, {"_id": 0})
                 if menu_item:
                     # Update cuisine preferences
-                    restaurant = await self.db.restaurants.find_one({"id": menu_item['restaurant_id']})
+                    restaurant = await self.db.restaurants.find_one({"id": menu_item['restaurant_id']}, {"_id": 0})
                     if restaurant:
                         for cuisine in restaurant.get('cuisine', []):
                             cuisine_scores[cuisine] = cuisine_scores.get(cuisine, 0) + weight * item['quantity']
@@ -399,9 +567,10 @@ class RecommendationEngine:
         # Filter by preferred cuisines if available
         if cuisine_prefs:
             preferred_cuisines = list(cuisine_prefs.keys())
-            restaurants = await self.db.restaurants.find({
+            restaurants_cursor = self.db.restaurants.find({
                 "cuisine": {"$in": preferred_cuisines}
-            }).to_list(100)
+            }, {"_id": 0}).limit(100)
+            restaurants = await restaurants_cursor.to_list(None)
             restaurant_ids = [r['id'] for r in restaurants]
             
             if restaurant_ids:
@@ -443,11 +612,6 @@ class RecommendationEngine:
         score += menu_item.get('popularity_score', 0) * 2
         score += menu_item.get('average_rating', 0) * 0.5
         
-        # Cuisine preference score
-        cuisine_prefs = user_prefs.get('cuisine_preferences', {})
-        # Get restaurant cuisine
-        # This would need restaurant lookup, simplified here
-        
         # Category preference score
         category_prefs = user_prefs.get('category_preferences', {})
         category = menu_item.get('category', '')
@@ -480,27 +644,53 @@ class RecommendationEngine:
 # Initialize recommendation engine
 recommendation_engine = RecommendationEngine(db)
 
-# --- Gemini Chat Integration ---
-async def process_with_gemini(message: str, user_context: Dict = None):
-    """Process message with Gemini AI"""
+# --- Enhanced Gemini Chat Integration ---
+async def process_with_gemini(message: str, user_context: Dict = None, include_restaurants: bool = True):
+    """Process message with Gemini AI with enhanced prompts"""
     loop = asyncio.get_event_loop()
     
     def _process():
         try:
             model = genai.GenerativeModel('gemini-2.0-flash')
             
-            # Build context-aware prompt
-            context = f"""You are a helpful food delivery assistant for Voice Guide app. You can:
-1. Recommend food items based on user preferences
-2. Help users place orders through voice or text
-3. Answer questions about restaurants and menu items
-4. Assist with dietary restrictions and preferences
+            # Get restaurant data for context
+            restaurant_context = ""
+            if include_restaurants and user_context:
+                # This would include recent restaurant/menu data
+                restaurant_context = """
+Available cuisines: Pakistani, Chinese, Italian, Fast Food, BBQ, Desserts, Indian, Thai, Mexican
+Popular restaurants: Student Biryani (Pakistani), Bundu Khan (BBQ), KFC (Fast Food), Pizza Hut (Italian)
+Price ranges: Budget (PKR 200-500), Moderate (PKR 500-1000), Premium (PKR 1000+)
+"""
+            
+            # Enhanced context-aware prompt
+            context = f"""You are a helpful food delivery assistant for Voice Guide app in Karachi, Pakistan. You can:
 
-User context: {json.dumps(user_context or {})}
+1. **Recommend Food**: Suggest specific restaurants and dishes based on user preferences
+2. **Help with Orders**: Guide users through ordering process, ask for address, payment method
+3. **Answer Questions**: Provide info about restaurants, delivery times, prices in PKR
+4. **Collect Preferences**: For new users, ask about favorite cuisines, dietary restrictions, spice preferences
 
-User message: {message}
+{restaurant_context}
 
-Please respond naturally and helpfully. If the user wants to place an order, ask for details like restaurant preference, cuisine type, dietary restrictions, etc."""
+User Profile:
+- Name: {user_context.get('username', 'User')}
+- Favorite Cuisines: {', '.join(user_context.get('favorite_cuisines', []))}
+- Dietary Restrictions: {', '.join(user_context.get('dietary_restrictions', []))}
+- Spice Preference: {user_context.get('spice_preference', 'medium')}
+- Has Set Preferences: {user_context.get('preferences_set', False)}
+
+IMPORTANT INSTRUCTIONS:
+- Always mention prices in Pakistani Rupees (PKR)
+- When recommending restaurants, format like: "🏪 **Restaurant Name** - Cuisine Type"
+- For menu items, format like: "🍽️ **Item Name** - PKR price (description)"
+- If user wants to order, ask for: 1) Items confirmation 2) Delivery address 3) Payment method (EasyPaisa or Cash on Delivery)
+- For new users without preferences, ask them to set up their profile first
+- Be conversational and helpful, use emojis to make it engaging
+
+User Message: "{message}"
+
+Respond naturally and helpfully. If recommending restaurants or items, use the formatting above."""
             
             response = model.generate_content(context)
             return response.text
@@ -516,7 +706,7 @@ Please respond naturally and helpfully. If the user wants to place an order, ask
 @api_router.post("/auth/register")
 async def register_user(user_data: UserCreate):
     # Check if user exists
-    existing_user = await db.users.find_one({"email": user_data.email})
+    existing_user = await db.users.find_one({"email": user_data.email}, {"_id": 0})
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     
@@ -525,7 +715,9 @@ async def register_user(user_data: UserCreate):
     new_user = User(
         username=user_data.username,
         email=user_data.email,
-        password_hash=hashed_password
+        password_hash=hashed_password,
+        phone=user_data.phone,
+        preferences_set=False
     )
     
     await db.users.insert_one(new_user.dict())
@@ -539,13 +731,14 @@ async def register_user(user_data: UserCreate):
         "user": {
             "id": new_user.id,
             "username": new_user.username,
-            "email": new_user.email
+            "email": new_user.email,
+            "preferences_set": new_user.preferences_set
         }
     }
 
 @api_router.post("/auth/login")
 async def login_user(user_data: UserLogin):
-    user = await db.users.find_one({"email": user_data.email})
+    user = await db.users.find_one({"email": user_data.email}, {"_id": 0})
     if not user or not verify_password(user_data.password, user["password_hash"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
@@ -557,7 +750,8 @@ async def login_user(user_data: UserLogin):
         "user": {
             "id": user["id"],
             "username": user["username"],
-            "email": user["email"]
+            "email": user["email"],
+            "preferences_set": user.get("preferences_set", False)
         }
     }
 
@@ -571,8 +765,33 @@ async def get_user_profile(current_user: User = Depends(get_current_user)):
         "preferences": current_user.preferences,
         "dietary_restrictions": current_user.dietary_restrictions,
         "favorite_cuisines": current_user.favorite_cuisines,
-        "spice_preference": current_user.spice_preference
+        "spice_preference": current_user.spice_preference,
+        "addresses": current_user.addresses,
+        "default_address_id": current_user.default_address_id,
+        "phone": current_user.phone,
+        "preferences_set": current_user.preferences_set
     }
+
+@api_router.post("/user/setup-preferences")
+async def setup_user_preferences(
+    preferences: PreferencesSetup,
+    current_user: User = Depends(get_current_user)
+):
+    """Setup preferences for new users"""
+    update_data = {
+        "favorite_cuisines": preferences.favorite_cuisines,
+        "dietary_restrictions": preferences.dietary_restrictions,
+        "spice_preference": preferences.spice_preference,
+        "preferences_set": True,
+        "updated_at": datetime.now(timezone.utc)
+    }
+    
+    await db.users.update_one(
+        {"id": current_user.id},
+        {"$set": update_data}
+    )
+    
+    return {"message": "Preferences setup completed successfully"}
 
 @api_router.put("/user/preferences")
 async def update_user_preferences(
@@ -596,6 +815,42 @@ async def update_user_preferences(
     
     return {"message": "Preferences updated successfully"}
 
+# Address Management
+@api_router.get("/user/addresses")
+async def get_user_addresses(current_user: User = Depends(get_current_user)):
+    return {"addresses": current_user.addresses}
+
+@api_router.post("/user/addresses")
+async def add_user_address(
+    address: Address,
+    current_user: User = Depends(get_current_user)
+):
+    address_dict = address.dict()
+    
+    # If this is the first address or marked as default, make it default
+    if not current_user.addresses or address.is_default:
+        address_dict["is_default"] = True
+        # Update user's default address
+        await db.users.update_one(
+            {"id": current_user.id},
+            {
+                "$push": {"addresses": address_dict},
+                "$set": {"default_address_id": address.id}
+            }
+        )
+    else:
+        await db.users.update_one(
+            {"id": current_user.id},
+            {"$push": {"addresses": address_dict}}
+        )
+    
+    return {"message": "Address added successfully", "address_id": address.id}
+
+@api_router.get("/areas")
+async def get_karachi_areas():
+    """Get all Karachi areas organized by district"""
+    return {"areas": KARACHI_AREAS}
+
 # Restaurant and Menu Routes
 @api_router.get("/restaurants")
 async def get_restaurants(page: int = 1, limit: int = 10, cuisine: str = None):
@@ -616,6 +871,14 @@ async def get_restaurants(page: int = 1, limit: int = 10, cuisine: str = None):
         "limit": limit,
         "has_more": skip + limit < total
     }
+
+@api_router.get("/restaurants/{restaurant_id}")
+async def get_restaurant_details(restaurant_id: str):
+    restaurant = await db.restaurants.find_one({"id": restaurant_id}, {"_id": 0})
+    if not restaurant:
+        raise HTTPException(status_code=404, detail="Restaurant not found")
+    
+    return {"restaurant": restaurant}
 
 @api_router.get("/restaurants/{restaurant_id}/menu")
 async def get_restaurant_menu(restaurant_id: str, category: str = None):
@@ -644,6 +907,306 @@ async def get_available_cuisines():
     unique_cuisines = sorted(list(set(all_cuisines)))
     return {"cuisines": unique_cuisines}
 
+# Cart Management Routes
+@api_router.get("/cart")
+async def get_user_cart(current_user: User = Depends(get_current_user)):
+    cart_items_cursor = db.cart_items.find({"user_id": current_user.id}, {"_id": 0})
+    cart_items = await cart_items_cursor.to_list(None)
+    
+    # Enrich cart items with menu item details
+    enriched_items = []
+    total_amount = 0
+    restaurant_id = None
+    
+    for item in cart_items:
+        menu_item = await db.menu_items.find_one({"id": item["menu_item_id"]}, {"_id": 0})
+        restaurant = await db.restaurants.find_one({"id": item["restaurant_id"]}, {"_id": 0})
+        
+        if menu_item and restaurant:
+            item_total = menu_item["price"] * item["quantity"]
+            total_amount += item_total
+            restaurant_id = restaurant["id"]
+            
+            enriched_items.append({
+                **item,
+                "menu_item": menu_item,
+                "restaurant": restaurant,
+                "item_total": item_total
+            })
+    
+    return {
+        "items": enriched_items,
+        "total_amount": total_amount,
+        "item_count": len(enriched_items),
+        "restaurant_id": restaurant_id
+    }
+
+@api_router.post("/cart/add")
+async def add_to_cart(
+    cart_item: CartItemAdd,
+    current_user: User = Depends(get_current_user)
+):
+    # Check if menu item exists
+    menu_item = await db.menu_items.find_one({"id": cart_item.menu_item_id}, {"_id": 0})
+    if not menu_item:
+        raise HTTPException(status_code=404, detail="Menu item not found")
+    
+    # Check if restaurant is active
+    restaurant = await db.restaurants.find_one({"id": cart_item.restaurant_id}, {"_id": 0})
+    if not restaurant or not restaurant["is_active"]:
+        raise HTTPException(status_code=400, detail="Restaurant is not available")
+    
+    # Check if user already has items from a different restaurant
+    existing_cart = await db.cart_items.find_one({"user_id": current_user.id}, {"_id": 0})
+    if existing_cart and existing_cart["restaurant_id"] != cart_item.restaurant_id:
+        # Clear cart and add new item from different restaurant
+        await db.cart_items.delete_many({"user_id": current_user.id})
+    
+    # Check if item already exists in cart
+    existing_item = await db.cart_items.find_one({
+        "user_id": current_user.id,
+        "menu_item_id": cart_item.menu_item_id
+    }, {"_id": 0})
+    
+    if existing_item:
+        # Update quantity
+        new_quantity = existing_item["quantity"] + cart_item.quantity
+        await db.cart_items.update_one(
+            {"id": existing_item["id"]},
+            {"$set": {"quantity": new_quantity, "special_instructions": cart_item.special_instructions}}
+        )
+        return {"message": "Cart item updated successfully"}
+    else:
+        # Add new item to cart
+        new_cart_item = CartItem(
+            user_id=current_user.id,
+            menu_item_id=cart_item.menu_item_id,
+            restaurant_id=cart_item.restaurant_id,
+            quantity=cart_item.quantity,
+            special_instructions=cart_item.special_instructions
+        )
+        await db.cart_items.insert_one(new_cart_item.dict())
+        return {"message": "Item added to cart successfully"}
+
+@api_router.put("/cart/{item_id}")
+async def update_cart_item(
+    item_id: str,
+    quantity: int,
+    current_user: User = Depends(get_current_user)
+):
+    if quantity <= 0:
+        await db.cart_items.delete_one({"id": item_id, "user_id": current_user.id})
+        return {"message": "Item removed from cart"}
+    else:
+        await db.cart_items.update_one(
+            {"id": item_id, "user_id": current_user.id},
+            {"$set": {"quantity": quantity}}
+        )
+        return {"message": "Cart item updated"}
+
+@api_router.delete("/cart/{item_id}")
+async def remove_from_cart(
+    item_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    result = await db.cart_items.delete_one({"id": item_id, "user_id": current_user.id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Cart item not found")
+    
+    return {"message": "Item removed from cart successfully"}
+
+@api_router.delete("/cart/clear")
+async def clear_cart(current_user: User = Depends(get_current_user)):
+    await db.cart_items.delete_many({"user_id": current_user.id})
+    return {"message": "Cart cleared successfully"}
+
+# Order Management Routes
+@api_router.post("/orders/checkout")
+async def checkout_order(
+    checkout_request: CheckoutRequest,
+    background_tasks: BackgroundTasks,
+    current_user: User = Depends(get_current_user)
+):
+    # Get cart items
+    cart_items_cursor = db.cart_items.find({"user_id": current_user.id}, {"_id": 0})
+    cart_items = await cart_items_cursor.to_list(None)
+    
+    if not cart_items:
+        raise HTTPException(status_code=400, detail="Cart is empty")
+    
+    # Get user address
+    user_address = None
+    for address in current_user.addresses:
+        if address["id"] == checkout_request.address_id:
+            user_address = address
+            break
+    
+    if not user_address:
+        raise HTTPException(status_code=404, detail="Address not found")
+    
+    # Calculate order details
+    order_items = []
+    subtotal = 0
+    restaurant_id = None
+    
+    for cart_item in cart_items:
+        menu_item = await db.menu_items.find_one({"id": cart_item["menu_item_id"]}, {"_id": 0})
+        if menu_item:
+            item_total = menu_item["price"] * cart_item["quantity"]
+            subtotal += item_total
+            restaurant_id = cart_item["restaurant_id"]
+            
+            order_items.append(OrderItem(
+                menu_item_id=cart_item["menu_item_id"],
+                quantity=cart_item["quantity"],
+                price=menu_item["price"],
+                special_instructions=cart_item["special_instructions"]
+            ))
+    
+    # Get restaurant for delivery fee
+    restaurant = await db.restaurants.find_one({"id": restaurant_id}, {"_id": 0})
+    delivery_fee = restaurant["delivery_fee"] if restaurant else 50
+    tax = subtotal * 0.05  # 5% tax
+    total = subtotal + delivery_fee + tax
+    
+    # Create order
+    order_number = generate_order_number()
+    new_order = Order(
+        order_number=order_number,
+        user_id=current_user.id,
+        restaurant_id=restaurant_id,
+        items=[item.dict() for item in order_items],
+        delivery_address=user_address,
+        payment_method=checkout_request.payment_method,
+        payment_status="pending" if checkout_request.payment_method == "easypaisa" else "cash_on_delivery",
+        order_status="placed",
+        pricing={
+            "subtotal": subtotal,
+            "delivery_fee": delivery_fee,
+            "tax": tax,
+            "total": total
+        },
+        estimated_delivery_time=datetime.now(timezone.utc) + timedelta(minutes=35)
+    )
+    
+    # Save order to database
+    await db.orders.insert_one(new_order.dict())
+    
+    # Clear cart
+    await db.cart_items.delete_many({"user_id": current_user.id})
+    
+    # Prepare order items for email
+    email_items = []
+    for order_item in order_items:
+        menu_item = await db.menu_items.find_one({"id": order_item.menu_item_id}, {"_id": 0})
+        if menu_item:
+            email_items.append({
+                "name": menu_item["name"],
+                "quantity": order_item.quantity,
+                "price": order_item.price,
+                "special_instructions": order_item.special_instructions
+            })
+    
+    # Send order confirmation email in background
+    background_tasks.add_task(
+        send_order_confirmation_email,
+        current_user.email,
+        current_user.username,
+        new_order.dict(),
+        email_items
+    )
+    
+    return {
+        "message": "Order placed successfully",
+        "order": {
+            "id": new_order.id,
+            "order_number": new_order.order_number,
+            "total": total,
+            "status": new_order.order_status,
+            "estimated_delivery_time": new_order.estimated_delivery_time
+        }
+    }
+
+@api_router.get("/orders")
+async def get_user_orders(
+    page: int = 1,
+    limit: int = 10,
+    current_user: User = Depends(get_current_user)
+):
+    skip = (page - 1) * limit
+    orders_cursor = db.orders.find(
+        {"user_id": current_user.id},
+        {"_id": 0}
+    ).sort([("created_at", -1)]).skip(skip).limit(limit)
+    orders = await orders_cursor.to_list(None)
+    
+    # Enrich orders with restaurant and menu item details
+    enriched_orders = []
+    for order in orders:
+        restaurant = await db.restaurants.find_one({"id": order["restaurant_id"]}, {"_id": 0})
+        
+        # Enrich order items
+        enriched_items = []
+        for item in order["items"]:
+            menu_item = await db.menu_items.find_one({"id": item["menu_item_id"]}, {"_id": 0})
+            if menu_item:
+                enriched_items.append({
+                    **item,
+                    "menu_item": menu_item
+                })
+        
+        enriched_orders.append({
+            **order,
+            "restaurant": restaurant,
+            "items": enriched_items
+        })
+    
+    total = await db.orders.count_documents({"user_id": current_user.id})
+    
+    return {
+        "orders": enriched_orders,
+        "total": total,
+        "page": page,
+        "limit": limit
+    }
+
+@api_router.post("/orders/{order_id}/reorder")
+async def reorder(
+    order_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    # Get original order
+    original_order = await db.orders.find_one(
+        {"id": order_id, "user_id": current_user.id}, 
+        {"_id": 0}
+    )
+    
+    if not original_order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    # Clear current cart
+    await db.cart_items.delete_many({"user_id": current_user.id})
+    
+    # Add items from original order to cart
+    for item in original_order["items"]:
+        # Check if menu item is still available
+        menu_item = await db.menu_items.find_one(
+            {"id": item["menu_item_id"], "available": True}, 
+            {"_id": 0}
+        )
+        
+        if menu_item:
+            cart_item = CartItem(
+                user_id=current_user.id,
+                menu_item_id=item["menu_item_id"],
+                restaurant_id=original_order["restaurant_id"],
+                quantity=item["quantity"],
+                special_instructions=item.get("special_instructions", "")
+            )
+            await db.cart_items.insert_one(cart_item.dict())
+    
+    return {"message": "Items added to cart successfully. You can now proceed to checkout."}
+
 # Recommendation Routes
 @api_router.get("/recommendations")
 async def get_user_recommendations(
@@ -665,7 +1228,8 @@ async def chat_with_assistant(
         "username": current_user.username,
         "favorite_cuisines": current_user.favorite_cuisines,
         "dietary_restrictions": current_user.dietary_restrictions,
-        "spice_preference": current_user.spice_preference
+        "spice_preference": current_user.spice_preference,
+        "preferences_set": current_user.preferences_set
     }
     
     # Process with Gemini
@@ -692,48 +1256,33 @@ async def process_voice_order(
     current_user: User = Depends(get_current_user)
 ):
     # Process voice text with Gemini to extract order intent
+    user_context = {
+        "username": current_user.username,
+        "favorite_cuisines": current_user.favorite_cuisines,
+        "dietary_restrictions": current_user.dietary_restrictions,
+        "spice_preference": current_user.spice_preference
+    }
+    
     order_prompt = f"""
-    Parse this food order request and extract structured information:
+    Parse this food order request and provide a helpful response:
     "{voice_request.audio_text}"
     
-    Extract:
-    1. Food items mentioned
-    2. Quantities if specified
-    3. Any special instructions
-    4. Restaurant preference if mentioned
-    5. Cuisine type if mentioned
+    User preferences: {user_context}
     
-    Respond in JSON format with the extracted information.
+    If this sounds like an order request:
+    1. Acknowledge what they want
+    2. Suggest specific restaurants and items
+    3. Ask if they want to add items to cart
+    4. Mention delivery address will be needed
+    
+    Be conversational and helpful. Use Pakistani Rupee (PKR) for prices.
     """
     
-    response = await process_with_gemini(order_prompt)
+    response = await process_with_gemini(order_prompt, user_context)
     
     return {
-        "parsed_order": response,
+        "response": response,
         "original_text": voice_request.audio_text
-    }
-
-# Order Routes
-@api_router.get("/orders")
-async def get_user_orders(
-    page: int = 1,
-    limit: int = 10,
-    current_user: User = Depends(get_current_user)
-):
-    skip = (page - 1) * limit
-    orders_cursor = db.orders.find(
-        {"user_id": current_user.id},
-        {"_id": 0}
-    ).sort([("created_at", -1)]).skip(skip).limit(limit)
-    orders = await orders_cursor.to_list(None)
-    
-    total = await db.orders.count_documents({"user_id": current_user.id})
-    
-    return {
-        "orders": orders,
-        "total": total,
-        "page": page,
-        "limit": limit
     }
 
 # Health check
@@ -756,7 +1305,7 @@ app.add_middleware(
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelevel)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
