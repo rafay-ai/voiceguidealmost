@@ -237,8 +237,13 @@ const RestaurantModal = ({ restaurant, onClose }) => {
                             
                             {/* Add to Cart Button */}
                             <button
-                              onClick={() => handleAddToCart(item)}
-                              disabled={!item.available || quantity === 0}
+                              onClick={() => {
+                                if (quantity === 0) {
+                                  updateQuantity(item.id, 1);
+                                }
+                                handleAddToCart(item);
+                              }}
+                              disabled={!item.available}
                               className="w-full btn-primary py-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-1"
                               data-testid={`add-to-cart-${item.id}`}
                             >
