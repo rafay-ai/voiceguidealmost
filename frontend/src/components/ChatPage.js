@@ -10,7 +10,7 @@ const ChatPage = ({ user }) => {
     {
       id: '1',
       type: 'assistant',
-      content: `Hello ${user.username}! I'm your voice assistant. You can ask me to recommend food, help you place orders, or answer questions about restaurants and menu items. Try asking me something like "I want spicy Pakistani food" or "What's popular for lunch today?"`,
+      content: `Hi ${user.username}! 👋 I'm your food companion. Ask me: "I'm hungry" or "Order biryani" and I'll help you quickly!`,
       timestamp: new Date()
     }
   ]);
