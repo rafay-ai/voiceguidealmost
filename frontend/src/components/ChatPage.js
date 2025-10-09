@@ -347,13 +347,11 @@ const ChatPage = ({ user }) => {
 
         {/* Tips */}
         <div className="mt-8 p-6 bg-gradient-to-r from-orange-50 to-rose-50 rounded-2xl">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">💡 Tips for better results:</h3>
-          <ul className="space-y-2 text-gray-700 text-sm md:text-base">
-            <li>• Speak clearly and mention specific preferences (spicy, vegetarian, budget, etc.)</li>
-            <li>• Ask for recommendations: "What's good for dinner under PKR 500?"</li>
-            <li>• Request specific cuisines: "I want authentic Pakistani biryani"</li>
-            <li>• Get help with orders: "Add chicken karahi to my cart"</li>
-            <li>• Place orders: "I want to order biryani with medium spice level"</li>
+          <h3 className="text-lg font-semibold text-gray-900 mb-3">💡 Quick Tips:</h3>
+          <ul className="space-y-2 text-gray-700 text-sm">
+            <li>• Say "I'm hungry" for instant recommendations</li>
+            <li>• Try "Order biryani" for direct ordering</li>
+            <li>• I'll show restaurant cards you can order from!</li>
           </ul>
         </div>
       </div>
