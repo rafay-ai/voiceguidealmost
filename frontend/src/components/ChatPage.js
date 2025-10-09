@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Send, MessageCircle, Sparkles, Clock } from 'lucide-react';
+import { Mic, MicOff, Send, MessageCircle, Sparkles, Clock, ShoppingBag } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import LoadingSpinner from './ui/LoadingSpinner';
+import RestaurantCard from './RestaurantCard';
 
 const ChatPage = ({ user }) => {
   const [messages, setMessages] = useState([
