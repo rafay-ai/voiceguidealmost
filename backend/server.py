@@ -645,58 +645,71 @@ class RecommendationEngine:
 recommendation_engine = RecommendationEngine(db)
 
 # --- Enhanced Gemini Chat Integration ---
+async def get_restaurant_recommendations_for_chat(message: str, user_context: Dict):
+    """Get actual restaurant recommendations for chat"""
+    try:
+        # Simple keyword matching for now - can be enhanced with NLP
+        message_lower = message.lower()
+        
+        # Build query based on message content
+        query = {"is_active": True}
+        cuisine_keywords = {
+            'pakistani': 'Pakistani', 'biryani': 'Pakistani', 'karahi': 'Pakistani',
+            'chinese': 'Chinese', 'chowmein': 'Chinese', 'fried rice': 'Chinese',
+            'fast food': 'Fast Food', 'burger': 'Fast Food', 'pizza': 'Fast Food',
+            'bbq': 'BBQ', 'kebab': 'BBQ', 'tikka': 'BBQ',
+            'dessert': 'Desserts', 'sweet': 'Desserts', 'ice cream': 'Desserts'
+        }
+        
+        # Find matching cuisine
+        matched_cuisine = None
+        for keyword, cuisine in cuisine_keywords.items():
+            if keyword in message_lower:
+                matched_cuisine = cuisine
+                break
+        
+        if matched_cuisine:
+            query["cuisine"] = {"$in": [matched_cuisine]}
+        
+        # Get restaurants
+        restaurants_cursor = db.restaurants.find(query, {"_id": 0}).limit(3)
+        restaurants = await restaurants_cursor.to_list(None)
+        
+        return restaurants
+    except Exception as e:
+        logging.error(f"Error getting restaurant recommendations: {e}")
+        return []
+
 async def process_with_gemini(message: str, user_context: Dict = None, include_restaurants: bool = True):
-    """Process message with Gemini AI with enhanced prompts"""
+    """Process message with Gemini AI with brief, focused responses"""
     loop = asyncio.get_event_loop()
     
     def _process():
         try:
             model = genai.GenerativeModel('gemini-2.0-flash')
             
-            # Get restaurant data for context
-            restaurant_context = ""
-            if include_restaurants and user_context:
-                # This would include recent restaurant/menu data
-                restaurant_context = """
-Available cuisines: Pakistani, Chinese, Italian, Fast Food, BBQ, Desserts, Indian, Thai, Mexican
-Popular restaurants: Student Biryani (Pakistani), Bundu Khan (BBQ), KFC (Fast Food), Pizza Hut (Italian)
-Price ranges: Budget (PKR 200-500), Moderate (PKR 500-1000), Premium (PKR 1000+)
-"""
-            
-            # Enhanced context-aware prompt
-            context = f"""You are a helpful food delivery assistant for Voice Guide app in Karachi, Pakistan. You can:
+            # Enhanced context-aware prompt for BRIEF responses
+            context = f"""You are a brief, helpful food companion for Voice Guide app in Karachi, Pakistan.
 
-1. **Recommend Food**: Suggest specific restaurants and dishes based on user preferences
-2. **Help with Orders**: Guide users through ordering process, ask for address, payment method
-3. **Answer Questions**: Provide info about restaurants, delivery times, prices in PKR
-4. **Collect Preferences**: For new users, ask about favorite cuisines, dietary restrictions, spice preferences
+User Profile: {user_context.get('username', 'User')} | Likes: {', '.join(user_context.get('favorite_cuisines', []))} | Spice: {user_context.get('spice_preference', 'medium')}
 
-{restaurant_context}
+RESPONSE RULES:
+1. Keep responses UNDER 50 words
+2. Be direct and helpful
+3. Use emojis to be friendly
+4. For food requests: "Let me show you some options!" 
+5. For ordering: Ask "Ready to order? I can place this for you!"
+6. Always end with a question or action
 
-User Profile:
-- Name: {user_context.get('username', 'User')}
-- Favorite Cuisines: {', '.join(user_context.get('favorite_cuisines', []))}
-- Dietary Restrictions: {', '.join(user_context.get('dietary_restrictions', []))}
-- Spice Preference: {user_context.get('spice_preference', 'medium')}
-- Has Set Preferences: {user_context.get('preferences_set', False)}
+User said: "{message}"
 
-IMPORTANT INSTRUCTIONS:
-- Always mention prices in Pakistani Rupees (PKR)
-- When recommending restaurants, format like: "🏪 **Restaurant Name** - Cuisine Type"
-- For menu items, format like: "🍽️ **Item Name** - PKR price (description)"
-- If user wants to order, ask for: 1) Items confirmation 2) Delivery address 3) Payment method (EasyPaisa or Cash on Delivery)
-- For new users without preferences, ask them to set up their profile first
-- Be conversational and helpful, use emojis to make it engaging
-
-User Message: "{message}"
-
-Respond naturally and helpfully. If recommending restaurants or items, use the formatting above."""
+Respond briefly and helpfully:"""
             
             response = model.generate_content(context)
-            return response.text
+            return response.text[:200] + "..." if len(response.text) > 200 else response.text  # Force brevity
         except Exception as e:
             logging.error(f"Gemini processing error: {e}")
-            return "I'm sorry, I'm having trouble processing your request right now. Please try again."
+            return "Something went wrong! Try asking me about food recommendations 🍽️"
     
     return await loop.run_in_executor(executor, _process)
 
