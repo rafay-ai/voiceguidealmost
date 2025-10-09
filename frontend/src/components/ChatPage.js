@@ -240,16 +240,38 @@ const ChatPage = ({ user }) => {
                 key={message.id}
                 className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div className={`max-w-xs lg:max-w-md xl:max-w-lg ${
-                  message.type === 'user' 
-                    ? 'chat-bubble-user' 
-                    : 'chat-bubble-assistant'
-                }`}>
-                  <p className="text-sm">{message.content}</p>
-                  <div className="flex items-center mt-2 space-x-1 text-xs opacity-70">
-                    <Clock className="w-3 h-3" />
-                    <span>{message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                <div className={`${message.type === 'user' ? 'ml-auto' : 'mr-auto'} max-w-xs lg:max-w-md xl:max-w-lg`}>
+                  <div
+                    className={`${
+                      message.type === 'user' 
+                        ? 'chat-bubble-user' 
+                        : 'chat-bubble-assistant'
+                    }`}
+                  >
+                    <p className="text-sm">{message.content}</p>
+                    <div className="flex items-center mt-2 space-x-1 text-xs opacity-70">
+                      <Clock className="w-3 h-3" />
+                      <span>{message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
                   </div>
+                  
+                  {/* Restaurant Cards */}
+                  {message.restaurants && message.restaurants.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <p className="text-xs text-gray-600 mb-2">Here are some great options:</p>
+                      {message.restaurants.map((restaurant) => (
+                        <RestaurantCard
+                          key={restaurant.id}
+                          restaurant={restaurant}
+                          onOrderFromChat={handleOrderFromChat}
+                          compact={true}
+                        />
+                      ))}
+                      {message.hasDefaultAddress && (
+                        <p className="text-xs text-green-600 mt-2">✅ Using your default delivery address</p>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
