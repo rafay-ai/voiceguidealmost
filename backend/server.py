@@ -40,7 +40,7 @@ genai.configure(api_key=os.environ['GEMINI_API_KEY'])
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 EMAIL_ADDRESS = "abdulrafayy277@gmail.com"
-EMAIL_PASSWORD = "brga pzaw ujok cbmb"
+EMAIL_PASSWORD = "brgapzawujokcbmb"  # Remove spaces from app password
 EMAIL_FROM_NAME = "VoiceGuide"
 
 # Create the main app
