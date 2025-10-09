@@ -1071,23 +1071,27 @@ async def checkout_order(
     
     # Create order
     order_number = generate_order_number()
-    new_order = Order(
-        order_number=order_number,
-        user_id=current_user.id,
-        restaurant_id=restaurant_id,
-        items=[item.dict() for item in order_items],
-        delivery_address=user_address,
-        payment_method=checkout_request.payment_method,
-        payment_status="pending" if checkout_request.payment_method == "easypaisa" else "cash_on_delivery",
-        order_status="placed",
-        pricing={
+    order_dict = {
+        "order_number": order_number,
+        "user_id": current_user.id,
+        "restaurant_id": restaurant_id,
+        "items": [item.dict() for item in order_items],
+        "delivery_address": user_address,
+        "payment_method": checkout_request.payment_method,
+        "payment_status": "pending" if checkout_request.payment_method == "easypaisa" else "cash_on_delivery",
+        "order_status": "placed",
+        "pricing": {
             "subtotal": subtotal,
             "delivery_fee": delivery_fee,
             "tax": tax,
             "total": total
         },
-        estimated_delivery_time=datetime.now(timezone.utc) + timedelta(minutes=35)
-    )
+        "estimated_delivery_time": datetime.now(timezone.utc) + timedelta(minutes=35),
+        "created_at": datetime.now(timezone.utc),
+        "updated_at": datetime.now(timezone.utc)
+    }
+    
+    new_order = Order(**order_dict)
     
     # Save order to database
     await db.orders.insert_one(new_order.dict())
