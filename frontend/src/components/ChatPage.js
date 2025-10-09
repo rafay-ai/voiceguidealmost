@@ -117,6 +117,8 @@ const ChatPage = ({ user }) => {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
         content: response.data.response,
+        restaurants: response.data.restaurants || [],
+        hasDefaultAddress: response.data.has_default_address || false,
         timestamp: new Date()
       };
 
@@ -126,11 +128,54 @@ const ChatPage = ({ user }) => {
       const errorMessage = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: "I'm sorry, I'm having trouble processing your request right now. Please try again.",
+        content: "Something went wrong! Try asking me about food recommendations 🍽️",
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
       toast.error('Failed to send message');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleOrderFromChat = async (menuItemIds, restaurant) => {
+    try {
+      setIsLoading(true);
+      
+      const response = await axios.post('/api/chat/order', {
+        menu_item_ids: menuItemIds,
+        quantities: menuItemIds.map(() => 1), // Default quantity 1
+        use_default_address: true,
+        payment_method: 'cod'
+      });
+
+      if (response.data.success) {
+        toast.success(`${response.data.message} 🎉`);
+        
+        // Add success message to chat
+        const successMessage = {
+          id: Date.now().toString(),
+          type: 'assistant', 
+          content: `Perfect! ${response.data.message} Total: PKR ${response.data.total}. Check your email for confirmation! 📧`,
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, successMessage]);
+      } else {
+        toast.error(response.data.message);
+        
+        const errorMessage = {
+          id: Date.now().toString(),
+          type: 'assistant',
+          content: response.data.message.includes('address') 
+            ? 'Please add a delivery address first in your profile! 📍'
+            : 'Something went wrong. Try again or add items to cart manually.',
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }
+    } catch (error) {
+      console.error('Error placing order from chat:', error);
+      toast.error('Failed to place order');
     } finally {
       setIsLoading(false);
     }
