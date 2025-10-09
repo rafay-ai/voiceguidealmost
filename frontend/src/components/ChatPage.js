@@ -189,12 +189,12 @@ const ChatPage = ({ user }) => {
   };
 
   const quickActions = [
-    "I want spicy Pakistani food",
-    "What's popular for lunch?", 
-    "Recommend vegetarian options",
-    "Show me desserts",
-    "I'm craving Chinese food",
-    "Fast food under PKR 300"
+    "I'm hungry",
+    "Order biryani", 
+    "Chinese food",
+    "Fast food",
+    "Desserts",
+    "Budget meal"
   ];
 
   return (
