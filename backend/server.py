@@ -1094,7 +1094,7 @@ async def checkout_order(
     new_order = Order(**order_dict)
     
     # Save order to database
-    await db.orders.insert_one(new_order.dict())
+    await db.orders.insert_one(order_dict)
     
     # Clear cart
     await db.cart_items.delete_many({"user_id": current_user.id})
