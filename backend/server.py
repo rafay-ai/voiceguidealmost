@@ -1387,7 +1387,7 @@ async def place_order_from_chat(
     request: dict,
     current_user: User = Depends(get_current_user)
 ):
-    """Place order directly from chat"""
+    """Place order directly from chat - streamlined version"""
     try:
         menu_item_ids = request.get('menu_item_ids', [])
         quantities = request.get('quantities', [])
@@ -1395,25 +1395,7 @@ async def place_order_from_chat(
         payment_method = request.get('payment_method', 'cod')
         
         if not menu_item_ids:
-            raise HTTPException(status_code=400, detail="No items selected")
-        
-        # Clear and populate cart
-        await db.cart_items.delete_many({"user_id": current_user.id})
-        
-        restaurant_id = None
-        for i, menu_item_id in enumerate(menu_item_ids):
-            menu_item = await db.menu_items.find_one({"id": menu_item_id}, {"_id": 0})
-            if menu_item:
-                restaurant_id = menu_item['restaurant_id']
-                quantity = quantities[i] if i < len(quantities) else 1
-                
-                cart_item = CartItem(
-                    user_id=current_user.id,
-                    menu_item_id=menu_item_id,
-                    restaurant_id=restaurant_id,
-                    quantity=quantity
-                )
-                await db.cart_items.insert_one(cart_item.dict())
+            return {"success": False, "message": "No items selected"}
         
         # Get default address
         default_address = None
@@ -1424,101 +1406,87 @@ async def place_order_from_chat(
                     break
         
         if not default_address:
-            return {"success": False, "message": "Please add a delivery address first"}
+            return {"success": False, "message": "Please add a delivery address in your profile first! 📍"}
         
-        # Place order using existing checkout logic
-        checkout_data = {
-            "address_id": default_address['id'],
-            "payment_method": payment_method,
-            "special_instructions": "Ordered via Voice Guide Chat"
-        }
-        
-        # Reuse checkout logic (simplified)
-        cart_items_cursor = db.cart_items.find({"user_id": current_user.id}, {"_id": 0})
-        cart_items = await cart_items_cursor.to_list(None)
-        
-        if not cart_items:
-            raise HTTPException(status_code=400, detail="Cart is empty")
-        
-        # Calculate pricing
+        # Calculate order directly without cart
         subtotal = 0
         order_items = []
+        restaurant_id = None
         
-        for cart_item in cart_items:
-            menu_item = await db.menu_items.find_one({"id": cart_item["menu_item_id"]}, {"_id": 0})
+        for i, menu_item_id in enumerate(menu_item_ids):
+            menu_item = await db.menu_items.find_one({"id": menu_item_id}, {"_id": 0})
             if menu_item:
-                item_total = menu_item["price"] * cart_item["quantity"]
+                quantity = quantities[i] if i < len(quantities) else 1
+                item_total = menu_item["price"] * quantity
                 subtotal += item_total
+                restaurant_id = menu_item["restaurant_id"]
                 
                 order_items.append({
-                    "menu_item_id": cart_item["menu_item_id"],
-                    "quantity": cart_item["quantity"],
+                    "menu_item_id": menu_item_id,
+                    "quantity": quantity,
                     "price": menu_item["price"],
-                    "special_instructions": cart_item.get("special_instructions", "")
+                    "special_instructions": ""
                 })
         
+        if not order_items:
+            return {"success": False, "message": "Selected items not available"}
+        
+        # Get restaurant info
         restaurant = await db.restaurants.find_one({"id": restaurant_id}, {"_id": 0})
         delivery_fee = restaurant["delivery_fee"] if restaurant else 50
         tax = subtotal * 0.05
         total = subtotal + delivery_fee + tax
         
-        # Create order
+        # Create order directly
         order_number = generate_order_number()
         order_dict = {
+            "id": str(uuid.uuid4()),
             "order_number": order_number,
             "user_id": current_user.id,
             "restaurant_id": restaurant_id,
             "items": order_items,
             "delivery_address": default_address,
             "payment_method": payment_method,
-            "payment_status": "pending" if payment_method == "easypaisa" else "cash_on_delivery",
+            "payment_status": "cash_on_delivery" if payment_method == "cod" else "pending",
             "order_status": "placed",
             "pricing": {
-                "subtotal": subtotal,
-                "delivery_fee": delivery_fee,
-                "tax": tax,
-                "total": total
+                "subtotal": float(subtotal),
+                "delivery_fee": float(delivery_fee),
+                "tax": float(tax),
+                "total": float(total)
             },
             "estimated_delivery_time": datetime.now(timezone.utc) + timedelta(minutes=35),
             "created_at": datetime.now(timezone.utc),
             "updated_at": datetime.now(timezone.utc)
         }
         
-        await db.orders.insert_one(order_dict)
+        # Insert order
+        result = await db.orders.insert_one(order_dict)
         
-        # Clear cart
-        await db.cart_items.delete_many({"user_id": current_user.id})
-        
-        # Send email (async)
-        email_items = []
-        for order_item in order_items:
-            menu_item = await db.menu_items.find_one({"id": order_item["menu_item_id"]}, {"_id": 0})
-            if menu_item:
-                email_items.append({
-                    "name": menu_item["name"],
-                    "quantity": order_item["quantity"],
-                    "price": order_item["price"],
-                    "special_instructions": order_item.get("special_instructions", "")
-                })
-        
-        # Send email in background
-        asyncio.create_task(send_order_confirmation_email(
-            current_user.email,
-            current_user.username,
-            order_dict,
-            email_items
-        ))
-        
-        return {
-            "success": True,
-            "message": f"Order placed successfully! Order #{order_number}",
-            "order_number": order_number,
-            "total": total
-        }
-        
+        if result.inserted_id:
+            # Send email notification (fire and forget)
+            try:
+                asyncio.create_task(send_order_confirmation_email(
+                    current_user.email,
+                    current_user.username,
+                    order_dict,
+                    [{"name": item.get("name", "Item"), "quantity": item["quantity"], "price": item["price"]} for item in order_items]
+                ))
+            except Exception as email_error:
+                logging.error(f"Email sending failed: {email_error}")
+            
+            return {
+                "success": True,
+                "message": f"Order placed! #{order_number}",
+                "order_number": order_number,
+                "total": float(total)
+            }
+        else:
+            return {"success": False, "message": "Failed to save order"}
+            
     except Exception as e:
         logging.error(f"Error placing order from chat: {e}")
-        return {"success": False, "message": "Failed to place order. Please try again."}
+        return {"success": False, "message": f"Order failed: {str(e)}"}
 
 @api_router.post("/voice-order")
 async def process_voice_order(
