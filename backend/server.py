@@ -1083,6 +1083,7 @@ async def checkout_order(
     # Create order
     order_number = generate_order_number()
     order_dict = {
+        "id": str(uuid.uuid4()),
         "order_number": order_number,
         "user_id": current_user.id,
         "restaurant_id": restaurant_id,
