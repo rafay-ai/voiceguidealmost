@@ -274,7 +274,9 @@ html {
   
   .chat-bubble-user,
   .chat-bubble-assistant {
-    max-width: 90%;
+    max-width: 85%;
+    font-size: 14px;
+    padding: 10px 14px;
   }
   
   /* Mobile-first button sizing */
@@ -282,12 +284,14 @@ html {
   .btn-secondary {
     min-height: 44px; /* iOS recommended tap target */
     font-size: 16px; /* Prevents iOS zoom on input */
+    padding: 12px 20px;
   }
   
   /* Mobile input improvements */
   .input-field {
     font-size: 16px; /* Prevents iOS zoom */
     min-height: 44px;
+    padding: 12px 16px;
   }
   
   /* Mobile navigation improvements */
@@ -311,6 +315,43 @@ html {
   .glass {
     margin: 8px;
     max-height: calc(100vh - 16px);
+  }
+  
+  /* Mobile chat specific improvements */
+  .chat-messages {
+    padding: 12px;
+  }
+  
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+  
+  .quick-action-button {
+    padding: 12px 8px;
+    font-size: 13px;
+    min-height: 44px;
+    text-align: center;
+  }
+  
+  /* Touch-friendly spacing */
+  .touch-friendly {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile chat input area */
+  .mobile-chat-input {
+    padding: 16px;
+    background: white;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  /* Mobile restaurant cards in chat */
+  .mobile-restaurant-card {
+    max-width: 280px;
+    margin: 0 auto;
   }
 }
 
