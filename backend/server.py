@@ -681,37 +681,35 @@ async def get_restaurant_recommendations_for_chat(message: str, user_context: Di
         return []
 
 async def process_with_gemini(message: str, user_context: Dict = None, include_restaurants: bool = True):
-    """Process message with Gemini AI with brief, focused responses"""
-    loop = asyncio.get_event_loop()
+    """Process message with ultra-brief, action-focused responses"""
     
-    def _process():
-        try:
-            model = genai.GenerativeModel('gemini-2.0-flash')
-            
-            # Enhanced context-aware prompt for BRIEF responses
-            context = f"""You are a brief, helpful food companion for Voice Guide app in Karachi, Pakistan.
-
-User Profile: {user_context.get('username', 'User')} | Likes: {', '.join(user_context.get('favorite_cuisines', []))} | Spice: {user_context.get('spice_preference', 'medium')}
-
-RESPONSE RULES:
-1. Keep responses UNDER 50 words
-2. Be direct and helpful
-3. Use emojis to be friendly
-4. For food requests: "Let me show you some options!" 
-5. For ordering: Ask "Ready to order? I can place this for you!"
-6. Always end with a question or action
-
-User said: "{message}"
-
-Respond briefly and helpfully:"""
-            
-            response = model.generate_content(context)
-            return response.text[:200] + "..." if len(response.text) > 200 else response.text  # Force brevity
-        except Exception as e:
-            logging.error(f"Gemini processing error: {e}")
-            return "Something went wrong! Try asking me about food recommendations 🍽️"
+    # Simple keyword-based responses for faster, more predictable behavior
+    message_lower = message.lower()
+    username = user_context.get('username', 'User')
     
-    return await loop.run_in_executor(executor, _process)
+    # Direct food requests
+    if any(word in message_lower for word in ['hungry', 'eat', 'food', 'order']):
+        return f"🍽️ Perfect! Let me show you some great options, {username}!"
+    
+    # Specific cuisine requests
+    if 'biryani' in message_lower or 'pakistani' in message_lower:
+        return f"🍛 Great choice! Here are the best Pakistani restaurants:"
+    
+    if 'chinese' in message_lower:
+        return f"🥢 Awesome! Check out these Chinese options:"
+    
+    if 'fast food' in message_lower or 'burger' in message_lower:
+        return f"🍔 Coming right up! Fast food options:"
+    
+    if 'dessert' in message_lower or 'sweet' in message_lower:
+        return f"🍰 Sweet tooth? Perfect dessert places:"
+    
+    # Order confirmation requests
+    if any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order']):
+        return f"✅ Perfect! I'll place this order for you right now!"
+    
+    # Default friendly response
+    return f"Hi {username}! 👋 Try saying 'I'm hungry' or 'order biryani' and I'll help you instantly!"
 
 # --- API Routes ---
 
