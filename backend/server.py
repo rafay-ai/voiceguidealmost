@@ -689,27 +689,35 @@ async def process_with_gemini(message: str, user_context: Dict = None, include_r
     
     # Direct food requests
     if any(word in message_lower for word in ['hungry', 'eat', 'food', 'order']):
-        return f"🍽️ Perfect! Let me show you some great options, {username}!"
+        return f"🍽️ Perfect! Here are great options for you:"
+    
+    # Recommendation requests
+    if any(word in message_lower for word in ['recommend', 'suggestion', 'suggest']):
+        return f"✨ Here are my top recommendations based on your taste:"
     
     # Specific cuisine requests
     if 'biryani' in message_lower or 'pakistani' in message_lower:
-        return f"🍛 Great choice! Here are the best Pakistani restaurants:"
+        return f"🍛 Excellent choice! Best Pakistani options:"
     
     if 'chinese' in message_lower:
-        return f"🥢 Awesome! Check out these Chinese options:"
+        return f"🥢 Great! Top Chinese restaurants:"
     
     if 'fast food' in message_lower or 'burger' in message_lower:
-        return f"🍔 Coming right up! Fast food options:"
+        return f"🍔 Perfect! Fast food favorites:"
     
-    if 'dessert' in message_lower or 'sweet' in message_lower:
-        return f"🍰 Sweet tooth? Perfect dessert places:"
+    if any(word in message_lower for word in ['dessert', 'sweet', 'cake', 'ice cream']):
+        return f"🍰 Sweet cravings? Here are the best dessert spots:"
     
     # Order confirmation requests
     if any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order']):
         return f"✅ Perfect! I'll place this order for you right now!"
     
+    # Budget requests
+    if any(word in message_lower for word in ['budget', 'cheap', 'affordable']):
+        return f"💰 Great value meals under PKR 500:"
+    
     # Default friendly response
-    return f"Hi {username}! 👋 Try saying 'I'm hungry' or 'order biryani' and I'll help you instantly!"
+    return f"Hi {username}! 👋 Try: 'I'm hungry' or 'recommend me something' for instant help!"
 
 # --- API Routes ---
 
