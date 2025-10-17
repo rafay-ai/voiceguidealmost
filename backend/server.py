@@ -1093,10 +1093,10 @@ async def checkout_order(
         "payment_status": "pending" if checkout_request.payment_method == "easypaisa" else "cash_on_delivery",
         "order_status": "placed",
         "pricing": {
-            "subtotal": subtotal,
-            "delivery_fee": delivery_fee,
-            "tax": tax,
-            "total": total
+            "subtotal": float(subtotal),
+            "delivery_fee": float(delivery_fee),
+            "tax": float(tax),
+            "total": float(total)
         },
         "estimated_delivery_time": datetime.now(timezone.utc) + timedelta(minutes=35),
         "created_at": datetime.now(timezone.utc),
