@@ -11,7 +11,7 @@ const ChatPage = ({ user }) => {
     {
       id: '1',
       type: 'assistant',
-      content: `Hi ${user.username}! 👋 I'm your food companion. Ask me: "I'm hungry" or "Order biryani" and I'll help you quickly!`,
+      content: `Hi ${user.username}! 👋 Try: "I'm hungry" or "Order biryani"`,
       timestamp: new Date()
     }
   ]);
