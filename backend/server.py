@@ -1129,7 +1129,7 @@ async def checkout_order(
         send_order_confirmation_email,
         current_user.email,
         current_user.username,
-        new_order.dict(),
+        order_dict,
         email_items
     )
     
