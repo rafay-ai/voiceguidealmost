@@ -194,12 +194,12 @@ const ChatPage = ({ user }) => {
   };
 
   const quickActions = [
-    "I'm hungry",
-    "Order biryani", 
-    "Chinese food",
-    "Fast food",
-    "Desserts",
-    "Budget meal"
+    "I'm hungry 🍽️",
+    "Order biryani 🍛", 
+    "Chinese food 🥢",
+    "Fast food 🍔",
+    "Desserts 🍰",
+    "Budget meal 💰"
   ];
 
   return (
