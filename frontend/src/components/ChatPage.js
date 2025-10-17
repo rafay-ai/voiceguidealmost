@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import LoadingSpinner from './ui/LoadingSpinner';
 import RestaurantCard from './RestaurantCard';
+import ChatOrderCard from './ChatOrderCard';
 
 const ChatPage = ({ user }) => {
   const [messages, setMessages] = useState([
