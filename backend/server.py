@@ -1254,15 +1254,34 @@ async def chat_with_assistant(
             user_context['default_address'] = address
             break
     
-    # Get restaurant recommendations for food-related queries
-    restaurants = []
     message_lower = chat_request.message.lower()
+    
+    # Handle direct order requests
+    if any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order']):
+        return await handle_direct_order_request(current_user, chat_request.message)
+    
+    # Get restaurant recommendations and menu items for food requests
+    restaurants = []
+    recommended_items = []
+    show_order_card = False
+    
     food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'biryani', 'pizza', 'burger', 'chinese', 'pakistani']
     
     if any(keyword in message_lower for keyword in food_keywords):
         restaurants = await get_restaurant_recommendations_for_chat(chat_request.message, user_context)
+        
+        # Get specific menu items for direct ordering
+        if 'biryani' in message_lower:
+            recommended_items = await get_specific_menu_items('biryani', 3)
+            show_order_card = True
+        elif 'burger' in message_lower or 'fast food' in message_lower:
+            recommended_items = await get_specific_menu_items('burger', 3)
+            show_order_card = True
+        elif 'chinese' in message_lower:
+            recommended_items = await get_specific_menu_items('chinese', 3)
+            show_order_card = True
     
-    # Process with Gemini
+    # Process with ultra-brief response
     response = await process_with_gemini(chat_request.message, user_context)
     
     # Save chat message
@@ -1278,9 +1297,90 @@ async def chat_with_assistant(
     return {
         "response": response,
         "restaurants": restaurants,
+        "recommended_items": recommended_items,
+        "show_order_card": show_order_card,
         "has_default_address": user_context['default_address'] is not None,
+        "default_address": user_context['default_address'],
         "session_id": chat_message.session_id
     }
+
+async def handle_direct_order_request(current_user, message):
+    """Handle direct order placement from chat"""
+    try:
+        # Check if user has default address
+        default_address = None
+        for address in current_user.addresses:
+            if address.get('is_default'):
+                default_address = address
+                break
+        
+        if not default_address:
+            return {
+                "response": "📍 I need a delivery address first! Please add one in your profile.",
+                "restaurants": [],
+                "recommended_items": [],
+                "show_order_card": False,
+                "needs_address": True,
+                "session_id": str(uuid.uuid4())
+            }
+        
+        # For now, return order confirmation UI
+        return {
+            "response": f"✅ Ready to place your order!\n📍 Delivering to: {default_address['area']}, {default_address['district']}\n💳 Payment: Cash on Delivery",
+            "restaurants": [],
+            "recommended_items": [],
+            "show_order_card": True,
+            "order_ready": True,
+            "default_address": default_address,
+            "session_id": str(uuid.uuid4())
+        }
+        
+    except Exception as e:
+        logging.error(f"Error handling direct order: {e}")
+        return {
+            "response": "Something went wrong! Please try adding items to cart manually.",
+            "restaurants": [],
+            "recommended_items": [],
+            "show_order_card": False,
+            "session_id": str(uuid.uuid4())
+        }
+
+async def get_specific_menu_items(food_type: str, limit: int = 3):
+    """Get specific menu items based on food type"""
+    try:
+        query = {"available": True}
+        
+        if food_type == 'biryani':
+            query["$or"] = [
+                {"name": {"$regex": "biryani", "$options": "i"}},
+                {"tags": {"$in": ["biryani", "rice", "pakistani"]}}
+            ]
+        elif food_type == 'burger':
+            query["$or"] = [
+                {"name": {"$regex": "burger", "$options": "i"}},
+                {"category": {"$regex": "fast food", "$options": "i"}}
+            ]
+        elif food_type == 'chinese':
+            query["$or"] = [
+                {"tags": {"$in": ["chinese", "noodles", "rice"]}},
+                {"name": {"$regex": "chowmein|fried rice|chicken manchurian", "$options": "i"}}
+            ]
+        
+        menu_items_cursor = db.menu_items.find(query, {"_id": 0}).limit(limit)
+        items = await menu_items_cursor.to_list(None)
+        
+        # Enrich with restaurant info
+        for item in items:
+            restaurant = await db.restaurants.find_one({"id": item["restaurant_id"]}, {"_id": 0})
+            if restaurant:
+                item["restaurant_name"] = restaurant["name"]
+                item["restaurant_rating"] = restaurant["rating"]
+                item["delivery_time"] = restaurant["delivery_time"]
+        
+        return items
+    except Exception as e:
+        logging.error(f"Error getting specific menu items: {e}")
+        return []
 
 @api_router.post("/chat/order")
 async def place_order_from_chat(
