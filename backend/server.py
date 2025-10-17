@@ -1103,10 +1103,11 @@ async def checkout_order(
         "updated_at": datetime.now(timezone.utc)
     }
     
-    new_order = Order(**order_dict)
-    
     # Save order to database
-    await db.orders.insert_one(order_dict)
+    result = await db.orders.insert_one(order_dict)
+    
+    if not result.inserted_id:
+        raise HTTPException(status_code=500, detail="Failed to create order")
     
     # Clear cart
     await db.cart_items.delete_many({"user_id": current_user.id})
