@@ -260,11 +260,31 @@ const ChatPage = ({ user }) => {
                     </div>
                   </div>
                   
+                  {/* Direct Order Card */}
+                  {message.showOrderCard && message.recommendedItems && message.recommendedItems.length > 0 && (
+                    <div className="mt-3">
+                      <ChatOrderCard
+                        items={message.recommendedItems}
+                        address={message.defaultAddress}
+                        onOrderSuccess={(orderData) => {
+                          const successMessage = {
+                            id: Date.now().toString(),
+                            type: 'assistant',
+                            content: `🎉 Order placed! #${orderData.order_number} - PKR ${orderData.total}`,
+                            timestamp: new Date()
+                          };
+                          setMessages(prev => [...prev, successMessage]);
+                        }}
+                        onClose={() => {}}
+                      />
+                    </div>
+                  )}
+                  
                   {/* Restaurant Cards */}
-                  {message.restaurants && message.restaurants.length > 0 && (
+                  {message.restaurants && message.restaurants.length > 0 && !message.showOrderCard && (
                     <div className="mt-3 space-y-2">
-                      <p className="text-xs text-gray-600 mb-2">Here are some great options:</p>
-                      {message.restaurants.map((restaurant) => (
+                      <p className="text-xs text-gray-600 mb-2">Great options:</p>
+                      {message.restaurants.slice(0, 2).map((restaurant) => (
                         <RestaurantCard
                           key={restaurant.id}
                           restaurant={restaurant}
@@ -272,9 +292,6 @@ const ChatPage = ({ user }) => {
                           compact={true}
                         />
                       ))}
-                      {message.hasDefaultAddress && (
-                        <p className="text-xs text-green-600 mt-2">✅ Using your default delivery address</p>
-                      )}
                     </div>
                   )}
                 </div>
