@@ -1136,11 +1136,11 @@ async def checkout_order(
     return {
         "message": "Order placed successfully",
         "order": {
-            "id": new_order.id,
-            "order_number": new_order.order_number,
+            "id": order_dict["id"],
+            "order_number": order_dict["order_number"],
             "total": total,
-            "status": new_order.order_status,
-            "estimated_delivery_time": new_order.estimated_delivery_time
+            "status": order_dict["order_status"],
+            "estimated_delivery_time": order_dict["estimated_delivery_time"]
         }
     }
 
