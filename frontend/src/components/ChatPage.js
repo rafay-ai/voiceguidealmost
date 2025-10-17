@@ -119,7 +119,11 @@ const ChatPage = ({ user }) => {
         type: 'assistant',
         content: response.data.response,
         restaurants: response.data.restaurants || [],
+        recommendedItems: response.data.recommended_items || [],
+        showOrderCard: response.data.show_order_card || false,
         hasDefaultAddress: response.data.has_default_address || false,
+        defaultAddress: response.data.default_address || null,
+        orderReady: response.data.order_ready || false,
         timestamp: new Date()
       };
 
