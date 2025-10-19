@@ -679,6 +679,21 @@ class VoiceGuideAPITester:
             self.test_chat_functionality()
             self.test_voice_order_processing()
         
+        # FOCUSED CHATBOT RECOMMENDATION TESTS (Based on Review Request)
+        print("\n🎯 CHATBOT RECOMMENDATION SYSTEM TESTS (CRITICAL)")
+        if auth_success:
+            print("   Testing with Pakistani/Chinese/Italian preferences user...")
+            self.test_chatbot_biryani_request()
+            self.test_chatbot_dessert_request()
+            self.test_chatbot_general_recommendations()
+            self.test_chatbot_japanese_request()
+            self.test_chatbot_thai_request()
+            
+            # Test with Japanese/Thai/Desserts user
+            print("\n   Setting up Japanese/Thai/Desserts preferences user...")
+            if self.setup_japanese_thai_desserts_user():
+                self.test_user_preference_fallback()
+        
         # Order management tests
         print("\n📦 ORDER MANAGEMENT TESTS")
         if auth_success:
@@ -698,6 +713,99 @@ class VoiceGuideAPITester:
             return True
         else:
             print("❌ Multiple test failures. Backend has significant issues.")
+            return False
+
+    def run_focused_chatbot_tests(self):
+        """Run only the focused chatbot recommendation tests from review request"""
+        print("🎯 FOCUSED CHATBOT RECOMMENDATION SYSTEM TESTING")
+        print("=" * 60)
+        print("Testing critical bug fixes for chatbot recommendations...")
+        
+        # Setup authentication
+        auth_success = False
+        if self.test_demo_login():
+            auth_success = True
+        else:
+            if self.test_user_registration():
+                auth_success = True
+        
+        if not auth_success:
+            print("❌ Authentication failed - cannot run chatbot tests")
+            return False
+        
+        # Set Pakistani/Chinese/BBQ preferences (as mentioned in review)
+        preferences_data = {
+            "favorite_cuisines": ["Pakistani", "Chinese", "BBQ"],
+            "dietary_restrictions": [],
+            "spice_preference": "medium"
+        }
+        
+        self.run_api_test(
+            "Set Pakistani/Chinese/BBQ Preferences",
+            "PUT",
+            "api/user/preferences",
+            200,
+            preferences_data
+        )
+        
+        print("\n🧪 TESTING WITH PAKISTANI/CHINESE/BBQ USER:")
+        
+        # Test 1: Biryani request (should work now)
+        print("\n1️⃣  Testing Biryani Request (Should return biryani items)")
+        biryani_success = self.test_chatbot_biryani_request()
+        
+        # Test 2: Dessert request (should work now)
+        print("\n2️⃣  Testing Dessert Request (Should return dessert items)")
+        dessert_success = self.test_chatbot_dessert_request()
+        
+        # Test 3: General recommendations (should respect preferences)
+        print("\n3️⃣  Testing General Recommendations (Should match preferences)")
+        general_success = self.test_chatbot_general_recommendations()
+        
+        # Test 4: Japanese request (should handle gracefully)
+        print("\n4️⃣  Testing Japanese Request (Should handle database gap)")
+        japanese_success = self.test_chatbot_japanese_request()
+        
+        # Test 5: Thai request (limited availability)
+        print("\n5️⃣  Testing Thai Request (Limited availability)")
+        thai_success = self.test_chatbot_thai_request()
+        
+        # Test 6: Setup Japanese/Thai/Desserts user and test fallback
+        print("\n6️⃣  Testing User Preference Fallback")
+        if self.setup_japanese_thai_desserts_user():
+            fallback_success = self.test_user_preference_fallback()
+        else:
+            fallback_success = False
+            self.log_test("User Preference Fallback", False, "Failed to setup test user")
+        
+        # Summary of critical tests
+        critical_tests = [
+            ("Biryani Request", biryani_success),
+            ("Dessert Request", dessert_success),
+            ("General Recommendations", general_success),
+            ("Japanese Request Handling", japanese_success),
+            ("Thai Request Handling", thai_success),
+            ("User Preference Fallback", fallback_success)
+        ]
+        
+        print("\n" + "=" * 60)
+        print("🎯 FOCUSED TEST RESULTS:")
+        
+        passed_critical = 0
+        for test_name, success in critical_tests:
+            status = "✅ PASSED" if success else "❌ FAILED"
+            print(f"   {status}: {test_name}")
+            if success:
+                passed_critical += 1
+        
+        print(f"\n📊 Critical Tests: {passed_critical}/{len(critical_tests)} passed")
+        print(f"✅ Success Rate: {(passed_critical/len(critical_tests))*100:.1f}%")
+        
+        if passed_critical >= 4:  # At least 4/6 critical tests should pass
+            print("🎉 Chatbot recommendation system is working well!")
+            return True
+        else:
+            print("❌ Chatbot recommendation system has significant issues.")
             return False
 
 def main():
