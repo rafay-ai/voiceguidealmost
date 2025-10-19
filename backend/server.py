@@ -646,34 +646,50 @@ recommendation_engine = RecommendationEngine(db)
 
 # --- Enhanced Gemini Chat Integration ---
 async def get_restaurant_recommendations_for_chat(message: str, user_context: Dict):
-    """Get actual restaurant recommendations for chat"""
+    """Get actual restaurant recommendations based on user preferences and message"""
     try:
-        # Simple keyword matching for now - can be enhanced with NLP
         message_lower = message.lower()
         
-        # Build query based on message content
+        # Build query based on message content and user preferences
         query = {"is_active": True}
+        
+        # Enhanced cuisine keywords mapping
         cuisine_keywords = {
-            'pakistani': 'Pakistani', 'biryani': 'Pakistani', 'karahi': 'Pakistani',
-            'chinese': 'Chinese', 'chowmein': 'Chinese', 'fried rice': 'Chinese',
-            'fast food': 'Fast Food', 'burger': 'Fast Food', 'pizza': 'Fast Food',
-            'bbq': 'BBQ', 'kebab': 'BBQ', 'tikka': 'BBQ',
-            'dessert': 'Desserts', 'sweet': 'Desserts', 'ice cream': 'Desserts'
+            'pakistani': ['Pakistani'], 'biryani': ['Pakistani'], 'karahi': ['Pakistani'],
+            'chinese': ['Chinese'], 'chowmein': ['Chinese'], 'fried rice': ['Chinese'],
+            'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'], 
+            'bbq': ['BBQ'], 'kebab': ['BBQ'], 'tikka': ['BBQ'],
+            'dessert': ['Desserts'], 'sweet': ['Desserts'], 'ice cream': ['Desserts'],
+            'japanese': ['Japanese'], 'sushi': ['Japanese'], 'thai': ['Thai'],
+            'indian': ['Indian'], 'italian': ['Italian'], 'mexican': ['Mexican']
         }
         
-        # Find matching cuisine
-        matched_cuisine = None
-        for keyword, cuisine in cuisine_keywords.items():
+        # Check for specific cuisine requests first
+        matched_cuisines = []
+        for keyword, cuisines in cuisine_keywords.items():
             if keyword in message_lower:
-                matched_cuisine = cuisine
-                break
+                matched_cuisines.extend(cuisines)
         
-        if matched_cuisine:
-            query["cuisine"] = {"$in": [matched_cuisine]}
+        # If user asks for general recommendations, use their preferences
+        if any(word in message_lower for word in ['recommend', 'suggestion', 'hungry', 'food']) and not matched_cuisines:
+            user_preferences = user_context.get('favorite_cuisines', [])
+            if user_preferences:
+                matched_cuisines = user_preferences[:3]  # Use top 3 preferences
         
-        # Get restaurants
-        restaurants_cursor = db.restaurants.find(query, {"_id": 0}).limit(3)
+        # Apply cuisine filter
+        if matched_cuisines:
+            query["cuisine"] = {"$in": matched_cuisines}
+        
+        # Get restaurants with variety
+        restaurants_cursor = db.restaurants.find(query, {"_id": 0}).limit(4)
         restaurants = await restaurants_cursor.to_list(None)
+        
+        # If no results and we had specific cuisine, try broader search
+        if not restaurants and matched_cuisines:
+            # Try partial matches
+            broader_query = {"is_active": True}
+            restaurants_cursor = db.restaurants.find(broader_query, {"_id": 0}).limit(3)
+            restaurants = await restaurants_cursor.to_list(None)
         
         return restaurants
     except Exception as e:
