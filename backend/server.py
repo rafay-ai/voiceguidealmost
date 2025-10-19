@@ -1371,41 +1371,153 @@ async def handle_direct_order_request(current_user, message):
             "session_id": str(uuid.uuid4())
         }
 
-async def get_specific_menu_items(food_type: str, limit: int = 3):
-    """Get specific menu items based on food type"""
+async def get_menu_items_by_cuisine(cuisines: List[str], limit: int = 3, user_preferences: Dict = None):
+    """Get menu items based on cuisine types - preference-aware"""
     try:
-        query = {"available": True}
+        if not cuisines:
+            return []
         
-        if food_type == 'biryani':
-            query["$or"] = [
-                {"name": {"$regex": "biryani", "$options": "i"}},
-                {"tags": {"$in": ["biryani", "rice", "pakistani"]}}
-            ]
-        elif food_type == 'burger':
-            query["$or"] = [
-                {"name": {"$regex": "burger", "$options": "i"}},
-                {"category": {"$regex": "fast food", "$options": "i"}}
-            ]
-        elif food_type == 'chinese':
-            query["$or"] = [
-                {"tags": {"$in": ["chinese", "noodles", "rice"]}},
-                {"name": {"$regex": "chowmein|fried rice|chicken manchurian", "$options": "i"}}
-            ]
+        # Comprehensive cuisine mapping for tags and keywords
+        cuisine_mapping = {
+            'Pakistani': {
+                'tags': ['biryani', 'rice', 'pakistani', 'karahi', 'nihari'],
+                'keywords': 'biryani|karahi|nihari|haleem|pulao'
+            },
+            'Chinese': {
+                'tags': ['chinese', 'noodles', 'rice'],
+                'keywords': 'chowmein|fried rice|manchurian|noodles'
+            },
+            'Fast Food': {
+                'tags': ['burger', 'fast food', 'pizza', 'fries'],
+                'keywords': 'burger|pizza|fries|sandwich|nuggets'
+            },
+            'BBQ': {
+                'tags': ['bbq', 'grill', 'tikka', 'kebab'],
+                'keywords': 'tikka|kebab|seekh|boti|bbq'
+            },
+            'Desserts': {
+                'tags': ['dessert', 'sweet', 'ice cream', 'cake'],
+                'keywords': 'cake|ice cream|kulfi|kheer|dessert|sweet'
+            },
+            'Japanese': {
+                'tags': ['japanese', 'sushi', 'ramen'],
+                'keywords': 'sushi|sashimi|ramen|teriyaki|tempura'
+            },
+            'Thai': {
+                'tags': ['thai', 'curry', 'pad thai'],
+                'keywords': 'pad thai|curry|tom yum|thai'
+            },
+            'Indian': {
+                'tags': ['indian', 'curry', 'tandoori'],
+                'keywords': 'curry|tandoori|naan|paneer|dal'
+            },
+            'Italian': {
+                'tags': ['italian', 'pasta', 'pizza'],
+                'keywords': 'pasta|pizza|lasagna|spaghetti'
+            },
+            'Mexican': {
+                'tags': ['mexican', 'taco', 'burrito'],
+                'keywords': 'taco|burrito|quesadilla|nachos'
+            }
+        }
         
-        menu_items_cursor = db.menu_items.find(query, {"_id": 0}).limit(limit)
+        # Build query conditions for all cuisines
+        or_conditions = []
+        
+        for cuisine in cuisines:
+            if cuisine in cuisine_mapping:
+                mapping = cuisine_mapping[cuisine]
+                or_conditions.append({
+                    "$or": [
+                        {"tags": {"$in": mapping['tags']}},
+                        {"name": {"$regex": mapping['keywords'], "$options": "i"}},
+                        {"category": {"$regex": cuisine, "$options": "i"}}
+                    ]
+                })
+            else:
+                # Generic cuisine search
+                or_conditions.append({
+                    "$or": [
+                        {"category": {"$regex": cuisine, "$options": "i"}},
+                        {"tags": {"$in": [cuisine.lower()]}}
+                    ]
+                })
+        
+        # First try: Get restaurants from these cuisines
+        restaurants_cursor = db.restaurants.find({
+            "cuisine": {"$in": cuisines},
+            "is_active": True
+        }, {"_id": 0})
+        restaurants = await restaurants_cursor.to_list(None)
+        restaurant_ids = [r['id'] for r in restaurants]
+        
+        # Build final query
+        query = {
+            "available": True,
+            "$or": [
+                {"restaurant_id": {"$in": restaurant_ids}} if restaurant_ids else {},
+                *or_conditions
+            ]
+        }
+        
+        # If we have restaurant IDs, prioritize them
+        if restaurant_ids:
+            query = {
+                "$and": [
+                    {"available": True},
+                    {
+                        "$or": [
+                            {"restaurant_id": {"$in": restaurant_ids}},
+                            {"$or": or_conditions}
+                        ]
+                    }
+                ]
+            }
+        
+        menu_items_cursor = db.menu_items.find(query, {"_id": 0}).limit(limit * 2)
         items = await menu_items_cursor.to_list(None)
         
-        # Enrich with restaurant info
-        for item in items:
-            restaurant = await db.restaurants.find_one({"id": item["restaurant_id"]}, {"_id": 0})
-            if restaurant:
-                item["restaurant_name"] = restaurant["name"]
-                item["restaurant_rating"] = restaurant["rating"]
-                item["delivery_time"] = restaurant["delivery_time"]
+        # Score items based on user preferences if provided
+        if user_preferences and items:
+            favorite_cuisines = user_preferences.get('favorite_cuisines', [])
+            spice_pref = user_preferences.get('spice_preference', 'medium')
+            
+            for item in items:
+                score = 0
+                # Get restaurant cuisine
+                restaurant = await db.restaurants.find_one({"id": item["restaurant_id"]}, {"_id": 0})
+                if restaurant:
+                    item["restaurant_name"] = restaurant["name"]
+                    item["restaurant_rating"] = restaurant["rating"]
+                    item["delivery_time"] = restaurant["delivery_time"]
+                    
+                    # Boost score if restaurant cuisine matches user preferences
+                    if restaurant.get('cuisine') in favorite_cuisines:
+                        score += 10
+                
+                # Boost score if spice level matches
+                if item.get('spice_level') == spice_pref:
+                    score += 5
+                
+                # Add rating boost
+                score += item.get('average_rating', 0) * 2
+                
+                item['preference_score'] = score
+            
+            # Sort by preference score
+            items.sort(key=lambda x: x.get('preference_score', 0), reverse=True)
+        else:
+            # Just enrich with restaurant info
+            for item in items:
+                restaurant = await db.restaurants.find_one({"id": item["restaurant_id"]}, {"_id": 0})
+                if restaurant:
+                    item["restaurant_name"] = restaurant["name"]
+                    item["restaurant_rating"] = restaurant["rating"]
+                    item["delivery_time"] = restaurant["delivery_time"]
         
-        return items
+        return items[:limit]
     except Exception as e:
-        logging.error(f"Error getting specific menu items: {e}")
+        logging.error(f"Error getting menu items by cuisine: {e}")
         return []
 
 @api_router.post("/chat/order")
