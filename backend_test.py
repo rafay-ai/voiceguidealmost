@@ -810,8 +810,12 @@ class VoiceGuideAPITester:
 
 def main():
     tester = VoiceGuideAPITester()
-    success = tester.run_comprehensive_test()
-    return 0 if success else 1
+    
+    # Run focused chatbot tests as requested in review
+    print("🎯 Running FOCUSED CHATBOT RECOMMENDATION TESTS as per review request...")
+    focused_success = tester.run_focused_chatbot_tests()
+    
+    return 0 if focused_success else 1
 
 if __name__ == "__main__":
     sys.exit(main())
