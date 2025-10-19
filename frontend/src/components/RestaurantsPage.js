@@ -204,7 +204,7 @@ const RestaurantsPage = ({ user }) => {
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <MapPin className="w-4 h-4 mr-2" />
-                        <span>₹{restaurant.delivery_fee} delivery • Min ₹{restaurant.minimum_order}</span>
+                        <span>PKR {restaurant.delivery_fee} delivery • Min PKR {restaurant.minimum_order}</span>
                       </div>
                     </div>
                     
