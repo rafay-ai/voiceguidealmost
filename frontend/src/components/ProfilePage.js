@@ -239,7 +239,7 @@ const ProfilePage = ({ user, onUserUpdate }) => {
                 <p className="text-sm text-gray-600">Delivered • 2 days ago</p>
               </div>
               <div className="text-right">
-                <p className="font-semibold text-gray-900">₹350</p>
+                <p className="font-semibold text-gray-900">PKR 350</p>
                 <div className="flex items-center space-x-1">
                   {[...Array(5)].map((_, i) => (
                     <div key={i} className={`w-3 h-3 rounded-full ${i < 4 ? 'bg-yellow-400' : 'bg-gray-300'}`}></div>
