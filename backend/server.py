@@ -711,18 +711,36 @@ async def process_with_gemini(message: str, user_context: Dict = None, include_r
     if any(word in message_lower for word in ['recommend', 'suggestion', 'suggest']):
         return f"✨ Here are my top recommendations based on your taste:"
     
-    # Specific cuisine requests
+    # Specific cuisine requests with emojis
     if 'biryani' in message_lower or 'pakistani' in message_lower:
         return f"🍛 Excellent choice! Best Pakistani options:"
     
-    if 'chinese' in message_lower:
+    if 'chinese' in message_lower or 'chowmein' in message_lower:
         return f"🥢 Great! Top Chinese restaurants:"
     
     if 'fast food' in message_lower or 'burger' in message_lower:
         return f"🍔 Perfect! Fast food favorites:"
     
-    if any(word in message_lower for word in ['dessert', 'sweet', 'cake', 'ice cream']):
+    if any(word in message_lower for word in ['dessert', 'sweet', 'cake', 'ice cream', 'kulfi']):
         return f"🍰 Sweet cravings? Here are the best dessert spots:"
+    
+    if 'japanese' in message_lower or 'sushi' in message_lower:
+        return f"🍱 Fantastic! Authentic Japanese cuisine:"
+    
+    if 'thai' in message_lower or 'pad thai' in message_lower:
+        return f"🍜 Wonderful! Best Thai restaurants:"
+    
+    if 'bbq' in message_lower or 'tikka' in message_lower or 'kebab' in message_lower:
+        return f"🥩 Great choice! Top BBQ spots:"
+    
+    if 'indian' in message_lower or 'curry' in message_lower:
+        return f"🍛 Excellent! Best Indian options:"
+    
+    if 'italian' in message_lower or 'pasta' in message_lower or 'pizza' in message_lower:
+        return f"🍝 Delizioso! Italian favorites:"
+    
+    if 'mexican' in message_lower or 'taco' in message_lower:
+        return f"🌮 Olé! Mexican delights:"
     
     # Order confirmation requests
     if any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order']):
