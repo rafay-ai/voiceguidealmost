@@ -177,7 +177,7 @@ const DashboardPage = ({ user }) => {
                       
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <span className="text-xl font-bold text-gray-900">₹{item.price}</span>
+                          <span className="text-xl font-bold text-gray-900">PKR {item.price}</span>
                           <span className="text-sm">{spiceInfo.text}</span>
                         </div>
                         <button 
