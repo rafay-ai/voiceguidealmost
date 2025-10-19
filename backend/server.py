@@ -1324,7 +1324,7 @@ async def chat_with_assistant(
         'mexican': ['Mexican'], 'taco': ['Mexican']
     }
     
-    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest']
+    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest', 'want', 'show']
     
     if any(keyword in message_lower for keyword in food_keywords):
         restaurants = await get_restaurant_recommendations_for_chat(chat_request.message, user_context)
