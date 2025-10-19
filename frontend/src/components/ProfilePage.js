@@ -219,7 +219,7 @@ const ProfilePage = ({ user, onUserUpdate }) => {
               <div className="text-gray-600">Total Orders</div>
             </div>
             <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
-              <div className="text-3xl font-bold text-green-600 mb-2">₹4,850</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">PKR 4,850</div>
               <div className="text-gray-600">Total Spent</div>
             </div>
             <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
