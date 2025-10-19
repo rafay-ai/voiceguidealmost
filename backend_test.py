@@ -256,6 +256,312 @@ class VoiceGuideAPITester:
         
         return success
 
+    def test_chatbot_biryani_request(self):
+        """Test biryani/Pakistani cuisine request - should work after fixes"""
+        if not self.token:
+            return self.log_test("Chatbot Biryani Request", False, "No authentication token")
+        
+        chat_data = {
+            "message": "I want biryani",
+            "user_id": self.user_id
+        }
+        
+        success, response = self.run_api_test(
+            "Chatbot Biryani Request",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            recommended_items = response.get('recommended_items', [])
+            show_order_card = response.get('show_order_card', False)
+            
+            if len(recommended_items) > 0 and show_order_card:
+                print(f"   ✅ Found {len(recommended_items)} biryani items")
+                for item in recommended_items:
+                    print(f"      - {item.get('name', 'N/A')} from {item.get('restaurant_name', 'N/A')}")
+                return True
+            else:
+                print(f"   ❌ Expected biryani items but got {len(recommended_items)} items, show_order_card: {show_order_card}")
+                return False
+        
+        return success
+
+    def test_chatbot_dessert_request(self):
+        """Test dessert request - should work after fixes"""
+        if not self.token:
+            return self.log_test("Chatbot Dessert Request", False, "No authentication token")
+        
+        chat_data = {
+            "message": "show me desserts",
+            "user_id": self.user_id
+        }
+        
+        success, response = self.run_api_test(
+            "Chatbot Dessert Request",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            recommended_items = response.get('recommended_items', [])
+            show_order_card = response.get('show_order_card', False)
+            
+            if len(recommended_items) > 0 and show_order_card:
+                print(f"   ✅ Found {len(recommended_items)} dessert items")
+                for item in recommended_items:
+                    print(f"      - {item.get('name', 'N/A')} from {item.get('restaurant_name', 'N/A')}")
+                return True
+            else:
+                print(f"   ❌ Expected dessert items but got {len(recommended_items)} items, show_order_card: {show_order_card}")
+                return False
+        
+        return success
+
+    def test_chatbot_general_recommendations(self):
+        """Test general recommendations with user preferences"""
+        if not self.token:
+            return self.log_test("Chatbot General Recommendations", False, "No authentication token")
+        
+        chat_data = {
+            "message": "I'm hungry",
+            "user_id": self.user_id
+        }
+        
+        success, response = self.run_api_test(
+            "Chatbot General Recommendations",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            recommended_items = response.get('recommended_items', [])
+            show_order_card = response.get('show_order_card', False)
+            
+            print(f"   📝 Found {len(recommended_items)} general recommendations")
+            if recommended_items:
+                for item in recommended_items:
+                    restaurant_cuisine = item.get('restaurant_cuisine', [])
+                    print(f"      - {item.get('name', 'N/A')} from {item.get('restaurant_name', 'N/A')} ({restaurant_cuisine})")
+                
+                # Check if items match user preferences (Pakistani, Chinese, Italian)
+                preference_match = False
+                for item in recommended_items:
+                    restaurant_cuisine = item.get('restaurant_cuisine', [])
+                    if any(cuisine in ['Pakistani', 'Chinese', 'Italian'] for cuisine in restaurant_cuisine):
+                        preference_match = True
+                        break
+                
+                if preference_match:
+                    print(f"   ✅ Items match user preferences")
+                    return True
+                else:
+                    print(f"   ⚠️  Items don't match user preferences (Pakistani, Chinese, Italian)")
+                    return False
+            else:
+                print(f"   ❌ No recommendations returned")
+                return False
+        
+        return success
+
+    def test_chatbot_japanese_request(self):
+        """Test Japanese cuisine request - should handle gracefully (database gap)"""
+        if not self.token:
+            return self.log_test("Chatbot Japanese Request", False, "No authentication token")
+        
+        chat_data = {
+            "message": "japanese food please",
+            "user_id": self.user_id
+        }
+        
+        success, response = self.run_api_test(
+            "Chatbot Japanese Request",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            recommended_items = response.get('recommended_items', [])
+            ai_response = response.get('response', '')
+            
+            print(f"   📝 AI Response: {ai_response}")
+            print(f"   📝 Found {len(recommended_items)} items for Japanese request")
+            
+            if recommended_items:
+                for item in recommended_items:
+                    restaurant_cuisine = item.get('restaurant_cuisine', [])
+                    print(f"      - {item.get('name', 'N/A')} from {item.get('restaurant_name', 'N/A')} ({restaurant_cuisine})")
+                
+                # Check if returned items are actually Japanese or appropriate fallback
+                japanese_items = [item for item in recommended_items 
+                                if 'Japanese' in item.get('restaurant_cuisine', [])]
+                
+                if japanese_items:
+                    print(f"   ✅ Found {len(japanese_items)} Japanese items")
+                    return True
+                else:
+                    # Check if it's appropriate fallback (Asian cuisines) or wrong items
+                    asian_items = [item for item in recommended_items 
+                                 if any(cuisine in ['Chinese', 'Thai'] for cuisine in item.get('restaurant_cuisine', []))]
+                    
+                    if asian_items:
+                        print(f"   ⚠️  No Japanese items, but found {len(asian_items)} Asian fallback items")
+                        return True
+                    else:
+                        print(f"   ❌ Returned non-Asian items for Japanese request")
+                        return False
+            else:
+                print(f"   ✅ No items returned - appropriate for unavailable cuisine")
+                return True
+        
+        return success
+
+    def test_chatbot_thai_request(self):
+        """Test Thai cuisine request - limited availability"""
+        if not self.token:
+            return self.log_test("Chatbot Thai Request", False, "No authentication token")
+        
+        chat_data = {
+            "message": "thai food",
+            "user_id": self.user_id
+        }
+        
+        success, response = self.run_api_test(
+            "Chatbot Thai Request",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            recommended_items = response.get('recommended_items', [])
+            ai_response = response.get('response', '')
+            
+            print(f"   📝 AI Response: {ai_response}")
+            print(f"   📝 Found {len(recommended_items)} items for Thai request")
+            
+            if recommended_items:
+                for item in recommended_items:
+                    restaurant_cuisine = item.get('restaurant_cuisine', [])
+                    print(f"      - {item.get('name', 'N/A')} from {item.get('restaurant_name', 'N/A')} ({restaurant_cuisine})")
+                
+                # Check for Thai items or appropriate fallback
+                thai_items = [item for item in recommended_items 
+                            if 'Thai' in item.get('restaurant_cuisine', [])]
+                
+                if thai_items:
+                    print(f"   ✅ Found {len(thai_items)} Thai items")
+                    return True
+                else:
+                    print(f"   ⚠️  No Thai items found, showing fallback")
+                    return True
+            else:
+                print(f"   ⚠️  No items returned for Thai request")
+                return True
+        
+        return success
+
+    def setup_japanese_thai_desserts_user(self):
+        """Setup a test user with Japanese, Thai, Desserts preferences"""
+        test_user_data = {
+            "username": f"japanese_user_{datetime.now().strftime('%H%M%S')}",
+            "email": f"japanese_test_{datetime.now().strftime('%H%M%S')}@voiceguide.com",
+            "password": "TestPass123!"
+        }
+        
+        success, response = self.run_api_test(
+            "Register Japanese/Thai/Desserts User",
+            "POST",
+            "api/auth/register",
+            200,
+            test_user_data
+        )
+        
+        if success and 'access_token' in response:
+            self.token = response['access_token']
+            self.user_id = response['user']['id']
+            self.session.headers['Authorization'] = f'Bearer {self.token}'
+            
+            # Set preferences to Japanese, Thai, Desserts
+            preferences_data = {
+                "favorite_cuisines": ["Japanese", "Thai", "Desserts"],
+                "dietary_restrictions": [],
+                "spice_preference": "mild"
+            }
+            
+            pref_success, _ = self.run_api_test(
+                "Set Japanese/Thai/Desserts Preferences",
+                "PUT",
+                "api/user/preferences",
+                200,
+                preferences_data
+            )
+            
+            if pref_success:
+                print(f"   📝 Setup user with Japanese/Thai/Desserts preferences")
+                return True
+        
+        return False
+
+    def test_user_preference_fallback(self):
+        """Test user preference fallback for Japanese/Thai/Desserts user"""
+        if not self.token:
+            return self.log_test("User Preference Fallback", False, "No authentication token")
+        
+        chat_data = {
+            "message": "I'm hungry",
+            "user_id": self.user_id
+        }
+        
+        success, response = self.run_api_test(
+            "User Preference Fallback Test",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            recommended_items = response.get('recommended_items', [])
+            
+            print(f"   📝 Found {len(recommended_items)} items for Japanese/Thai/Desserts user")
+            
+            if recommended_items:
+                for item in recommended_items:
+                    restaurant_cuisine = item.get('restaurant_cuisine', [])
+                    print(f"      - {item.get('name', 'N/A')} from {item.get('restaurant_name', 'N/A')} ({restaurant_cuisine})")
+                
+                # Check if items prioritize Desserts (since Japanese/Thai unavailable)
+                dessert_items = [item for item in recommended_items 
+                               if 'Desserts' in item.get('restaurant_cuisine', [])]
+                
+                pakistani_items = [item for item in recommended_items 
+                                 if 'Pakistani' in item.get('restaurant_cuisine', [])]
+                
+                if dessert_items:
+                    print(f"   ✅ Found {len(dessert_items)} dessert items - correct preference fallback")
+                    return True
+                elif pakistani_items:
+                    print(f"   ❌ Found {len(pakistani_items)} Pakistani items - should prioritize Desserts")
+                    return False
+                else:
+                    print(f"   ⚠️  Found other cuisine items")
+                    return True
+            else:
+                print(f"   ❌ No recommendations for user with preferences")
+                return False
+        
+        return success
+
     def test_voice_order_processing(self):
         """Test voice order processing"""
         if not self.token:
