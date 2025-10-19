@@ -290,3 +290,33 @@ agent_communication:
       - Frontend hot reload should handle the changes automatically
       - The old function `get_specific_menu_items()` has been completely replaced with 
         `get_menu_items_by_cuisine()` which is far more comprehensive
+  - agent: "testing"
+    message: |
+      🚨 CRITICAL BACKEND TESTING RESULTS - CHATBOT RECOMMENDATION SYSTEM FAILING
+      
+      ❌ MAJOR ISSUES DISCOVERED:
+      
+      1. **DATABASE GAPS**: No Japanese restaurants exist (0 found), limited Thai options (only Chinese-style dishes)
+      2. **BROKEN CUISINE DETECTION**: 
+         - "show me desserts" → Returns EMPTY array despite dessert restaurants existing
+         - "I want biryani" → Returns EMPTY array despite multiple biryani restaurants
+         - "japanese food please" → Returns Pakistani items (Student Biryani) instead of proper fallback
+      
+      3. **LOGIC FAILURES**: The get_menu_items_by_cuisine() function and chat endpoint cuisine detection 
+         have multiple bugs causing incorrect filtering and empty results
+      
+      4. **USER EXPERIENCE BROKEN**: Users with Japanese/Thai/Desserts preferences get Pakistani food 
+         recommendations, exactly the opposite of the intended fix
+      
+      ⚠️ IMPACT: The core user issue (chatbot ignoring preferences) is NOT RESOLVED and may be worse
+      
+      📊 TEST RESULTS: 60% pass rate (15/25 tests) - Multiple critical failures
+      
+      🔧 IMMEDIATE ACTION REQUIRED:
+      1. Fix cuisine detection logic in chat endpoint (lines 1313-1356)
+      2. Debug get_menu_items_by_cuisine() function (lines 1422-1569) 
+      3. Add proper fallback when requested cuisine unavailable
+      4. Consider adding Japanese restaurants to database or handle gracefully
+      
+      💡 RECOMMENDATION: Use websearch to research cuisine detection algorithms and MongoDB query optimization 
+      for this type of recommendation system.
