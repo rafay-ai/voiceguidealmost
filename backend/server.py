@@ -1291,21 +1291,51 @@ async def chat_with_assistant(
     recommended_items = []
     show_order_card = False
     
-    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'biryani', 'pizza', 'burger', 'chinese', 'pakistani']
+    # Comprehensive cuisine keywords
+    cuisine_keywords = {
+        'pakistani': ['Pakistani'], 'biryani': ['Pakistani'], 'karahi': ['Pakistani'],
+        'chinese': ['Chinese'], 'chowmein': ['Chinese'], 'fried rice': ['Chinese'],
+        'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'], 
+        'bbq': ['BBQ'], 'kebab': ['BBQ'], 'tikka': ['BBQ'],
+        'dessert': ['Desserts'], 'sweet': ['Desserts'], 'ice cream': ['Desserts'], 'cake': ['Desserts'],
+        'japanese': ['Japanese'], 'sushi': ['Japanese'], 'ramen': ['Japanese'],
+        'thai': ['Thai'], 'pad thai': ['Thai'], 'curry': ['Thai'],
+        'indian': ['Indian'], 'tandoori': ['Indian'],
+        'italian': ['Italian'], 'pasta': ['Italian'],
+        'mexican': ['Mexican'], 'taco': ['Mexican']
+    }
+    
+    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest']
     
     if any(keyword in message_lower for keyword in food_keywords):
         restaurants = await get_restaurant_recommendations_for_chat(chat_request.message, user_context)
         
-        # Get specific menu items for direct ordering
-        if 'biryani' in message_lower:
-            recommended_items = await get_specific_menu_items('biryani', 3)
-            show_order_card = True
-        elif 'burger' in message_lower or 'fast food' in message_lower:
-            recommended_items = await get_specific_menu_items('burger', 3)
-            show_order_card = True
-        elif 'chinese' in message_lower:
-            recommended_items = await get_specific_menu_items('chinese', 3)
-            show_order_card = True
+        # Detect cuisines from message
+        detected_cuisines = []
+        for keyword, cuisines in cuisine_keywords.items():
+            if keyword in message_lower:
+                detected_cuisines.extend(cuisines)
+        
+        # Remove duplicates
+        detected_cuisines = list(set(detected_cuisines))
+        
+        # If no specific cuisine detected but user asks for food/recommendations, use their preferences
+        if not detected_cuisines and any(word in message_lower for word in ['hungry', 'recommend', 'suggestion', 'food', 'eat']):
+            user_prefs = current_user.favorite_cuisines
+            if user_prefs:
+                detected_cuisines = user_prefs[:3]  # Use top 3 preferences
+        
+        # Get menu items for detected cuisines
+        if detected_cuisines:
+            recommended_items = await get_menu_items_by_cuisine(
+                detected_cuisines, 
+                limit=3,
+                user_preferences={
+                    'favorite_cuisines': current_user.favorite_cuisines,
+                    'spice_preference': current_user.spice_preference
+                }
+            )
+            show_order_card = len(recommended_items) > 0
     
     # Process with ultra-brief response
     response = await process_with_gemini(chat_request.message, user_context)
