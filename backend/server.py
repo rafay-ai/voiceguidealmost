@@ -1,5 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, status, Request, BackgroundTasks
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
@@ -257,6 +258,14 @@ def generate_order_number():
     import random
     return f"VG{datetime.now().strftime('%Y%m%d')}{random.randint(1000, 9999)}"
 
+def detect_language(text: str) -> str:
+    # Basic check for Urdu characters (add more comprehensive check if needed)
+    urdu_chars = r'[\u0600-\u06FF\u0750-\u077F\u0591-\u05F4]' # Include Hebrew just in case for script similarity detection
+    if re.search(urdu_chars, text):
+        return 'ur'
+    # Add checks for other languages if necessary
+    return 'en' # Default to English
+
 # --- Email Service ---
 async def send_order_confirmation_email(user_email: str, user_name: str, order: dict, order_items: List[dict]):
     """Send order confirmation email"""
@@ -469,39 +478,45 @@ class RecommendationEngine:
         return dot_product / (magnitude1 * magnitude2)
 
     async def get_recommendations(self, user_id: str, limit: int = 20):
-        """Get personalized recommendations for a user"""
-        user_prefs = await self.get_user_preferences_vector(user_id)
-        if not user_prefs:
-            # Return popular items for new users
+        """Get personalized recommendations for a user, strongly considering preferences"""
+        user = await self.db.users.find_one({"id": user_id}, {"_id": 0})
+        if not user or not user.get("preferences_set"):
+            # Return popular items if no user or preferences not set
+            logging.info(f"User {user_id} not found or preferences not set, returning popular items.")
             return await self.get_popular_items(limit)
+
+        user_prefs_vector = await self.get_user_preferences_vector(user_id)
+        if not user_prefs_vector:
+            logging.warning(f"Could not generate preferences vector for user {user_id}, returning popular items.")
+            return await self.get_popular_items(limit)
+
+        # Get content-based recommendations FIRST, strongly based on explicit preferences
+        content_based_items = await self.get_content_based_recommendations(user_prefs_vector, limit)
 
         # Get similar users for collaborative filtering
         similar_users = await self.get_similar_users(user_id)
-        
+
         # Get items ordered by similar users
         collaborative_items = await self.get_collaborative_recommendations(user_id, similar_users, limit // 2)
-        
-        # Get content-based recommendations
-        content_based_items = await self.get_content_based_recommendations(user_prefs, limit // 2)
-        
-        # Combine and remove duplicates
+
+        # Combine and remove duplicates, prioritizing content-based
         all_recommendations = []
         seen_items = set()
-        
-        # Add collaborative filtering results first (higher weight)
-        for item in collaborative_items:
-            if item['id'] not in seen_items:
-                item['recommendation_reason'] = 'Users with similar tastes also liked this'
-                all_recommendations.append(item)
-                seen_items.add(item['id'])
-        
-        # Add content-based results
+
+        # Add content-based results first
         for item in content_based_items:
             if item['id'] not in seen_items:
                 item['recommendation_reason'] = 'Based on your preferences'
                 all_recommendations.append(item)
                 seen_items.add(item['id'])
-        
+
+        # Add collaborative filtering results
+        for item in collaborative_items:
+            if item['id'] not in seen_items:
+                item['recommendation_reason'] = 'Users like you also enjoyed'
+                all_recommendations.append(item)
+                seen_items.add(item['id'])
+
         # Fill remaining slots with popular items if needed
         if len(all_recommendations) < limit:
             popular_items = await self.get_popular_items(limit - len(all_recommendations))
@@ -511,6 +526,7 @@ class RecommendationEngine:
                     all_recommendations.append(item)
                     seen_items.add(item['id'])
 
+        logging.info(f"Generated {len(all_recommendations)} recommendations for user {user_id}")
         return all_recommendations[:limit]
 
     async def get_collaborative_recommendations(self, user_id: str, similar_users: List[tuple], limit: int):
@@ -557,46 +573,89 @@ class RecommendationEngine:
         return recommendations
 
     async def get_content_based_recommendations(self, user_prefs: Dict, limit: int):
-        """Get recommendations based on user's content preferences"""
-        cuisine_prefs = user_prefs.get('cuisine_preferences', {})
-        category_prefs = user_prefs.get('category_preferences', {})
-        
-        # Build query based on preferences
+        """Get recommendations based strongly on user's explicit content preferences"""
+        favorite_cuisines = user_prefs.get('explicit_preferences', {}).get('favorite_cuisines', [])
+        if not favorite_cuisines: # Use calculated if explicit not available
+             favorite_cuisines = list(user_prefs.get('cuisine_preferences', {}).keys())
+        spice_pref = user_prefs.get('explicit_preferences', {}).get('spice_preference', 'medium')
+        dietary_restrictions = user_prefs.get('explicit_preferences', {}).get('dietary_restrictions', [])
+
+        logging.info(f"Getting content-based recs. Prefs: Cuisines={favorite_cuisines}, Spice={spice_pref}, Diet={dietary_restrictions}")
+
         query_conditions = []
-        
-        # Filter by preferred cuisines if available
-        if cuisine_prefs:
-            preferred_cuisines = list(cuisine_prefs.keys())
+        base_query = {"available": True}
+
+        # --- Cuisine Filtering ---
+        if favorite_cuisines:
+             # Find restaurants matching ANY of the favorite cuisines
             restaurants_cursor = self.db.restaurants.find({
-                "cuisine": {"$in": preferred_cuisines}
-            }, {"_id": 0}).limit(100)
+                "cuisine": {"$in": favorite_cuisines},
+                "is_active": True
+            }, {"_id": 0}).limit(100) # Limit restaurant search scope
             restaurants = await restaurants_cursor.to_list(None)
             restaurant_ids = [r['id'] for r in restaurants]
-            
+            logging.info(f"Found {len(restaurant_ids)} restaurants matching cuisines: {favorite_cuisines}")
+
             if restaurant_ids:
-                query_conditions.append({"restaurant_id": {"$in": restaurant_ids}})
-        
-        # Filter by preferred categories
-        if category_prefs:
-            preferred_categories = list(category_prefs.keys())
-            query_conditions.append({"category": {"$in": preferred_categories}})
+                 # Prefer items from matching restaurants OR items explicitly tagged with the cuisine
+                query_conditions.append({
+                    "$or": [
+                         {"restaurant_id": {"$in": restaurant_ids}},
+                         {"tags": {"$in": favorite_cuisines}},
+                         {"name": {"$regex": '|'.join(favorite_cuisines), "$options": "i"}} # Also check name
+                    ]
+                })
+            else:
+                 # If no restaurants match, broaden search to items tagged or named with the cuisine
+                 query_conditions.append({
+                      "$or": [
+                           {"tags": {"$in": favorite_cuisines}},
+                           {"name": {"$regex": '|'.join(favorite_cuisines), "$options": "i"}}
+                      ]
+                 })
 
-        # Base query for available items
-        base_query = {"available": True}
-        
+        # --- Dietary Filtering ---
+        if dietary_restrictions:
+            diet_conditions = []
+            if "Vegetarian" in dietary_restrictions:
+                diet_conditions.append({"is_vegetarian": True})
+            if "Halal" in dietary_restrictions:
+                diet_conditions.append({"is_halal": True})
+            # Add more conditions for Gluten-Free, Vegan, etc. if data exists
+            if diet_conditions:
+                query_conditions.append({"$and": diet_conditions}) # MUST meet all specified restrictions
+
+        # --- Spice Preference (Used for scoring, not strict filtering initially) ---
+
         if query_conditions:
-            query = {"$and": [base_query, {"$or": query_conditions}]}
+            query = {"$and": [base_query] + query_conditions}
         else:
-            query = base_query
+            query = base_query # Fallback if no specific preferences to filter on
 
-        # Get items and score them
-        menu_items_cursor = self.db.menu_items.find(query, {"_id": 0}).limit(limit * 3)
+        logging.info(f"Content-based query: {query}")
+        menu_items_cursor = self.db.menu_items.find(query, {"_id": 0}).limit(limit * 5) # Fetch more to score
         menu_items = await menu_items_cursor.to_list(None)
-        
+        logging.info(f"Found {len(menu_items)} potential content-based items.")
+
+        # If initial query yielded too few results, broaden search slightly (e.g., remove strict dietary AND)
+        if not menu_items and query_conditions:
+             logging.info("Broadening content-based search...")
+             broad_query = {"$and": [base_query] + query_conditions[:1]} # Use only first condition (likely cuisine)
+             menu_items_cursor = self.db.menu_items.find(broad_query, {"_id": 0}).limit(limit * 3)
+             menu_items = await menu_items_cursor.to_list(None)
+             logging.info(f"Found {len(menu_items)} items after broadening search.")
+
+
         # Score items based on preferences
         scored_items = []
         for item in menu_items:
-            score = self.calculate_content_score(item, user_prefs)
+            score = self.calculate_content_score(item, user_prefs) # Use modified scoring
+            # Filter out items that *strongly* mismatch spice pref if possible
+            if spice_pref == 'mild' and item.get('spice_level') in ['hot', 'very_hot'] and len(scored_items) > limit:
+                 continue # Skip very spicy if user wants mild and we have enough options
+            if spice_pref == 'very_hot' and item.get('spice_level') == 'mild' and len(scored_items) > limit:
+                 continue # Skip mild if user wants very hot
+
             item['recommendation_score'] = score
             scored_items.append(item)
 
@@ -605,26 +664,44 @@ class RecommendationEngine:
         return scored_items[:limit]
 
     def calculate_content_score(self, menu_item: Dict, user_prefs: Dict):
-        """Calculate content-based score for a menu item"""
+        """Calculate content-based score, giving more weight to explicit preferences"""
         score = 0.0
-        
-        # Base score from popularity
-        score += menu_item.get('popularity_score', 0) * 2
-        score += menu_item.get('average_rating', 0) * 0.5
-        
-        # Category preference score
+        favorite_cuisines = user_prefs.get('explicit_preferences', {}).get('favorite_cuisines', [])
+        spice_pref = user_prefs.get('explicit_preferences', {}).get('spice_preference', 'medium')
+
+        # Base score from popularity/rating
+        score += menu_item.get('popularity_score', 0) * 0.5 # Reduced base weight
+        score += menu_item.get('average_rating', 0) * 1.0   # Slightly increased rating weight
+
+        # --- Stronger Preference Scoring ---
+        # Cuisine match (Tags, Category, Name, Restaurant Cuisine)
+        item_cuisines = set(menu_item.get('tags', []) + [menu_item.get('category', '')])
+        restaurant = asyncio.run(self.db.restaurants.find_one({"id": menu_item['restaurant_id']}, {"_id": 0, "cuisine": 1}))
+        if restaurant and restaurant.get('cuisine'):
+             item_cuisines.update(restaurant['cuisine'])
+
+        matched_fav_cuisines = [c for c in favorite_cuisines if c in item_cuisines or c.lower() in menu_item.get('name', '').lower()]
+        if matched_fav_cuisines:
+             score += 20.0 # Significant boost for matching a favorite cuisine
+
+        # Spice preference match
+        item_spice = menu_item.get('spice_level', 'medium')
+        if item_spice == spice_pref:
+            score += 10.0 # Good boost for matching spice
+        elif (spice_pref=='medium' and item_spice=='mild') or \
+             (spice_pref=='hot' and item_spice=='medium') or \
+             (spice_pref=='very_hot' and item_spice=='hot'):
+             score += 3.0 # Small boost for adjacent spice level
+        elif (spice_pref=='mild' and item_spice in ['hot', 'very_hot']) or \
+             (spice_pref=='very_hot' and item_spice=='mild'):
+             score -= 5.0 # Penalty for strong mismatch if preferences are strong
+
+        # Category preference score (from history, lower weight than explicit)
         category_prefs = user_prefs.get('category_preferences', {})
         category = menu_item.get('category', '')
-        if category in category_prefs:
-            score += category_prefs[category] * 0.8
-        
-        # Spice preference score
-        spice_prefs = user_prefs.get('spice_preferences', {})
-        spice_level = menu_item.get('spice_level', '')
-        if spice_level in spice_prefs:
-            score += spice_prefs[spice_level] * 0.3
+        score += category_prefs.get(category, 0) * 0.2 # Lower weight for historical category
 
-        return score
+        return max(0, score)
 
     async def get_popular_items(self, limit: int = 20):
         """Get popular menu items as fallback recommendations"""
@@ -696,62 +773,103 @@ async def get_restaurant_recommendations_for_chat(message: str, user_context: Di
         logging.error(f"Error getting restaurant recommendations: {e}")
         return []
 
-async def process_with_gemini(message: str, user_context: Dict = None, include_restaurants: bool = True):
-    """Process message with ultra-brief, action-focused responses"""
-    
-    # Simple keyword-based responses for faster, more predictable behavior
-    message_lower = message.lower()
+async def process_with_gemini(message: str, user_context: Dict = None, recommended_items: List = [], restaurants: List = []):
+    """Process message with Gemini, making it more dynamic and language-aware"""
+
     username = user_context.get('username', 'User')
-    
-    # Direct food requests
-    if any(word in message_lower for word in ['hungry', 'eat', 'food', 'order']):
-        return f"🍽️ Perfect! Here are great options for you:"
-    
-    # Recommendation requests
-    if any(word in message_lower for word in ['recommend', 'suggestion', 'suggest']):
-        return f"✨ Here are my top recommendations based on your taste:"
-    
-    # Specific cuisine requests with emojis
-    if 'biryani' in message_lower or 'pakistani' in message_lower:
-        return f"🍛 Excellent choice! Best Pakistani options:"
-    
-    if 'chinese' in message_lower or 'chowmein' in message_lower:
-        return f"🥢 Great! Top Chinese restaurants:"
-    
-    if 'fast food' in message_lower or 'burger' in message_lower:
-        return f"🍔 Perfect! Fast food favorites:"
-    
-    if any(word in message_lower for word in ['dessert', 'sweet', 'cake', 'ice cream', 'kulfi']):
-        return f"🍰 Sweet cravings? Here are the best dessert spots:"
-    
-    if 'japanese' in message_lower or 'sushi' in message_lower:
-        return f"🍱 Fantastic! Authentic Japanese cuisine:"
-    
-    if 'thai' in message_lower or 'pad thai' in message_lower:
-        return f"🍜 Wonderful! Best Thai restaurants:"
-    
-    if 'bbq' in message_lower or 'tikka' in message_lower or 'kebab' in message_lower:
-        return f"🥩 Great choice! Top BBQ spots:"
-    
-    if 'indian' in message_lower or 'curry' in message_lower:
-        return f"🍛 Excellent! Best Indian options:"
-    
-    if 'italian' in message_lower or 'pasta' in message_lower or 'pizza' in message_lower:
-        return f"🍝 Delizioso! Italian favorites:"
-    
-    if 'mexican' in message_lower or 'taco' in message_lower:
-        return f"🌮 Olé! Mexican delights:"
-    
-    # Order confirmation requests
-    if any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order']):
-        return f"✅ Perfect! I'll place this order for you right now!"
-    
-    # Budget requests
-    if any(word in message_lower for word in ['budget', 'cheap', 'affordable']):
-        return f"💰 Great value meals under PKR 500:"
-    
-    # Default friendly response
-    return f"Hi {username}! 👋 Try: 'I'm hungry' or 'recommend me something' for instant help!"
+    lang = detect_language(message)
+    response_instruction = f"Respond CONCISELY in {lang}." if lang == 'ur' else "Respond CONCISELY in English."
+
+    # Build context string for Gemini
+    context_parts = [f"User: {username}"]
+    if user_context.get('favorite_cuisines'):
+        context_parts.append(f"Prefers: {', '.join(user_context['favorite_cuisines'])}")
+    if user_context.get('spice_preference'):
+        context_parts.append(f"Spice Level: {user_context['spice_preference']}")
+    if user_context.get('dietary_restrictions'):
+        context_parts.append(f"Dietary Needs: {', '.join(user_context['dietary_restrictions'])}")
+
+    gemini_context = ". ".join(context_parts)
+
+    # Prepare recommendations string if available
+    recs_string = ""
+    if recommended_items:
+        recs_string += "Here are some specific items you might like:\n"
+        for item in recommended_items[:3]: # Show top 3 items
+             recs_string += f"- {item.get('name', 'Unknown Item')} from {item.get('restaurant_name', 'Unknown Restaurant')} (PKR {item.get('price', 'N/A')})\n"
+    elif restaurants:
+        recs_string += "Here are some restaurants based on your request:\n"
+        for r in restaurants[:3]:
+             recs_string += f"- {r.get('name', 'Unknown Restaurant')} ({', '.join(r.get('cuisine',[]))})\n"
+
+    # Construct the prompt
+    prompt = f"""
+    You are a friendly and concise food ordering assistant for Voice Guide in Karachi.
+    User Context: {gemini_context}.
+    User's message: "{message}"
+
+    Instructions:
+    1. Understand the user's request (order, recommendation, general chat).
+    2. If the user asks for recommendations or expresses hunger/mood for food, and specific items/restaurants were found ({bool(recommended_items or restaurants)}), briefly mention them like this: {recs_string if recs_string else "Mention the found items/restaurants"}.
+    3. If no specific items/restaurants were found but the user asked for food, acknowledge the request and suggest alternatives based on their preferences (e.g., "I couldn't find exactly that, but since you like [preference], how about trying..."). If no preferences, suggest popular options like Biryani or Burgers.
+    4. If it's a general greeting or non-food query, respond conversationally and briefly.
+    5. If the user asks to order something specific mentioned in the items/restaurants found, confirm you can help place the order (e.g., "Sure, I can help you order [Item Name]!"). The backend will handle the actual order card display.
+    6. Always use Pakistani Rupees (PKR) for currency.
+    7. {response_instruction} Keep responses very short (1-2 sentences).
+    """
+
+    try:
+        logging.info(f"Sending prompt to Gemini (lang={lang}): {prompt[:200]}...") # Log truncated prompt
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        safety_settings = {
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        }
+        response = await asyncio.to_thread(
+             model.generate_content,
+             prompt,
+             generation_config=genai.types.GenerationConfig(
+                  temperature=0.6, # Slightly less creative for consistency
+                  max_output_tokens=100 # Keep it concise
+             ),
+             safety_settings=safety_settings
+        )
+        # Handle potential safety blocks or empty responses
+        if not response.parts:
+             block_reason = "Unknown"
+             safety_ratings = "N/A"
+             if response.prompt_feedback and response.prompt_feedback.block_reason:
+                 block_reason = response.prompt_feedback.block_reason
+                 safety_ratings = response.prompt_feedback.safety_ratings
+             logging.warning("Gemini response has no parts (potentially blocked).")
+             # Provide a safe fallback based on language
+             if lang == 'ur':
+                  return "معاف کیجئے گا، میں اس وقت مدد نہیں کر سکتا۔ کیا آپ کچھ اور آزمانا چاہیں گے؟" # Sorry, I cannot assist right now. Would you like to try something else?
+             else:
+                  return "Sorry, I couldn't process that request right now. Could you please rephrase or try asking for recommendations?"
+        
+        generated_text = response.text.strip()
+        logging.info(f"Gemini response: {generated_text}")
+        
+        # Simple fallback if Gemini gives an unexpectedly empty response
+        if not generated_text:
+             logging.warning("Gemini returned empty text.")
+             if lang == 'ur':
+                 return "میں آپ کی درخواست سمجھ نہیں پایا۔ کیا آپ دوبارہ کوشش کر سکتے ہیں؟" # I didn't understand your request. Can you try again?
+             else:
+                 return "I didn't quite catch that. Could you try asking in a different way?"
+                 
+        return generated_text
+
+    except Exception as e:
+        logging.error(f"Error calling Gemini: {e}")
+        # Fallback response on error
+        if lang == 'ur':
+            return "معذرت، کچھ غلط ہو گیا۔ براہ کرم دوبارہ کوشش کریں।" # Sorry, something went wrong. Please try again.
+        else:
+            return "Apologies, something went wrong. Please try again."
 
 # --- API Routes ---
 
@@ -1281,7 +1399,7 @@ async def chat_with_assistant(
     chat_request: ChatRequest,
     current_user: User = Depends(get_current_user)
 ):
-    # Get user context for better responses
+    # Get user context
     user_context = {
         "user_id": current_user.id,
         "username": current_user.username,
@@ -1289,33 +1407,30 @@ async def chat_with_assistant(
         "dietary_restrictions": current_user.dietary_restrictions,
         "spice_preference": current_user.spice_preference,
         "preferences_set": current_user.preferences_set,
-        "default_address": None
+        "default_address": None,
+        # Pass explicit preferences directly for Gemini context
+        "explicit_preferences": {
+             "favorite_cuisines": current_user.favorite_cuisines,
+             "dietary_restrictions": current_user.dietary_restrictions,
+             "spice_preference": current_user.spice_preference,
+        }
     }
-    
-    # Check if user has default address
     for address in current_user.addresses:
         if address.get('is_default'):
             user_context['default_address'] = address
             break
-    
+
     message_lower = chat_request.message.lower()
-    
-    # Handle direct order requests
-    if any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order']):
-        return await handle_direct_order_request(current_user, chat_request.message)
-    
-    # Get restaurant recommendations and menu items for food requests
-    restaurants = []
-    recommended_items = []
-    show_order_card = False
-    
-    # Comprehensive cuisine keywords
+    lang = detect_language(chat_request.message)
+
+    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest', 'want', 'show', 'mood for']
+
     cuisine_keywords = {
         'pakistani': ['Pakistani'], 'biryani': ['Pakistani'], 'karahi': ['Pakistani'],
         'chinese': ['Chinese'], 'chowmein': ['Chinese'], 'fried rice': ['Chinese'],
-        'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'], 
+        'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'],
         'bbq': ['BBQ'], 'kebab': ['BBQ'], 'tikka': ['BBQ'],
-        'dessert': ['Desserts'], 'desserts': ['Desserts'], 'sweet': ['Desserts'], 'sweets': ['Desserts'], 
+        'dessert': ['Desserts'], 'desserts': ['Desserts'], 'sweet': ['Desserts'], 'sweets': ['Desserts'],
         'ice cream': ['Desserts'], 'cake': ['Desserts'],
         'japanese': ['Japanese'], 'sushi': ['Japanese'], 'ramen': ['Japanese'],
         'thai': ['Thai'], 'pad thai': ['Thai'], 'curry': ['Thai'],
@@ -1323,56 +1438,76 @@ async def chat_with_assistant(
         'italian': ['Italian'], 'pasta': ['Italian'],
         'mexican': ['Mexican'], 'taco': ['Mexican']
     }
-    
-    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest', 'want', 'show']
-    
-    if any(keyword in message_lower for keyword in food_keywords) or any(keyword in message_lower for keyword in cuisine_keywords.keys()):
-        restaurants = await get_restaurant_recommendations_for_chat(chat_request.message, user_context)
-        
-        # Detect cuisines from message
+
+    # Determine intent (simplified)
+    is_food_request = any(keyword in message_lower for keyword in food_keywords + list(cuisine_keywords.keys()))
+    is_order_intent = any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order', 'get this'])
+
+    restaurants = []
+    recommended_items = []
+    show_order_card = False
+
+    if is_order_intent:
+        # If user confirms an order, backend logic handles showing card via `handle_direct_order_request`
+        # We just need Gemini to provide confirmation text.
+        pass # Let Gemini handle confirmation based on prompt
+    elif is_food_request:
+        logging.info(f"Food request detected for: '{chat_request.message}'")
+        # Detect specific cuisines requested
         detected_cuisines = []
         for keyword, cuisines in cuisine_keywords.items():
             if keyword in message_lower:
                 detected_cuisines.extend(cuisines)
-        
-        # Remove duplicates
         detected_cuisines = list(set(detected_cuisines))
-        
-        # If no specific cuisine detected but user asks for food/recommendations, use their preferences
-        if not detected_cuisines and any(word in message_lower for word in ['hungry', 'recommend', 'suggestion', 'food', 'eat']):
-            user_prefs = current_user.favorite_cuisines
-            if user_prefs:
-                detected_cuisines = user_prefs[:3]  # Use top 3 preferences
-        
-        # Get menu items for detected cuisines
+
+        # Use preferences if no specific cuisine detected or general request
+        if not detected_cuisines and any(word in message_lower for word in ['hungry', 'recommend', 'suggestion', 'food', 'eat', 'mood for']):
+             if current_user.favorite_cuisines:
+                 detected_cuisines = current_user.favorite_cuisines[:3] # Use top 3 preferences
+                 logging.info(f"Using user preferences for cuisines: {detected_cuisines}")
+             else:
+                 # Fallback if no preferences set
+                 detected_cuisines = ["Pakistani", "Fast Food"] # Default popular fallback
+                 logging.info(f"No user preferences, using default fallback: {detected_cuisines}")
+
+
+        # Get menu items using the preference-aware function
         if detected_cuisines:
             recommended_items = await get_menu_items_by_cuisine(
-                detected_cuisines, 
+                detected_cuisines,
                 limit=3,
-                user_preferences={
-                    'favorite_cuisines': current_user.favorite_cuisines,
-                    'spice_preference': current_user.spice_preference
-                }
+                user_preferences=user_context['explicit_preferences'] # Pass explicit prefs for scoring
             )
-            show_order_card = len(recommended_items) > 0
-    
-    # Process with ultra-brief response
-    response = await process_with_gemini(chat_request.message, user_context)
-    
+            # Fetch associated restaurants if items were found
+            if recommended_items:
+                 restaurant_ids = list(set(item['restaurant_id'] for item in recommended_items))
+                 restaurants_cursor = db.restaurants.find({"id": {"$in": restaurant_ids}}, {"_id": 0})
+                 restaurants = await restaurants_cursor.to_list(None)
+
+            show_order_card = len(recommended_items) > 0 # Show card only if specific items found
+
+
+    # Process with Gemini (passing fetched items/restaurants for context)
+    response_text = await process_with_gemini(
+         chat_request.message,
+         user_context,
+         recommended_items,
+         restaurants
+    )
+
     # Save chat message
     chat_message = ChatMessage(
         user_id=current_user.id,
         message=chat_request.message,
-        response=response,
+        response=response_text,
         session_id=chat_request.session_id or str(uuid.uuid4())
     )
-    
     await db.chat_messages.insert_one(chat_message.dict())
-    
+
     return {
-        "response": response,
-        "restaurants": restaurants,
-        "recommended_items": recommended_items,
+        "response": response_text,
+        "restaurants": restaurants, # Return restaurants for potential card display (frontend logic decides)
+        "recommended_items": recommended_items, # Return specific items for the order card
         "show_order_card": show_order_card,
         "has_default_address": user_context['default_address'] is not None,
         "default_address": user_context['default_address'],
@@ -1426,7 +1561,7 @@ async def get_menu_items_by_cuisine(cuisines: List[str], limit: int = 3, user_pr
         if not cuisines:
             return []
         
-        logging.info(f"Searching for cuisines: {cuisines}")
+        logging.info(f"get_menu_items_by_cuisine called with: Cuisines={cuisines}, Limit={limit}, UserPrefs provided: {bool(user_preferences)}")
         
         # Comprehensive cuisine mapping for tags and keywords
         cuisine_mapping = {
@@ -1557,10 +1692,20 @@ async def get_menu_items_by_cuisine(cuisines: List[str], limit: int = 3, user_pr
                 
                 # Add rating boost
                 score += item.get('average_rating', 0) * 2
+
             else:
-                # Default scoring by rating and popularity
-                score = item.get('average_rating', 0) * 2 + item.get('popularity_score', 0)
+                # Default scoring by calling the recommendation engine with an empty explicit preferences dict
+                temp_user_prefs_vector = {
+                    'explicit_preferences': {},
+                    'cuisine_preferences': {},
+                    'category_preferences': {},
+                    'spice_preferences': {}
+                }
+                score = recommendation_engine.calculate_content_score(item, temp_user_prefs_vector)
+                logging.debug(f"Scored item '{item.get('name')}' with score: {score} without user prefs.")
             
+            # Add general popularity boost and finalize preference score
+            score += item.get('popularity_score', 0)
             item['preference_score'] = score
         
         # Sort by preference score

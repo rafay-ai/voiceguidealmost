@@ -1,0 +1,3769 @@
+[{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4581"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic basmati rice with tender chicken pieces, traditional spices",
+  "price": 350,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "popular",
+    "spicy"
+  ],
+  "popularityScore": 0.38238604826094547,
+  "orderCount": 135,
+  "averageRating": 4.6,
+  "ratingCount": 60,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4582"
+  },
+  "name": "Mutton Biryani",
+  "description": "Premium mutton pieces with fragrant rice and authentic spices",
+  "price": 450,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "premium",
+    "traditional"
+  ],
+  "popularityScore": 0.42470253796907137,
+  "orderCount": 71,
+  "averageRating": 3.7,
+  "ratingCount": 102,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4583"
+  },
+  "name": "Student Special Biryani",
+  "description": "House special with chicken, mutton, and boiled egg",
+  "price": 420,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "special",
+    "popular"
+  ],
+  "popularityScore": 0.9985752387309612,
+  "orderCount": 85,
+  "averageRating": 4.9,
+  "ratingCount": 109,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4584"
+  },
+  "name": "Prawn Biryani",
+  "description": "Fresh prawns with aromatic rice and coastal spices",
+  "price": 500,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "seafood",
+    "special"
+  ],
+  "popularityScore": 0.674116286515988,
+  "orderCount": 76,
+  "averageRating": 4.5,
+  "ratingCount": 91,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4585"
+  },
+  "name": "Raita",
+  "description": "Cool yogurt with cucumber and mint",
+  "price": 80,
+  "category": "appetizer",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "cooling",
+    "vegetarian"
+  ],
+  "popularityScore": 0.2903192891905393,
+  "orderCount": 105,
+  "averageRating": 4.8,
+  "ratingCount": 112,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.180Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4588"
+  },
+  "name": "Zinger Burger",
+  "description": "Spicy fried chicken fillet with mayo and lettuce",
+  "price": 320,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "spicy",
+    "popular"
+  ],
+  "popularityScore": 0.6060815409276424,
+  "orderCount": 169,
+  "averageRating": 4,
+  "ratingCount": 109,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4589"
+  },
+  "name": "Krunch Burger",
+  "description": "Crispy chicken with spicy mayo",
+  "price": 180,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 10,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "budget",
+    "crispy"
+  ],
+  "popularityScore": 0.5743824981111958,
+  "orderCount": 182,
+  "averageRating": 3.8,
+  "ratingCount": 68,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a458a"
+  },
+  "name": "Hot Wings",
+  "description": "6 pieces of spicy chicken wings",
+  "price": 450,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 12,
+  "spiceLevel": "very_hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "wings",
+    "popular"
+  ],
+  "popularityScore": 0.7243379881500807,
+  "orderCount": 187,
+  "averageRating": 3.5,
+  "ratingCount": 111,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a458b"
+  },
+  "name": "Family Bucket",
+  "description": "12 pieces of chicken with fries and drinks",
+  "price": 1200,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "family",
+    "combo",
+    "sharing"
+  ],
+  "popularityScore": 0.3316400423580584,
+  "orderCount": 94,
+  "averageRating": 3.9,
+  "ratingCount": 24,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a458c"
+  },
+  "name": "Chicken Pieces (2 pcs)",
+  "description": "Original recipe chicken pieces",
+  "price": 280,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 10,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "original",
+    "crispy"
+  ],
+  "popularityScore": 0.2338118925970422,
+  "orderCount": 220,
+  "averageRating": 3.8,
+  "ratingCount": 69,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a458d"
+  },
+  "name": "Regular Fries",
+  "description": "Golden crispy potato fries",
+  "price": 120,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side",
+    "vegetarian"
+  ],
+  "popularityScore": 0.572427902476219,
+  "orderCount": 72,
+  "averageRating": 4.6,
+  "ratingCount": 33,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.186Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a458f"
+  },
+  "name": "Chicken Fajita Pizza (Medium)",
+  "description": "Chicken strips with peppers and onions",
+  "price": 950,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "pizza",
+    "chicken",
+    "popular"
+  ],
+  "popularityScore": 0.47983833761400024,
+  "orderCount": 176,
+  "averageRating": 3.7,
+  "ratingCount": 43,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4590"
+  },
+  "name": "Chicken Tikka Pizza (Medium)",
+  "description": "Desi-style chicken tikka with local spices",
+  "price": 1050,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "pizza",
+    "local",
+    "spicy"
+  ],
+  "popularityScore": 0.32219459668486206,
+  "orderCount": 63,
+  "averageRating": 4.8,
+  "ratingCount": 56,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4591"
+  },
+  "name": "Chicken Supreme (Medium)",
+  "description": "Loaded pizza with chicken, peppers, and cheese",
+  "price": 1150,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "pizza",
+    "loaded",
+    "premium"
+  ],
+  "popularityScore": 0.7135889199862919,
+  "orderCount": 180,
+  "averageRating": 4.2,
+  "ratingCount": 104,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4592"
+  },
+  "name": "Vegetable Pizza (Medium)",
+  "description": "Fresh vegetables with mozzarella cheese",
+  "price": 850,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "pizza",
+    "vegetarian",
+    "healthy"
+  ],
+  "popularityScore": 0.7228088226315048,
+  "orderCount": 123,
+  "averageRating": 3.1,
+  "ratingCount": 91,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4593"
+  },
+  "name": "Garlic Bread",
+  "description": "Crispy bread with garlic butter",
+  "price": 280,
+  "category": "appetizer",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 10,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "appetizer",
+    "bread",
+    "vegetarian"
+  ],
+  "popularityScore": 0.36944836660977604,
+  "orderCount": 82,
+  "averageRating": 4.5,
+  "ratingCount": 91,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4594"
+  },
+  "name": "Chicken Wings (6 pcs)",
+  "description": "BBQ glazed chicken wings",
+  "price": 520,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "wings",
+    "bbq",
+    "appetizer"
+  ],
+  "popularityScore": 0.5516160399135264,
+  "orderCount": 212,
+  "averageRating": 4.7,
+  "ratingCount": 28,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.201Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4596"
+  },
+  "name": "Big Mac",
+  "description": "Two beef patties with special sauce",
+  "price": 420,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 12,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "beef",
+    "classic"
+  ],
+  "popularityScore": 0.5660287384967524,
+  "orderCount": 133,
+  "averageRating": 4.5,
+  "ratingCount": 16,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4597"
+  },
+  "name": "McArabia Chicken",
+  "description": "Grilled chicken in pita bread with vegetables",
+  "price": 350,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 10,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "healthy",
+    "grilled",
+    "local"
+  ],
+  "popularityScore": 0.6933118955129564,
+  "orderCount": 174,
+  "averageRating": 3.5,
+  "ratingCount": 27,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4598"
+  },
+  "name": "Chicken McNuggets (6 pcs)",
+  "description": "Crispy chicken nuggets",
+  "price": 280,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "kids",
+    "popular"
+  ],
+  "popularityScore": 0.46905766041957553,
+  "orderCount": 87,
+  "averageRating": 4.9,
+  "ratingCount": 47,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4599"
+  },
+  "name": "Quarter Pounder",
+  "description": "Quarter pound beef patty with cheese",
+  "price": 480,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "beef",
+    "cheese",
+    "premium"
+  ],
+  "popularityScore": 0.35260034100459703,
+  "orderCount": 87,
+  "averageRating": 4.8,
+  "ratingCount": 49,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a459a"
+  },
+  "name": "McFlurry Oreo",
+  "description": "Vanilla ice cream with Oreo cookies",
+  "price": 220,
+  "category": "dessert",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "dessert",
+    "cold",
+    "sweet"
+  ],
+  "popularityScore": 0.8320712548070361,
+  "orderCount": 192,
+  "averageRating": 4.8,
+  "ratingCount": 82,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a459b"
+  },
+  "name": "French Fries (Medium)",
+  "description": "Golden McDonald's fries",
+  "price": 150,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side",
+    "classic"
+  ],
+  "popularityScore": 0.2587555274003693,
+  "orderCount": 101,
+  "averageRating": 4.3,
+  "ratingCount": 88,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.207Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a459d"
+  },
+  "name": "Seekh Kebab (6 pcs)",
+  "description": "Grilled minced meat skewers with traditional spices",
+  "price": 320,
+  "category": "kebab",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "grilled",
+    "signature",
+    "protein-rich"
+  ],
+  "popularityScore": 0.9852673411538893,
+  "orderCount": 207,
+  "averageRating": 3.5,
+  "ratingCount": 79,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a459e"
+  },
+  "name": "Chicken Karahi (Full)",
+  "description": "Chicken cooked in traditional wok with tomatoes and spices",
+  "price": 650,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "spicy",
+    "family-size"
+  ],
+  "popularityScore": 0.3378289897052323,
+  "orderCount": 170,
+  "averageRating": 4.5,
+  "ratingCount": 30,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a459f"
+  },
+  "name": "Mutton Karahi (Full)",
+  "description": "Premium mutton in rich tomato-based curry",
+  "price": 850,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 35,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "premium",
+    "traditional",
+    "rich"
+  ],
+  "popularityScore": 0.23812795284699836,
+  "orderCount": 57,
+  "averageRating": 3.5,
+  "ratingCount": 23,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a0"
+  },
+  "name": "Chicken Tikka (8 pcs)",
+  "description": "Marinated chicken pieces grilled to perfection",
+  "price": 380,
+  "category": "kebab",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 18,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "grilled",
+    "marinated",
+    "popular"
+  ],
+  "popularityScore": 0.55694695980996,
+  "orderCount": 39,
+  "averageRating": 3.9,
+  "ratingCount": 42,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a1"
+  },
+  "name": "Mixed Grill",
+  "description": "Assortment of kebabs and grilled items",
+  "price": 950,
+  "category": "kebab",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "variety",
+    "grilled",
+    "sharing"
+  ],
+  "popularityScore": 0.48952898576863135,
+  "orderCount": 166,
+  "averageRating": 4.5,
+  "ratingCount": 100,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.212Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a2"
+  },
+  "name": "Naan",
+  "description": "Traditional tandoor bread",
+  "price": 60,
+  "category": "bread",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "bread",
+    "tandoor"
+  ],
+  "popularityScore": 0.4987518570165243,
+  "orderCount": 43,
+  "averageRating": 4.8,
+  "ratingCount": 89,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.213Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.213Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a4"
+  },
+  "name": "Peri-Peri Chicken (Full)",
+  "description": "Grilled chicken with peri-peri sauce",
+  "price": 680,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "grilled",
+    "spicy",
+    "signature"
+  ],
+  "popularityScore": 0.9974998136094633,
+  "orderCount": 212,
+  "averageRating": 3.6,
+  "ratingCount": 107,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a5"
+  },
+  "name": "Chicken Wings (6 pcs)",
+  "description": "Wings with peri-peri marinade",
+  "price": 520,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "very_hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "wings",
+    "spicy",
+    "grilled"
+  ],
+  "popularityScore": 0.21441914004731866,
+  "orderCount": 133,
+  "averageRating": 3.8,
+  "ratingCount": 80,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a6"
+  },
+  "name": "Chicken Wrap",
+  "description": "Peri-peri chicken in a soft wrap",
+  "price": 420,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "wrap",
+    "convenient",
+    "spicy"
+  ],
+  "popularityScore": 0.27939318261521484,
+  "orderCount": 110,
+  "averageRating": 3.7,
+  "ratingCount": 25,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a7"
+  },
+  "name": "Peri-Peri Chips",
+  "description": "Spiced potato chips with peri-peri seasoning",
+  "price": 180,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 10,
+  "spiceLevel": "medium",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "side",
+    "vegetarian"
+  ],
+  "popularityScore": 0.5258176307420663,
+  "orderCount": 46,
+  "averageRating": 3.1,
+  "ratingCount": 33,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.217Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45a9"
+  },
+  "name": "Chicken Fried Rice",
+  "description": "Wok-fried rice with chicken and vegetables",
+  "price": 420,
+  "category": "rice",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "chinese",
+    "rice",
+    "chicken"
+  ],
+  "popularityScore": 0.8048147090347844,
+  "orderCount": 223,
+  "averageRating": 4.1,
+  "ratingCount": 50,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45aa"
+  },
+  "name": "Sweet and Sour Chicken",
+  "description": "Crispy chicken in sweet and sour sauce",
+  "price": 520,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "chinese",
+    "sweet",
+    "crispy"
+  ],
+  "popularityScore": 0.5076886850971334,
+  "orderCount": 40,
+  "averageRating": 3,
+  "ratingCount": 42,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ab"
+  },
+  "name": "Chicken Chowmein",
+  "description": "Stir-fried noodles with chicken and vegetables",
+  "price": 380,
+  "category": "rice",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 18,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "noodles",
+    "stir-fry",
+    "chinese"
+  ],
+  "popularityScore": 0.7993017186294131,
+  "orderCount": 212,
+  "averageRating": 4.4,
+  "ratingCount": 104,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ac"
+  },
+  "name": "Beef with Black Bean Sauce",
+  "description": "Tender beef in savory black bean sauce",
+  "price": 580,
+  "category": "beef",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 22,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "beef",
+    "sauce",
+    "chinese"
+  ],
+  "popularityScore": 0.4363841165247886,
+  "orderCount": 198,
+  "averageRating": 3.2,
+  "ratingCount": 91,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ad"
+  },
+  "name": "Vegetable Spring Rolls (4 pcs)",
+  "description": "Crispy rolls with fresh vegetables",
+  "price": 250,
+  "category": "appetizer",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 12,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "appetizer",
+    "crispy",
+    "vegetarian"
+  ],
+  "popularityScore": 0.965106024966204,
+  "orderCount": 98,
+  "averageRating": 4,
+  "ratingCount": 105,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.220Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45af"
+  },
+  "name": "Chicken Teriyaki Sub (6 inch)",
+  "description": "Grilled chicken with teriyaki sauce",
+  "price": 380,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 12,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "sub",
+    "healthy",
+    "grilled"
+  ],
+  "popularityScore": 0.46601735996105326,
+  "orderCount": 164,
+  "averageRating": 3.1,
+  "ratingCount": 93,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b0"
+  },
+  "name": "Turkey Breast Sub (6 inch)",
+  "description": "Sliced turkey with fresh vegetables",
+  "price": 420,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 10,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "sub",
+    "turkey",
+    "healthy"
+  ],
+  "popularityScore": 0.3516788428070641,
+  "orderCount": 121,
+  "averageRating": 4.3,
+  "ratingCount": 39,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b1"
+  },
+  "name": "Veggie Delite (6 inch)",
+  "description": "Fresh vegetables and cheese",
+  "price": 280,
+  "category": "vegetarian",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "vegetarian",
+    "healthy",
+    "fresh"
+  ],
+  "popularityScore": 0.9345274412554447,
+  "orderCount": 93,
+  "averageRating": 4.1,
+  "ratingCount": 62,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b2"
+  },
+  "name": "Chicken Tikka Sub (6 inch)",
+  "description": "Pakistani-style chicken tikka in sub",
+  "price": 450,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "local",
+    "spicy",
+    "fusion"
+  ],
+  "popularityScore": 0.8741652625950154,
+  "orderCount": 76,
+  "averageRating": 4.9,
+  "ratingCount": 81,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.224Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b4"
+  },
+  "name": "Gulab Jamun (4 pcs)",
+  "description": "Traditional milk solid balls in sugar syrup",
+  "price": 150,
+  "category": "dessert",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "sweet",
+    "popular"
+  ],
+  "popularityScore": 0.7209334348012983,
+  "orderCount": 207,
+  "averageRating": 4.2,
+  "ratingCount": 111,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b5"
+  },
+  "name": "Ras Malai (4 pcs)",
+  "description": "Cottage cheese dumplings in milk",
+  "price": 180,
+  "category": "dessert",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "milk",
+    "sweet"
+  ],
+  "popularityScore": 0.3843380279067198,
+  "orderCount": 193,
+  "averageRating": 3.6,
+  "ratingCount": 44,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b6"
+  },
+  "name": "Kheer (1 bowl)",
+  "description": "Traditional rice pudding with nuts",
+  "price": 120,
+  "category": "dessert",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "rice",
+    "nuts"
+  ],
+  "popularityScore": 0.7736768432692613,
+  "orderCount": 221,
+  "averageRating": 4.5,
+  "ratingCount": 65,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b7"
+  },
+  "name": "Halwa (250g)",
+  "description": "Traditional semolina dessert",
+  "price": 200,
+  "category": "dessert",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "semolina",
+    "rich"
+  ],
+  "popularityScore": 0.866289703240037,
+  "orderCount": 167,
+  "averageRating": 5,
+  "ratingCount": 44,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.228Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45b9"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 366,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.20123382293906789,
+  "orderCount": 96,
+  "averageRating": 3.7,
+  "ratingCount": 85,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.233Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.233Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ba"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 544,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.8878854232483344,
+  "orderCount": 43,
+  "averageRating": 3.4,
+  "ratingCount": 54,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.233Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.233Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45bc"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 373,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.9551468640395544,
+  "orderCount": 150,
+  "averageRating": 3.4,
+  "ratingCount": 87,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45bd"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 512,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.726724665043847,
+  "orderCount": 88,
+  "averageRating": 4.4,
+  "ratingCount": 36,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45be"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 307,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.24065198183866895,
+  "orderCount": 82,
+  "averageRating": 3.8,
+  "ratingCount": 25,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45bf"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 528,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.5621436251766911,
+  "orderCount": 111,
+  "averageRating": 3.9,
+  "ratingCount": 76,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c1"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 358,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.3597588735483692,
+  "orderCount": 36,
+  "averageRating": 4.2,
+  "ratingCount": 67,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c2"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 632,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.5901871058328283,
+  "orderCount": 42,
+  "averageRating": 3.8,
+  "ratingCount": 46,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c3"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 375,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.9455693221921158,
+  "orderCount": 133,
+  "averageRating": 4.9,
+  "ratingCount": 76,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c4"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 635,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.835945410619269,
+  "orderCount": 77,
+  "averageRating": 3.4,
+  "ratingCount": 45,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c5"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 275,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.7206191040554311,
+  "orderCount": 30,
+  "averageRating": 4.9,
+  "ratingCount": 42,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.240Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c6"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 128,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.3906262067523123,
+  "orderCount": 28,
+  "averageRating": 3.6,
+  "ratingCount": 35,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.241Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.241Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c8"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 370,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.7351544579437899,
+  "orderCount": 131,
+  "averageRating": 4.7,
+  "ratingCount": 76,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45c9"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 511,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.6749838461703161,
+  "orderCount": 68,
+  "averageRating": 3.1,
+  "ratingCount": 64,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ca"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 331,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.7282971189065794,
+  "orderCount": 67,
+  "averageRating": 4.2,
+  "ratingCount": 76,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45cb"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 661,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.6448840901941617,
+  "orderCount": 82,
+  "averageRating": 4,
+  "ratingCount": 33,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.245Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45cd"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 397,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4568"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.5350982200232193,
+  "orderCount": 62,
+  "averageRating": 4.6,
+  "ratingCount": 17,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.247Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.247Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ce"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 515,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4568"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.5003962250583973,
+  "orderCount": 169,
+  "averageRating": 3.2,
+  "ratingCount": 71,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.248Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.248Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d0"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 308,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456c"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.4468512119768477,
+  "orderCount": 74,
+  "averageRating": 3.4,
+  "ratingCount": 85,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d1"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 151,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456c"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.595598291119604,
+  "orderCount": 65,
+  "averageRating": 3.8,
+  "ratingCount": 27,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d2"
+  },
+  "name": "Chicken Pizza",
+  "description": "Delicious pizza with chicken toppings",
+  "price": 945,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456c"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "pizza",
+    "chicken"
+  ],
+  "popularityScore": 0.7808074868064152,
+  "orderCount": 28,
+  "averageRating": 4.7,
+  "ratingCount": 36,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d3"
+  },
+  "name": "Chicken Pizza",
+  "description": "Delicious pizza with chicken toppings",
+  "price": 718,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456c"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "pizza",
+    "chicken"
+  ],
+  "popularityScore": 0.22491546043315652,
+  "orderCount": 158,
+  "averageRating": 4.7,
+  "ratingCount": 39,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.251Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d5"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 328,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.7730680760929465,
+  "orderCount": 31,
+  "averageRating": 4.2,
+  "ratingCount": 56,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.254Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.254Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d6"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 169,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.6901624300641862,
+  "orderCount": 110,
+  "averageRating": 4.1,
+  "ratingCount": 81,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.255Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.255Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d7"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 309,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.5323089636038791,
+  "orderCount": 86,
+  "averageRating": 3.6,
+  "ratingCount": 19,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.255Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.255Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45d8"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 150,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.6311972470841147,
+  "orderCount": 137,
+  "averageRating": 4.6,
+  "ratingCount": 40,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.255Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.255Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45da"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 250,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.4088220206966149,
+  "orderCount": 124,
+  "averageRating": 3.3,
+  "ratingCount": 70,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45db"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 166,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.8483031448289962,
+  "orderCount": 63,
+  "averageRating": 3.6,
+  "ratingCount": 15,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45dc"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 334,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.795863904680493,
+  "orderCount": 79,
+  "averageRating": 4,
+  "ratingCount": 25,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45dd"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 133,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.4831173832480593,
+  "orderCount": 105,
+  "averageRating": 4.7,
+  "ratingCount": 36,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.259Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45df"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 345,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.5454967329420135,
+  "orderCount": 126,
+  "averageRating": 3.4,
+  "ratingCount": 54,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e0"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 122,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.25742356310789793,
+  "orderCount": 21,
+  "averageRating": 3.5,
+  "ratingCount": 85,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e1"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 381,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.21378343644917897,
+  "orderCount": 134,
+  "averageRating": 3.4,
+  "ratingCount": 66,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e2"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 585,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.6951562903766586,
+  "orderCount": 30,
+  "averageRating": 4.2,
+  "ratingCount": 62,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.263Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e4"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 319,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.9831787149716227,
+  "orderCount": 167,
+  "averageRating": 3.7,
+  "ratingCount": 15,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e5"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 145,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.9274412802346217,
+  "orderCount": 124,
+  "averageRating": 3.4,
+  "ratingCount": 38,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e6"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 283,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.6881516414470346,
+  "orderCount": 36,
+  "averageRating": 4.1,
+  "ratingCount": 35,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e7"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 161,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.39181680645907185,
+  "orderCount": 83,
+  "averageRating": 4.5,
+  "ratingCount": 29,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e8"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 388,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.8511003650155919,
+  "orderCount": 37,
+  "averageRating": 3.7,
+  "ratingCount": 60,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45e9"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 513,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.7711702638046753,
+  "orderCount": 149,
+  "averageRating": 4.6,
+  "ratingCount": 71,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.267Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45eb"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 316,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.5395799680840185,
+  "orderCount": 112,
+  "averageRating": 4.5,
+  "ratingCount": 52,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ec"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 649,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.5808347042669771,
+  "orderCount": 70,
+  "averageRating": 3.7,
+  "ratingCount": 56,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ed"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 307,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.35845937454191135,
+  "orderCount": 78,
+  "averageRating": 4.9,
+  "ratingCount": 23,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ee"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 590,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.37822694760427855,
+  "orderCount": 82,
+  "averageRating": 4.9,
+  "ratingCount": 84,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f0"
+  },
+  "name": "Chicken Fried Rice",
+  "description": "Wok-fried rice with chicken and vegetables",
+  "price": 438,
+  "category": "rice",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "chinese",
+    "rice"
+  ],
+  "popularityScore": 0.24078344670991358,
+  "orderCount": 85,
+  "averageRating": 3.1,
+  "ratingCount": 13,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.274Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.274Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f1"
+  },
+  "name": "Sweet and Sour Chicken",
+  "description": "Crispy chicken in tangy sauce",
+  "price": 525,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 22,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "sweet",
+    "crispy"
+  ],
+  "popularityScore": 0.9322363785495673,
+  "orderCount": 120,
+  "averageRating": 3.8,
+  "ratingCount": 10,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.274Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.274Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f2"
+  },
+  "name": "Chicken Fried Rice",
+  "description": "Wok-fried rice with chicken and vegetables",
+  "price": 431,
+  "category": "rice",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "chinese",
+    "rice"
+  ],
+  "popularityScore": 0.9305498601113531,
+  "orderCount": 37,
+  "averageRating": 4.2,
+  "ratingCount": 13,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.275Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.275Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f3"
+  },
+  "name": "Sweet and Sour Chicken",
+  "description": "Crispy chicken in tangy sauce",
+  "price": 554,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 22,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "sweet",
+    "crispy"
+  ],
+  "popularityScore": 0.7877925996297512,
+  "orderCount": 65,
+  "averageRating": 4,
+  "ratingCount": 70,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.275Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.275Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f5"
+  },
+  "name": "Chicken Fried Rice",
+  "description": "Wok-fried rice with chicken and vegetables",
+  "price": 373,
+  "category": "rice",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4576"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "chinese",
+    "rice"
+  ],
+  "popularityScore": 0.9076854302429902,
+  "orderCount": 54,
+  "averageRating": 3.3,
+  "ratingCount": 81,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f6"
+  },
+  "name": "Sweet and Sour Chicken",
+  "description": "Crispy chicken in tangy sauce",
+  "price": 528,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4576"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 22,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "sweet",
+    "crispy"
+  ],
+  "popularityScore": 0.4223144107491614,
+  "orderCount": 64,
+  "averageRating": 3.8,
+  "ratingCount": 62,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f7"
+  },
+  "name": "Chicken Fried Rice",
+  "description": "Wok-fried rice with chicken and vegetables",
+  "price": 441,
+  "category": "rice",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4576"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "chinese",
+    "rice"
+  ],
+  "popularityScore": 0.2094811238789868,
+  "orderCount": 93,
+  "averageRating": 4.2,
+  "ratingCount": 52,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45f8"
+  },
+  "name": "Sweet and Sour Chicken",
+  "description": "Crispy chicken in tangy sauce",
+  "price": 541,
+  "category": "chicken",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4576"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 22,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "sweet",
+    "crispy"
+  ],
+  "popularityScore": 0.39695359678754694,
+  "orderCount": 129,
+  "averageRating": 3.9,
+  "ratingCount": 73,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.278Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45fa"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 331,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4577"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.7573669962650627,
+  "orderCount": 101,
+  "averageRating": 4.7,
+  "ratingCount": 36,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.281Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.281Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45fb"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 585,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4577"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.984467644709099,
+  "orderCount": 83,
+  "averageRating": 4.7,
+  "ratingCount": 18,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.281Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.281Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45fd"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 316,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.8443797442480478,
+  "orderCount": 141,
+  "averageRating": 4.3,
+  "ratingCount": 16,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45fe"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 130,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.6168402900093488,
+  "orderCount": 152,
+  "averageRating": 4.6,
+  "ratingCount": 76,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a45ff"
+  },
+  "name": "Chicken Burger",
+  "description": "Juicy chicken patty with fresh vegetables",
+  "price": 300,
+  "category": "fast_food",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 15,
+  "spiceLevel": "mild",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "fast",
+    "popular"
+  ],
+  "popularityScore": 0.6711203133252204,
+  "orderCount": 100,
+  "averageRating": 3.3,
+  "ratingCount": 29,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4600"
+  },
+  "name": "French Fries",
+  "description": "Crispy golden potato fries",
+  "price": 157,
+  "category": "snacks",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 8,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "crispy",
+    "side"
+  ],
+  "popularityScore": 0.25887012821731725,
+  "orderCount": 90,
+  "averageRating": 4.9,
+  "ratingCount": 69,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.284Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4602"
+  },
+  "name": "House Special",
+  "description": "Restaurant's signature dish",
+  "price": 434,
+  "category": "traditional",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "popular"
+  ],
+  "popularityScore": 0.4379982667426774,
+  "orderCount": 158,
+  "averageRating": 4.8,
+  "ratingCount": 68,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.287Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.287Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4603"
+  },
+  "name": "Chef's Choice",
+  "description": "Recommended by our chef",
+  "price": 474,
+  "category": "traditional",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "recommended",
+    "special"
+  ],
+  "popularityScore": 0.886907340367387,
+  "orderCount": 24,
+  "averageRating": 4.4,
+  "ratingCount": 13,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.287Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.287Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4605"
+  },
+  "name": "Chicken Biryani",
+  "description": "Aromatic rice with tender chicken",
+  "price": 357,
+  "category": "biryani",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "traditional",
+    "popular"
+  ],
+  "popularityScore": 0.6590733279445807,
+  "orderCount": 110,
+  "averageRating": 3.7,
+  "ratingCount": 66,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.290Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.290Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4606"
+  },
+  "name": "Chicken Karahi",
+  "description": "Traditional chicken curry",
+  "price": 648,
+  "category": "curry",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 30,
+  "spiceLevel": "hot",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "spicy",
+    "traditional"
+  ],
+  "popularityScore": 0.21103333674159083,
+  "orderCount": 91,
+  "averageRating": 3.4,
+  "ratingCount": 59,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.290Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.290Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4608"
+  },
+  "name": "Gulab Jamun",
+  "description": "Traditional sweet in sugar syrup",
+  "price": 133,
+  "category": "dessert",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 5,
+  "spiceLevel": "mild",
+  "isVegetarian": true,
+  "isHalal": true,
+  "tags": [
+    "sweet",
+    "traditional"
+  ],
+  "popularityScore": 0.7228157497460976,
+  "orderCount": 40,
+  "averageRating": 3.7,
+  "ratingCount": 42,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.292Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.292Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a460a"
+  },
+  "name": "House Special",
+  "description": "Restaurant's signature dish",
+  "price": 415,
+  "category": "traditional",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "popular"
+  ],
+  "popularityScore": 0.2574719641282737,
+  "orderCount": 51,
+  "averageRating": 4.5,
+  "ratingCount": 18,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.295Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.295Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a460b"
+  },
+  "name": "Chef's Choice",
+  "description": "Recommended by our chef",
+  "price": 383,
+  "category": "traditional",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "recommended",
+    "special"
+  ],
+  "popularityScore": 0.6857800734104029,
+  "orderCount": 40,
+  "averageRating": 3.3,
+  "ratingCount": 38,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.295Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.295Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a460d"
+  },
+  "name": "House Special",
+  "description": "Restaurant's signature dish",
+  "price": 557,
+  "category": "traditional",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457e"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 25,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "signature",
+    "popular"
+  ],
+  "popularityScore": 0.4813265352863891,
+  "orderCount": 81,
+  "averageRating": 4.6,
+  "ratingCount": 81,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.297Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.297Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a460e"
+  },
+  "name": "Chef's Choice",
+  "description": "Recommended by our chef",
+  "price": 401,
+  "category": "traditional",
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457e"
+  },
+  "image": "/api/placeholder/food-item",
+  "available": true,
+  "preparationTime": 20,
+  "spiceLevel": "medium",
+  "isVegetarian": false,
+  "isHalal": true,
+  "tags": [
+    "recommended",
+    "special"
+  ],
+  "popularityScore": 0.32447204911168726,
+  "orderCount": 37,
+  "averageRating": 4.3,
+  "ratingCount": 47,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.297Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.297Z"
+  }
+}]

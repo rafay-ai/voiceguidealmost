@@ -1,0 +1,6091 @@
+[{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b0d"
+  },
+  "orderNumber": "FD250353001",
+  "user": {
+    "$oid": "68c52f8b88668acf18277700"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45eb"
+      },
+      "quantity": 1,
+      "price": 316,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b0e"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45eb"
+      },
+      "quantity": 1,
+      "price": 316,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b0f"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Block 15, Gulshan-e-Iqbal",
+    "area": "Gulshan-e-Iqbal",
+    "city": "Karachi",
+    "phone": "+923001234567"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 632,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 687
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-18T17:55:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-18T17:51:54.898Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-18T17:10:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-18T17:10:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b13"
+  },
+  "orderNumber": "FD250377003",
+  "user": {
+    "$oid": "68c52f8b88668acf18277700"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460b"
+      },
+      "quantity": 1,
+      "price": 383,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b14"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Block 15, Gulshan-e-Iqbal",
+    "area": "Gulshan-e-Iqbal",
+    "city": "Karachi",
+    "phone": "+923001234567"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 383,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 443
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-06T07:57:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-06T08:10:27.869Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-06T07:12:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-06T07:12:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b18"
+  },
+  "orderNumber": "FD250384005",
+  "user": {
+    "$oid": "68c52f8b88668acf18277700"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4577"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45fa"
+      },
+      "quantity": 1,
+      "price": 331,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b19"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Block 15, Gulshan-e-Iqbal",
+    "area": "Gulshan-e-Iqbal",
+    "city": "Karachi",
+    "phone": "+923001234567"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 331,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 411
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-05T15:12:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-05T15:25:34.449Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-05T14:27:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-05T14:27:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b1d"
+  },
+  "orderNumber": "FD250392007",
+  "user": {
+    "$oid": "68c52f8b88668acf18277700"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45dc"
+      },
+      "quantity": 2,
+      "price": 334,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b1e"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Block 15, Gulshan-e-Iqbal",
+    "area": "Gulshan-e-Iqbal",
+    "city": "Karachi",
+    "phone": "+923001234567"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 668,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 713
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-24T15:06:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-24T15:14:14.532Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-24T14:21:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-24T14:21:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b22"
+  },
+  "orderNumber": "FD250398009",
+  "user": {
+    "$oid": "68c52f8b88668acf18277700"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b0"
+      },
+      "quantity": 1,
+      "price": 420,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b23"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b1"
+      },
+      "quantity": 1,
+      "price": 280,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b24"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Block 15, Gulshan-e-Iqbal",
+    "area": "Gulshan-e-Iqbal",
+    "city": "Karachi",
+    "phone": "+923001234567"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 700,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 740
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-14T07:50:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-14T07:55:47.916Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-14T07:05:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-14T07:05:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b29"
+  },
+  "orderNumber": "FD250413011",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a2"
+      },
+      "quantity": 2,
+      "price": 60,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b2a"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a0"
+      },
+      "quantity": 2,
+      "price": 380,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b2b"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 880,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 940
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-06T05:00:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-06T04:58:30.140Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-06T04:15:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-06T04:15:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b2f"
+  },
+  "orderNumber": "FD250434013",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45af"
+      },
+      "quantity": 1,
+      "price": 380,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b30"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 380,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 420
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-21T08:02:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-21T07:50:45.755Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-21T07:17:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-21T07:17:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b34"
+  },
+  "orderNumber": "FD250442015",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 1,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b35"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 357,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 437
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-24T18:01:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-24T18:00:12.505Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-24T17:16:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-24T17:16:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b39"
+  },
+  "orderNumber": "FD250448017",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45bc"
+      },
+      "quantity": 1,
+      "price": 373,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b3a"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45bd"
+      },
+      "quantity": 1,
+      "price": 512,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b3b"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 885,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 945
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-27T15:31:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-27T15:27:24.858Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-27T14:46:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-27T14:46:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b3f"
+  },
+  "orderNumber": "FD250455019",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45bc"
+      },
+      "quantity": 2,
+      "price": 373,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b40"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 746,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 806
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-26T17:22:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-26T17:22:33.511Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-26T16:37:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-26T16:37:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b44"
+  },
+  "orderNumber": "FD250462021",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45dc"
+      },
+      "quantity": 1,
+      "price": 334,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b45"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45db"
+      },
+      "quantity": 2,
+      "price": 166,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b46"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 666,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 711
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-05T16:45:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-05T16:57:22.776Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-05T16:00:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-05T16:00:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b4a"
+  },
+  "orderNumber": "FD250468023",
+  "user": {
+    "$oid": "68c52f8b88668acf18277701"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d6"
+      },
+      "quantity": 2,
+      "price": 169,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b4b"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Shahrah-e-Faisal",
+    "area": "PECHS",
+    "city": "Karachi",
+    "phone": "+923001234569"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 338,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 388
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-30T16:12:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-30T16:19:25.013Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-30T15:27:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-30T15:27:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b50"
+  },
+  "orderNumber": "FD250478025",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e0"
+      },
+      "quantity": 2,
+      "price": 122,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b51"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 244,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 289
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-31T16:50:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-31T16:51:40.418Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-31T16:05:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-31T16:05:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b55"
+  },
+  "orderNumber": "FD250484027",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4602"
+      },
+      "quantity": 2,
+      "price": 434,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b56"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4603"
+      },
+      "quantity": 1,
+      "price": 474,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b57"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1342,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 1407
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-15T21:14:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-15T21:04:50.786Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-15T20:29:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-15T20:29:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b5b"
+  },
+  "orderNumber": "FD250489029",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e0"
+      },
+      "quantity": 1,
+      "price": 122,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b5c"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 122,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 167
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-24T10:39:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-24T10:35:20.678Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-24T09:54:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-24T09:54:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b60"
+  },
+  "orderNumber": "FD250495031",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b9"
+      },
+      "quantity": 2,
+      "price": 366,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b61"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ba"
+      },
+      "quantity": 1,
+      "price": 544,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b62"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1276,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1331
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-10T10:24:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-10T10:16:31.121Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-10T09:39:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-10T09:39:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b66"
+  },
+  "orderNumber": "FD250501033",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a2"
+      },
+      "quantity": 2,
+      "price": 60,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b67"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 120,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 180
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-12T14:05:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-12T14:07:03.405Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-12T13:20:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-12T13:20:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b6b"
+  },
+  "orderNumber": "FD250506035",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45db"
+      },
+      "quantity": 2,
+      "price": 166,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b6c"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45db"
+      },
+      "quantity": 1,
+      "price": 166,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b6d"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 498,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 543
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-04T18:32:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-04T18:26:27.747Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-04T17:47:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-04T17:47:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b71"
+  },
+  "orderNumber": "FD250511037",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4608"
+      },
+      "quantity": 2,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b72"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 266,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 316
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-23T05:43:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-23T05:44:56.123Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-23T04:58:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-23T04:58:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b76"
+  },
+  "orderNumber": "FD250516039",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 1,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b77"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4606"
+      },
+      "quantity": 2,
+      "price": 648,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b78"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1653,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 1733
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-21T11:14:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-21T11:00:21.697Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-21T10:29:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-21T10:29:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b7c"
+  },
+  "orderNumber": "FD250521041",
+  "user": {
+    "$oid": "68c52f8b88668acf18277702"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4600"
+      },
+      "quantity": 2,
+      "price": 157,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b7d"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4600"
+      },
+      "quantity": 2,
+      "price": 157,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b7e"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Defence Phase 6",
+    "area": "Defence",
+    "city": "Karachi",
+    "phone": "+923001234568"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 628,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 698
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-18T09:54:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-18T10:07:48.479Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-18T09:09:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-18T09:09:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b83"
+  },
+  "orderNumber": "FD250531043",
+  "user": {
+    "$oid": "68c52f8b88668acf18277703"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e7"
+      },
+      "quantity": 2,
+      "price": 161,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b84"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Clifton Block 2",
+    "area": "Clifton",
+    "city": "Karachi",
+    "phone": "+923001234570"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 322,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 372
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-15T20:22:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-15T20:17:48.080Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-15T19:37:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-15T19:37:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b88"
+  },
+  "orderNumber": "FD250537045",
+  "user": {
+    "$oid": "68c52f8b88668acf18277703"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e7"
+      },
+      "quantity": 1,
+      "price": 161,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b89"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Clifton Block 2",
+    "area": "Clifton",
+    "city": "Karachi",
+    "phone": "+923001234570"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 161,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 211
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-04T17:35:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-04T17:33:52.652Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-04T16:50:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-04T16:50:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b8d"
+  },
+  "orderNumber": "FD250543047",
+  "user": {
+    "$oid": "68c52f8b88668acf18277703"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4582"
+      },
+      "quantity": 1,
+      "price": 450,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b8e"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Clifton Block 2",
+    "area": "Clifton",
+    "city": "Karachi",
+    "phone": "+923001234570"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 450,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 500
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-05T05:44:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-05T05:47:55.574Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-05T04:59:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-05T04:59:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b92"
+  },
+  "orderNumber": "FD250548049",
+  "user": {
+    "$oid": "68c52f8b88668acf18277703"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45f2"
+      },
+      "quantity": 2,
+      "price": 431,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b93"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Clifton Block 2",
+    "area": "Clifton",
+    "city": "Karachi",
+    "phone": "+923001234570"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 862,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 922
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-01T16:51:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-01T16:57:27.343Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-01T16:06:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-01T16:06:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b97"
+  },
+  "orderNumber": "FD250554051",
+  "user": {
+    "$oid": "68c52f8b88668acf18277703"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b9"
+      },
+      "quantity": 2,
+      "price": 366,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b98"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Clifton Block 2",
+    "area": "Clifton",
+    "city": "Karachi",
+    "phone": "+923001234570"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 732,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 787
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-09T13:57:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-09T13:53:14.138Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-09T13:12:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-09T13:12:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69b9d"
+  },
+  "orderNumber": "FD250562053",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4608"
+      },
+      "quantity": 1,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69b9e"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 133,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 183
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-10T08:05:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-10T07:58:03.854Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-10T07:20:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-10T07:20:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ba2"
+  },
+  "orderNumber": "FD250566055",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4606"
+      },
+      "quantity": 1,
+      "price": 648,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ba3"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4606"
+      },
+      "quantity": 1,
+      "price": 648,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ba4"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1296,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 1376
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-22T16:55:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-22T16:54:19.436Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T16:10:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-22T16:10:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ba8"
+  },
+  "orderNumber": "FD250571057",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ac"
+      },
+      "quantity": 2,
+      "price": 580,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ba9"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1160,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1215
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-20T16:22:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-20T16:25:22.206Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-20T15:37:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-20T15:37:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bad"
+  },
+  "orderNumber": "FD250576059",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45da"
+      },
+      "quantity": 1,
+      "price": 250,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bae"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 250,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 295
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-12T11:39:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-12T11:46:14.629Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-12T10:54:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-12T10:54:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bb2"
+  },
+  "orderNumber": "FD250581061",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460e"
+      },
+      "quantity": 2,
+      "price": 401,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bb3"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460d"
+      },
+      "quantity": 1,
+      "price": 557,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bb4"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1359,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1414
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-17T13:52:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-17T13:57:10.980Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-17T13:07:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-17T13:07:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bb8"
+  },
+  "orderNumber": "FD250587063",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45c8"
+      },
+      "quantity": 1,
+      "price": 370,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bb9"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45c9"
+      },
+      "quantity": 1,
+      "price": 511,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bba"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 881,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 951
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-11T09:59:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-11T10:12:33.460Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-11T09:14:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-11T09:14:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bbe"
+  },
+  "orderNumber": "FD250591065",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4602"
+      },
+      "quantity": 2,
+      "price": 434,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bbf"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 868,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 933
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-15T14:16:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-15T14:19:58.218Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-15T13:31:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-15T13:31:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bc3"
+  },
+  "orderNumber": "FD250596067",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d8"
+      },
+      "quantity": 1,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bc4"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d6"
+      },
+      "quantity": 1,
+      "price": 169,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bc5"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d5"
+      },
+      "quantity": 2,
+      "price": 328,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bc6"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 975,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 1025
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-28T09:59:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-28T10:13:17.519Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-28T09:14:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-28T09:14:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bca"
+  },
+  "orderNumber": "FD250601069",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4603"
+      },
+      "quantity": 1,
+      "price": 474,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bcb"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4603"
+      },
+      "quantity": 1,
+      "price": 474,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bcc"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 948,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 1013
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-16T11:36:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-16T11:26:38.035Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-16T10:51:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-16T10:51:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bd0"
+  },
+  "orderNumber": "FD250605071",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a1"
+      },
+      "quantity": 2,
+      "price": 950,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bd1"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1900,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 1960
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-24T09:03:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-24T08:48:09.094Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-24T08:18:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-24T08:18:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bd5"
+  },
+  "orderNumber": "FD250609073",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b2"
+      },
+      "quantity": 2,
+      "price": 450,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bd6"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 900,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 940
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-12T16:12:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-12T16:21:38.786Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-12T15:27:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-12T15:27:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bda"
+  },
+  "orderNumber": "FD250614075",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4568"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45cd"
+      },
+      "quantity": 2,
+      "price": 397,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bdb"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ce"
+      },
+      "quantity": 2,
+      "price": 515,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bdc"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1824,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 1889
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-21T06:35:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-21T06:24:31.583Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-21T05:50:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-21T05:50:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69be0"
+  },
+  "orderNumber": "FD250619077",
+  "user": {
+    "$oid": "68c52f8b88668acf18277704"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4608"
+      },
+      "quantity": 2,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69be1"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "North Nazimabad Block L",
+    "area": "North Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234571"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 266,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 316
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-02T14:03:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-02T14:03:52.584Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-02T13:18:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-02T13:18:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69be6"
+  },
+  "orderNumber": "FD250626079",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45aa"
+      },
+      "quantity": 1,
+      "price": 520,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69be7"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45aa"
+      },
+      "quantity": 2,
+      "price": 520,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69be8"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1560,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1615
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-09T20:46:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-09T20:35:41.607Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-09T20:01:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-09T20:01:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bec"
+  },
+  "orderNumber": "FD250631081",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 1,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bed"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 2,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bee"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1071,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 1151
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-31T08:27:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-31T08:39:35.543Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-31T07:42:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-31T07:42:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bf2"
+  },
+  "orderNumber": "FD250636083",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b9"
+      },
+      "quantity": 2,
+      "price": 366,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bf3"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b9"
+      },
+      "quantity": 2,
+      "price": 366,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bf4"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1464,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1519
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-24T04:57:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-24T04:43:56.563Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-24T04:12:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-24T04:12:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bf8"
+  },
+  "orderNumber": "FD250641085",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e0"
+      },
+      "quantity": 2,
+      "price": 122,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bf9"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45df"
+      },
+      "quantity": 2,
+      "price": 345,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bfa"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 934,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 979
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-20T07:49:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-20T07:42:24.028Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-20T07:04:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-20T07:04:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69bfe"
+  },
+  "orderNumber": "FD250646087",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b9"
+      },
+      "quantity": 2,
+      "price": 366,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69bff"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ba"
+      },
+      "quantity": 2,
+      "price": 544,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c00"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1820,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1875
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-13T21:13:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-13T21:07:29.208Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-13T20:28:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-13T20:28:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c04"
+  },
+  "orderNumber": "FD250650089",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ed"
+      },
+      "quantity": 2,
+      "price": 307,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c05"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45eb"
+      },
+      "quantity": 2,
+      "price": 316,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c06"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1246,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1301
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-19T19:41:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-19T19:54:03.369Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-19T18:56:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-19T18:56:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c0a"
+  },
+  "orderNumber": "FD250655091",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a458c"
+      },
+      "quantity": 1,
+      "price": 280,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c0b"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a458d"
+      },
+      "quantity": 2,
+      "price": 120,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c0c"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 520,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 560
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-22T21:34:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-22T21:23:03.692Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-22T20:49:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-22T20:49:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c10"
+  },
+  "orderNumber": "FD250660093",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4603"
+      },
+      "quantity": 1,
+      "price": 474,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c11"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4602"
+      },
+      "quantity": 2,
+      "price": 434,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c12"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1342,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 1407
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-06T10:03:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-06T10:08:54.073Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-06T09:18:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-06T09:18:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c16"
+  },
+  "orderNumber": "FD250665095",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460d"
+      },
+      "quantity": 2,
+      "price": 557,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c17"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1114,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1169
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-14T16:11:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-14T16:06:11.308Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-14T15:26:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-14T15:26:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c1b"
+  },
+  "orderNumber": "FD250670097",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460a"
+      },
+      "quantity": 1,
+      "price": 415,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c1c"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 415,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 475
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-21T05:27:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-21T05:27:07.805Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-21T04:42:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-21T04:42:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c20"
+  },
+  "orderNumber": "FD250674099",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b7"
+      },
+      "quantity": 2,
+      "price": 200,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c21"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b5"
+      },
+      "quantity": 2,
+      "price": 180,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c22"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b4"
+      },
+      "quantity": 1,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c23"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 910,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 950
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-11T08:57:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-11T09:02:44.816Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-11T08:12:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-11T08:12:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c27"
+  },
+  "orderNumber": "FD250679101",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460d"
+      },
+      "quantity": 2,
+      "price": 557,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c28"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460e"
+      },
+      "quantity": 1,
+      "price": 401,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c29"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1515,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1570
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-21T13:54:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-21T13:40:43.253Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-21T13:09:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-21T13:09:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c2d"
+  },
+  "orderNumber": "FD250685103",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45fd"
+      },
+      "quantity": 2,
+      "price": 316,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c2e"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4600"
+      },
+      "quantity": 1,
+      "price": 157,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c2f"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45fe"
+      },
+      "quantity": 1,
+      "price": 130,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c30"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 919,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 989
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-10T04:22:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-10T04:28:21.288Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-10T03:37:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-10T03:37:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c34"
+  },
+  "orderNumber": "FD250689105",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b4"
+      },
+      "quantity": 2,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c35"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 300,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 340
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-30T13:48:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-30T14:01:12.588Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-30T13:03:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-30T13:03:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c39"
+  },
+  "orderNumber": "FD250693107",
+  "user": {
+    "$oid": "68c52f8b88668acf18277705"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ab"
+      },
+      "quantity": 1,
+      "price": 380,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c3a"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Zamzama Boulevard",
+    "area": "Zamzama",
+    "city": "Karachi",
+    "phone": "+923001234572"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 380,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 435
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-23T16:41:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-23T16:44:54.481Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-23T15:56:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-23T15:56:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c3f"
+  },
+  "orderNumber": "FD250700109",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45cb"
+      },
+      "quantity": 1,
+      "price": 661,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c40"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ca"
+      },
+      "quantity": 1,
+      "price": 331,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c41"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 992,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 1062
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-24T17:56:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-24T18:00:45.583Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-24T17:11:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-24T17:11:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c45"
+  },
+  "orderNumber": "FD250705111",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460a"
+      },
+      "quantity": 2,
+      "price": 415,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c46"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460a"
+      },
+      "quantity": 2,
+      "price": 415,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c47"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1660,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 1720
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-18T08:17:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-18T08:20:04.664Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-18T07:32:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-18T07:32:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c4b"
+  },
+  "orderNumber": "FD250709113",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4600"
+      },
+      "quantity": 2,
+      "price": 157,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c4c"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ff"
+      },
+      "quantity": 2,
+      "price": 300,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c4d"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 914,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 984
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-05T10:09:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-05T10:19:22.257Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-05T09:24:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-05T09:24:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c51"
+  },
+  "orderNumber": "FD250714115",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460b"
+      },
+      "quantity": 1,
+      "price": 383,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c52"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 383,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 443
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-29T10:12:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-29T10:00:03.528Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-29T09:27:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-29T09:27:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c56"
+  },
+  "orderNumber": "FD250719117",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4576"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45f6"
+      },
+      "quantity": 1,
+      "price": 528,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c57"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45f7"
+      },
+      "quantity": 1,
+      "price": 441,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c58"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45f6"
+      },
+      "quantity": 1,
+      "price": 528,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c59"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1497,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 1567
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-04T20:37:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-04T20:42:26.368Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-04T19:52:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-04T19:52:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c5d"
+  },
+  "orderNumber": "FD250724119",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4600"
+      },
+      "quantity": 1,
+      "price": 157,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c5e"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45fd"
+      },
+      "quantity": 2,
+      "price": 316,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c5f"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 789,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 859
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-07T18:38:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-07T18:37:18.079Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-07T17:53:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-07T17:53:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c63"
+  },
+  "orderNumber": "FD250728121",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4584"
+      },
+      "quantity": 1,
+      "price": 500,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c64"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 500,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 550
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-11T09:23:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-11T09:09:23.300Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-11T08:38:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-11T08:38:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c68"
+  },
+  "orderNumber": "FD250734123",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4591"
+      },
+      "quantity": 2,
+      "price": 1150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c69"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 2300,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 2355
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-28T11:41:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-28T11:46:00.748Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-28T10:56:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-28T10:56:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c6d"
+  },
+  "orderNumber": "FD250738125",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b1"
+      },
+      "quantity": 2,
+      "price": 280,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c6e"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45af"
+      },
+      "quantity": 1,
+      "price": 380,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c6f"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b2"
+      },
+      "quantity": 2,
+      "price": 450,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c70"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1840,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 1880
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-12T21:28:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-12T21:33:22.929Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-12T20:43:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-12T20:43:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c74"
+  },
+  "orderNumber": "FD250743127",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ab"
+      },
+      "quantity": 1,
+      "price": 380,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c75"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a9"
+      },
+      "quantity": 2,
+      "price": 420,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c76"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1220,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1275
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-17T18:05:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-17T18:03:07.490Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-17T17:20:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-17T17:20:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c7a"
+  },
+  "orderNumber": "FD250748129",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45bc"
+      },
+      "quantity": 2,
+      "price": 373,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c7b"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 746,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 806
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-30T17:22:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-30T17:25:58.866Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-30T16:37:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-30T16:37:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c7f"
+  },
+  "orderNumber": "FD250753131",
+  "user": {
+    "$oid": "68c52f8b88668acf18277706"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45aa"
+      },
+      "quantity": 1,
+      "price": 520,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c80"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ad"
+      },
+      "quantity": 1,
+      "price": 250,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c81"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "DHA Phase 8",
+    "area": "DHA",
+    "city": "Karachi",
+    "phone": "+923001234573"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 770,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 825
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-19T09:16:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-19T09:08:13.865Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-19T08:31:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-19T08:31:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c86"
+  },
+  "orderNumber": "FD250763133",
+  "user": {
+    "$oid": "68c52f8b88668acf18277707"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d6"
+      },
+      "quantity": 1,
+      "price": 169,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c87"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d8"
+      },
+      "quantity": 2,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c88"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Gulberg Block 5",
+    "area": "Gulberg",
+    "city": "Karachi",
+    "phone": "+923001234574"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 469,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 519
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-23T14:37:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-23T14:26:11.565Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-23T13:52:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-23T13:52:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c8c"
+  },
+  "orderNumber": "FD250768135",
+  "user": {
+    "$oid": "68c52f8b88668acf18277707"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4568"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45cd"
+      },
+      "quantity": 2,
+      "price": 397,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c8d"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Gulberg Block 5",
+    "area": "Gulberg",
+    "city": "Karachi",
+    "phone": "+923001234574"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 794,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 859
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-18T17:53:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-18T17:55:40.225Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-18T17:08:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-18T17:08:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c91"
+  },
+  "orderNumber": "FD250774137",
+  "user": {
+    "$oid": "68c52f8b88668acf18277707"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4603"
+      },
+      "quantity": 1,
+      "price": 474,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c92"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Gulberg Block 5",
+    "area": "Gulberg",
+    "city": "Karachi",
+    "phone": "+923001234574"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 474,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 539
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-02T10:45:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-02T10:52:23.353Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T10:00:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-02T10:00:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c96"
+  },
+  "orderNumber": "FD250778139",
+  "user": {
+    "$oid": "68c52f8b88668acf18277707"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a459b"
+      },
+      "quantity": 1,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c97"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Gulberg Block 5",
+    "area": "Gulberg",
+    "city": "Karachi",
+    "phone": "+923001234574"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 150,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 195
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-22T09:15:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-22T09:01:07.210Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-22T08:30:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-22T08:30:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69c9b"
+  },
+  "orderNumber": "FD250784141",
+  "user": {
+    "$oid": "68c52f8b88668acf18277707"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45ba"
+      },
+      "quantity": 1,
+      "price": 544,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69c9c"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Gulberg Block 5",
+    "area": "Gulberg",
+    "city": "Karachi",
+    "phone": "+923001234574"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 544,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 599
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-17T08:37:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-17T08:39:40.231Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-17T07:52:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-17T07:52:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ca0"
+  },
+  "orderNumber": "FD250790143",
+  "user": {
+    "$oid": "68c52f8b88668acf18277707"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a459a"
+      },
+      "quantity": 2,
+      "price": 220,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ca1"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a459a"
+      },
+      "quantity": 1,
+      "price": 220,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ca2"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Gulberg Block 5",
+    "area": "Gulberg",
+    "city": "Karachi",
+    "phone": "+923001234574"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 660,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 705
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-01T09:13:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-01T09:19:55.433Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-01T08:28:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-01T08:28:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ca7"
+  },
+  "orderNumber": "FD250798145",
+  "user": {
+    "$oid": "68c52f8b88668acf18277708"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 2,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ca8"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Nazimabad Block H",
+    "area": "Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234575"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 714,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 794
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-22T10:10:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-22T10:24:44.851Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-22T09:25:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-22T09:25:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cac"
+  },
+  "orderNumber": "FD250803147",
+  "user": {
+    "$oid": "68c52f8b88668acf18277708"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a458f"
+      },
+      "quantity": 1,
+      "price": 950,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cad"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Nazimabad Block H",
+    "area": "Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234575"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 950,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 1005
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-21T15:52:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-21T15:52:21.300Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-21T15:07:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-21T15:07:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cb1"
+  },
+  "orderNumber": "FD250808149",
+  "user": {
+    "$oid": "68c52f8b88668acf18277708"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4608"
+      },
+      "quantity": 2,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cb2"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Nazimabad Block H",
+    "area": "Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234575"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 266,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 316
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-29T19:12:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-29T19:08:57.371Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-29T18:27:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-29T18:27:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cb6"
+  },
+  "orderNumber": "FD250814151",
+  "user": {
+    "$oid": "68c52f8b88668acf18277708"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d8"
+      },
+      "quantity": 2,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cb7"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d5"
+      },
+      "quantity": 1,
+      "price": 328,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cb8"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d8"
+      },
+      "quantity": 2,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cb9"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Nazimabad Block H",
+    "area": "Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234575"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 928,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 978
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-22T11:10:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-22T11:19:23.181Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T10:25:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-22T10:25:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cbd"
+  },
+  "orderNumber": "FD250819153",
+  "user": {
+    "$oid": "68c52f8b88668acf18277708"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a6"
+      },
+      "quantity": 2,
+      "price": 420,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cbe"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Nazimabad Block H",
+    "area": "Nazimabad",
+    "city": "Karachi",
+    "phone": "+923001234575"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 840,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 900
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-26T04:21:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-26T04:23:08.035Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-26T03:36:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-26T03:36:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cc3"
+  },
+  "orderNumber": "FD250826155",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4603"
+      },
+      "quantity": 2,
+      "price": 474,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cc4"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 948,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 1013
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-20T05:19:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-20T05:06:19.846Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-20T04:34:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-20T04:34:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cc8"
+  },
+  "orderNumber": "FD250831157",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45f1"
+      },
+      "quantity": 1,
+      "price": 525,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cc9"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 525,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 585
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-14T17:41:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-14T17:50:29.451Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-14T16:56:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-14T16:56:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ccd"
+  },
+  "orderNumber": "FD250835159",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45bc"
+      },
+      "quantity": 1,
+      "price": 373,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cce"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 373,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 433
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-21T08:33:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-21T08:25:45.168Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-21T07:48:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-21T07:48:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cd2"
+  },
+  "orderNumber": "FD250840161",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 2,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cd3"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 714,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 794
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-27T15:19:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-27T15:33:44.829Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-27T14:34:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-27T14:34:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cd7"
+  },
+  "orderNumber": "FD250844163",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45b9"
+      },
+      "quantity": 2,
+      "price": 366,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cd8"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 732,
+    "deliveryFee": 55,
+    "tax": 0,
+    "total": 787
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-13T11:26:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-13T11:35:33.553Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-13T10:41:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-13T10:41:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cdc"
+  },
+  "orderNumber": "FD250849165",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4608"
+      },
+      "quantity": 1,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cdd"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 133,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 183
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-07T14:55:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-07T14:55:04.164Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-07T14:10:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-07T14:10:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ce1"
+  },
+  "orderNumber": "FD250853167",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4577"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45fa"
+      },
+      "quantity": 1,
+      "price": 331,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ce2"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 331,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 411
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-30T17:21:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-30T17:27:37.259Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-30T16:36:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-30T16:36:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ce6"
+  },
+  "orderNumber": "FD250857169",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 2,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ce7"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 714,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 794
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-30T11:36:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-30T11:43:14.675Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-30T10:51:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-30T10:51:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69ceb"
+  },
+  "orderNumber": "FD250861171",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d5"
+      },
+      "quantity": 2,
+      "price": 328,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cec"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d5"
+      },
+      "quantity": 1,
+      "price": 328,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69ced"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 984,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 1034
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-02T05:04:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-02T04:59:47.421Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-02T04:19:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-02T04:19:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cf1"
+  },
+  "orderNumber": "FD250868173",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4605"
+      },
+      "quantity": 1,
+      "price": 357,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cf2"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 357,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 437
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-06T04:18:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-06T04:30:00.889Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-06T03:33:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-06T03:33:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cf6"
+  },
+  "orderNumber": "FD250872175",
+  "user": {
+    "$oid": "68c52f8b88668acf18277709"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45c6"
+      },
+      "quantity": 2,
+      "price": 128,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cf7"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Bahadurabad Block 3",
+    "area": "Bahadurabad",
+    "city": "Karachi",
+    "phone": "+923001234576"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 256,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 301
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-05T10:25:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-05T10:19:44.627Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-05T09:40:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-05T09:40:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69cfc"
+  },
+  "orderNumber": "FD250879177",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770a"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45dc"
+      },
+      "quantity": 1,
+      "price": 334,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cfd"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45dd"
+      },
+      "quantity": 1,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cfe"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45db"
+      },
+      "quantity": 1,
+      "price": 166,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69cff"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Korangi Block 1",
+    "area": "Korangi",
+    "city": "Karachi",
+    "phone": "+923001234577"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 633,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 678
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-19T04:45:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-19T04:36:05.179Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-19T04:00:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-19T04:00:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d03"
+  },
+  "orderNumber": "FD250884179",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770a"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a458c"
+      },
+      "quantity": 1,
+      "price": 280,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d04"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a458c"
+      },
+      "quantity": 2,
+      "price": 280,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d05"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Korangi Block 1",
+    "area": "Korangi",
+    "city": "Karachi",
+    "phone": "+923001234577"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 840,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 880
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-20T05:51:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-20T05:59:04.877Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-20T05:06:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-20T05:06:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d09"
+  },
+  "orderNumber": "FD250889181",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770a"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4568"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45cd"
+      },
+      "quantity": 2,
+      "price": 397,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d0a"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Korangi Block 1",
+    "area": "Korangi",
+    "city": "Karachi",
+    "phone": "+923001234577"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 794,
+    "deliveryFee": 65,
+    "tax": 0,
+    "total": 859
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-18T15:16:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-18T15:20:33.639Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-18T14:31:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-18T14:31:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d0e"
+  },
+  "orderNumber": "FD250894183",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770a"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e7"
+      },
+      "quantity": 1,
+      "price": 161,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d0f"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Korangi Block 1",
+    "area": "Korangi",
+    "city": "Karachi",
+    "phone": "+923001234577"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 161,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 211
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-17T16:18:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-17T16:11:11.510Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-17T15:33:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-17T15:33:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d14"
+  },
+  "orderNumber": "FD250902185",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4577"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45fa"
+      },
+      "quantity": 1,
+      "price": 331,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d15"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 331,
+    "deliveryFee": 80,
+    "tax": 0,
+    "total": 411
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-03T15:26:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-03T15:25:19.017Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-03T14:41:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-03T14:41:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d19"
+  },
+  "orderNumber": "FD250907187",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45c1"
+      },
+      "quantity": 1,
+      "price": 358,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d1a"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 358,
+    "deliveryFee": 45,
+    "tax": 0,
+    "total": 403
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-19T18:07:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-19T18:13:54.277Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-19T17:22:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-19T17:22:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d1e"
+  },
+  "orderNumber": "FD250911189",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d6"
+      },
+      "quantity": 1,
+      "price": 169,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d1f"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d8"
+      },
+      "quantity": 1,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d20"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 319,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 369
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-04T04:12:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-04T04:10:11.513Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-04T03:27:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-04T03:27:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d24"
+  },
+  "orderNumber": "FD250917191",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460a"
+      },
+      "quantity": 1,
+      "price": 415,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d25"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a460b"
+      },
+      "quantity": 1,
+      "price": 383,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d26"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 798,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 858
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-19T20:42:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-19T20:55:19.178Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-19T19:57:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-19T19:57:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d2a"
+  },
+  "orderNumber": "FD250923193",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a4608"
+      },
+      "quantity": 2,
+      "price": 133,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d2b"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 266,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 316
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-19T15:07:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-19T14:52:37.557Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-19T14:22:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-19T14:22:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d2f"
+  },
+  "orderNumber": "FD250927195",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45c9"
+      },
+      "quantity": 2,
+      "price": 511,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d30"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45c8"
+      },
+      "quantity": 1,
+      "price": 370,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d31"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1392,
+    "deliveryFee": 70,
+    "tax": 0,
+    "total": 1462
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-03T16:38:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-03T16:51:28.049Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-03T15:53:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-03T15:53:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d35"
+  },
+  "orderNumber": "FD250933197",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d8"
+      },
+      "quantity": 1,
+      "price": 150,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d36"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45d6"
+      },
+      "quantity": 1,
+      "price": 169,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d37"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Online Payment",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 319,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 369
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-08-28T21:37:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-08-28T21:42:37.766Z"
+  },
+  "createdAt": {
+    "$date": "2025-08-28T20:52:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-08-28T20:52:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d3b"
+  },
+  "orderNumber": "FD250938199",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e9"
+      },
+      "quantity": 2,
+      "price": 513,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d3c"
+      }
+    },
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45e9"
+      },
+      "quantity": 1,
+      "price": 513,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d3d"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 1539,
+    "deliveryFee": 50,
+    "tax": 0,
+    "total": 1589
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-20T06:09:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-20T05:58:17.711Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-20T05:24:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-20T05:24:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d41"
+  },
+  "orderNumber": "FD250942201",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a45a5"
+      },
+      "quantity": 1,
+      "price": 520,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d42"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 520,
+    "deliveryFee": 60,
+    "tax": 0,
+    "total": 580
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-09-12T18:36:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-09-12T18:36:40.119Z"
+  },
+  "createdAt": {
+    "$date": "2025-09-12T17:51:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-09-12T17:51:00.000Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c52fa2bbdc364111f69d46"
+  },
+  "orderNumber": "FD250947203",
+  "user": {
+    "$oid": "68c52f8b88668acf1827770b"
+  },
+  "restaurant": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "items": [
+    {
+      "menuItem": {
+        "$oid": "68c526c3cbba68ceb93a458a"
+      },
+      "quantity": 2,
+      "price": 450,
+      "specialInstructions": "",
+      "_id": {
+        "$oid": "68c52fa2bbdc364111f69d47"
+      }
+    }
+  ],
+  "deliveryAddress": {
+    "street": "Malir Block A",
+    "area": "Malir",
+    "city": "Karachi",
+    "phone": "+923001234578"
+  },
+  "paymentMethod": "Cash on Delivery",
+  "paymentStatus": "Pending",
+  "orderStatus": "Delivered",
+  "pricing": {
+    "subtotal": 900,
+    "deliveryFee": 40,
+    "tax": 0,
+    "total": 940
+  },
+  "estimatedDeliveryTime": {
+    "$date": "2025-07-24T07:49:00.000Z"
+  },
+  "actualDeliveryTime": {
+    "$date": "2025-07-24T07:42:14.311Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-24T07:04:00.000Z"
+  },
+  "statusHistory": [],
+  "updatedAt": {
+    "$date": "2025-07-24T07:04:00.000Z"
+  },
+  "__v": 0
+}]

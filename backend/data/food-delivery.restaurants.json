@@ -1,0 +1,718 @@
+[{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4562"
+  },
+  "name": "Student Biryani",
+  "description": "Famous for authentic Karachi-style biryani since 1969",
+  "rating": 4.5,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Pakistani",
+    "Biryani"
+  ],
+  "deliveryTime": "30-40 min",
+  "deliveryFee": 50,
+  "minimumOrder": 300,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.161Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.161Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4563"
+  },
+  "name": "Bundu Khan",
+  "description": "Premium Pakistani BBQ and traditional cuisine",
+  "rating": 4.7,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Pakistani",
+    "BBQ",
+    "Kebab"
+  ],
+  "deliveryTime": "25-35 min",
+  "deliveryFee": 60,
+  "minimumOrder": 400,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.162Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.162Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4564"
+  },
+  "name": "Jaffer Bhai's Delhi Darbar",
+  "description": "Famous for traditional Delhi-style biryani and kebabs",
+  "rating": 4.6,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Pakistani",
+    "Biryani",
+    "Mughlai"
+  ],
+  "deliveryTime": "35-50 min",
+  "deliveryFee": 55,
+  "minimumOrder": 350,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4565"
+  },
+  "name": "Karim's Restaurant",
+  "description": "Traditional Mughlai and Pakistani cuisine since 1913",
+  "rating": 4.5,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Pakistani",
+    "Mughlai",
+    "Traditional"
+  ],
+  "deliveryTime": "40-55 min",
+  "deliveryFee": 60,
+  "minimumOrder": 400,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4566"
+  },
+  "name": "Savour Foods",
+  "description": "Famous for pulao and traditional Pakistani fast food",
+  "rating": 4.3,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Pakistani",
+    "Traditional",
+    "Fast Food"
+  ],
+  "deliveryTime": "25-40 min",
+  "deliveryFee": 45,
+  "minimumOrder": 300,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4567"
+  },
+  "name": "Kolachi Restaurant",
+  "description": "Traditional Pakistani cuisine with sea view dining",
+  "rating": 4.4,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Pakistani",
+    "Traditional",
+    "Seafood"
+  ],
+  "deliveryTime": "40-55 min",
+  "deliveryFee": 70,
+  "minimumOrder": 500,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4568"
+  },
+  "name": "BBQ Tonight",
+  "description": "Premium barbecue and Pakistani specialties",
+  "rating": 4.6,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Pakistani",
+    "BBQ",
+    "Kebab"
+  ],
+  "deliveryTime": "30-45 min",
+  "deliveryFee": 65,
+  "minimumOrder": 450,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4569"
+  },
+  "name": "KFC Pakistan",
+  "description": "World's famous fried chicken with Pakistani flavors",
+  "rating": 4.3,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Fast Food",
+    "Chicken"
+  ],
+  "deliveryTime": "20-30 min",
+  "deliveryFee": 40,
+  "minimumOrder": 250,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a456a"
+  },
+  "name": "McDonald's Pakistan",
+  "description": "International fast food chain with local favorites",
+  "rating": 4.2,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Fast Food",
+    "Burgers"
+  ],
+  "deliveryTime": "25-35 min",
+  "deliveryFee": 45,
+  "minimumOrder": 300,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a456b"
+  },
+  "name": "Pizza Hut Pakistan",
+  "description": "Delicious pizzas with Pakistani and international toppings",
+  "rating": 4.4,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Fast Food",
+    "Pizza",
+    "Italian"
+  ],
+  "deliveryTime": "30-45 min",
+  "deliveryFee": 55,
+  "minimumOrder": 400,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a456c"
+  },
+  "name": "Domino's Pizza Pakistan",
+  "description": "Fresh hot pizza delivered in 30 minutes",
+  "rating": 4.3,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Fast Food",
+    "Pizza",
+    "Italian"
+  ],
+  "deliveryTime": "25-35 min",
+  "deliveryFee": 50,
+  "minimumOrder": 350,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a456d"
+  },
+  "name": "Hardee's Pakistan",
+  "description": "Charbroiled burgers and American fast food",
+  "rating": 4.1,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Fast Food",
+    "Burgers",
+    "American"
+  ],
+  "deliveryTime": "25-40 min",
+  "deliveryFee": 50,
+  "minimumOrder": 350,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a456e"
+  },
+  "name": "Subway Pakistan",
+  "description": "Fresh subs and healthy fast food options",
+  "rating": 4.2,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Fast Food",
+    "Sandwiches",
+    "Healthy"
+  ],
+  "deliveryTime": "20-35 min",
+  "deliveryFee": 40,
+  "minimumOrder": 250,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a456f"
+  },
+  "name": "Burger King Pakistan",
+  "description": "Flame-grilled burgers and fast food",
+  "rating": 4,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Fast Food",
+    "Burgers"
+  ],
+  "deliveryTime": "25-40 min",
+  "deliveryFee": 45,
+  "minimumOrder": 300,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4570"
+  },
+  "name": "Howdy Pakistan",
+  "description": "Desi fast food with a twist - burgers, wraps, and more",
+  "rating": 4,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Fast Food",
+    "Pakistani",
+    "Fusion"
+  ],
+  "deliveryTime": "30-45 min",
+  "deliveryFee": 45,
+  "minimumOrder": 300,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4571"
+  },
+  "name": "Johnny & Jugnu",
+  "description": "Local burger chain with Pakistani flavors",
+  "rating": 4.1,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Fast Food",
+    "Burgers",
+    "Pakistani"
+  ],
+  "deliveryTime": "25-40 min",
+  "deliveryFee": 50,
+  "minimumOrder": 280,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4572"
+  },
+  "name": "Dewan's Restaurant",
+  "description": "Traditional Pakistani cuisine with modern touch",
+  "rating": 4.3,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Pakistani",
+    "Traditional"
+  ],
+  "deliveryTime": "35-50 min",
+  "deliveryFee": 55,
+  "minimumOrder": 380,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4573"
+  },
+  "name": "Nando's Pakistan",
+  "description": "Portuguese-style peri-peri chicken",
+  "rating": 4.3,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Portuguese",
+    "Chicken",
+    "Fast Food"
+  ],
+  "deliveryTime": "30-45 min",
+  "deliveryFee": 60,
+  "minimumOrder": 400,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4574"
+  },
+  "name": "China Town Restaurant",
+  "description": "Authentic Chinese cuisine with Pakistani flavors",
+  "rating": 4.1,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Chinese",
+    "Asian"
+  ],
+  "deliveryTime": "30-45 min",
+  "deliveryFee": 55,
+  "minimumOrder": 350,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4575"
+  },
+  "name": "Dragon City",
+  "description": "Premium Chinese and Thai cuisine",
+  "rating": 4.4,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Chinese",
+    "Thai",
+    "Asian"
+  ],
+  "deliveryTime": "35-50 min",
+  "deliveryFee": 60,
+  "minimumOrder": 400,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4576"
+  },
+  "name": "Jade Garden",
+  "description": "Fine Chinese dining with authentic flavors",
+  "rating": 4.5,
+  "priceRange": "Premium",
+  "cuisine": [
+    "Chinese",
+    "Asian",
+    "Fine Dining"
+  ],
+  "deliveryTime": "40-55 min",
+  "deliveryFee": 70,
+  "minimumOrder": 500,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4577"
+  },
+  "name": "Cafe Aylanto",
+  "description": "Fine dining with continental and Pakistani fusion",
+  "rating": 4.6,
+  "priceRange": "Premium",
+  "cuisine": [
+    "Pakistani",
+    "Continental",
+    "Fusion"
+  ],
+  "deliveryTime": "35-50 min",
+  "deliveryFee": 80,
+  "minimumOrder": 600,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4578"
+  },
+  "name": "Xander's",
+  "description": "Premium burgers and continental food",
+  "rating": 4.6,
+  "priceRange": "Premium",
+  "cuisine": [
+    "Continental",
+    "Burgers",
+    "Fast Food"
+  ],
+  "deliveryTime": "35-50 min",
+  "deliveryFee": 70,
+  "minimumOrder": 500,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a4579"
+  },
+  "name": "Chatterbox Cafe",
+  "description": "Continental and fusion cuisine in a cozy setting",
+  "rating": 4.4,
+  "priceRange": "Premium",
+  "cuisine": [
+    "Continental",
+    "Fusion",
+    "Cafe"
+  ],
+  "deliveryTime": "35-50 min",
+  "deliveryFee": 65,
+  "minimumOrder": 450,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a457a"
+  },
+  "name": "Okra Restaurant",
+  "description": "Upscale Pakistani and continental dining",
+  "rating": 4.7,
+  "priceRange": "Premium",
+  "cuisine": [
+    "Pakistani",
+    "Continental",
+    "Fine Dining"
+  ],
+  "deliveryTime": "45-60 min",
+  "deliveryFee": 80,
+  "minimumOrder": 600,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a457b"
+  },
+  "name": "Hafez Sweets",
+  "description": "Traditional Pakistani sweets and desserts",
+  "rating": 4.5,
+  "priceRange": "Budget",
+  "cuisine": [
+    "Desserts",
+    "Pakistani",
+    "Sweets"
+  ],
+  "deliveryTime": "25-40 min",
+  "deliveryFee": 40,
+  "minimumOrder": 200,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a457c"
+  },
+  "name": "Baskin Robbins Pakistan",
+  "description": "Premium ice cream and frozen desserts",
+  "rating": 4.3,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Desserts",
+    "Ice Cream"
+  ],
+  "deliveryTime": "20-35 min",
+  "deliveryFee": 50,
+  "minimumOrder": 250,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a457d"
+  },
+  "name": "Fresh n Fit",
+  "description": "Healthy salads, smoothies, and clean eating",
+  "rating": 4.2,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Healthy",
+    "Salads",
+    "Smoothies"
+  ],
+  "deliveryTime": "25-40 min",
+  "deliveryFee": 60,
+  "minimumOrder": 300,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68c526c3cbba68ceb93a457e"
+  },
+  "name": "Salad Company",
+  "description": "Fresh salads and healthy meal options",
+  "rating": 4.1,
+  "priceRange": "Moderate",
+  "cuisine": [
+    "Healthy",
+    "Salads",
+    "Vegetarian"
+  ],
+  "deliveryTime": "20-35 min",
+  "deliveryFee": 55,
+  "minimumOrder": 280,
+  "isActive": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T08:09:39.164Z"
+  }
+}]

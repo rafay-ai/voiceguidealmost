@@ -32,8 +32,7 @@ async def import_data():
 
         # Import restaurants
         print("🏪 Importing restaurants...")
-        restaurants_data = await load_json_data('https://customer-assets.emergentagent.com/job_ceeafdeb-59e4-4607-9af5-2516590de819/artifacts/0be0tl36_food-delivery.restaurants.json')
-        
+        restaurants_data = await load_json_data('data/food-delivery.restaurants.json')
         restaurants_for_db = []
         for restaurant in restaurants_data:
             # Convert MongoDB ObjectId format to UUID
@@ -63,8 +62,7 @@ async def import_data():
 
         # Import menu items
         print("🍽️ Importing menu items...")
-        menu_items_data = await load_json_data('https://customer-assets.emergentagent.com/job_ceeafdeb-59e4-4607-9af5-2516590de819/artifacts/l53m8hju_food-delivery.menuitems.json')
-        
+        menu_items_data = await load_json_data('data/food-delivery.menuitems.json')
         menu_items_for_db = []
         menu_item_id_mapping = {}
         
@@ -150,8 +148,7 @@ async def import_data():
         
         # Import orders (simplified version for recommendation engine)
         print("📦 Importing orders...")
-        orders_data = await load_json_data('https://customer-assets.emergentagent.com/job_ceeafdeb-59e4-4607-9af5-2516590de819/artifacts/viol0dzp_food-delivery.orders.json')
-        
+        orders_data = await load_json_data('data/food-delivery.orders.json')
         orders_for_db = []
         user_ids = [user['id'] for user in sample_users]
         
@@ -227,12 +224,9 @@ async def import_data():
     finally:
         client.close()
 
-async def load_json_data(url):
-    """Load JSON data from URL"""
-    import aiohttp
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            return await response.json()
-
+async def load_json_data(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return json.load(file)
+    
 if __name__ == "__main__":
     asyncio.run(import_data())
