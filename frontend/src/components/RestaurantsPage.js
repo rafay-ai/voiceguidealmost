@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import LoadingSpinner from './ui/LoadingSpinner';
 import RestaurantModal from './RestaurantModal';
 
+
 const RestaurantsPage = ({ user }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();

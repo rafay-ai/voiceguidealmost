@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, status, Request, BackgroundTasks
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
+from sklearn.feature_extraction.text import TfidfVectorizer
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
@@ -154,6 +155,8 @@ class MenuItem(BaseModel):
     order_count: int = 0
     average_rating: float = 0.0
     rating_count: int = 0
+    embedding: Optional[List[float]] = None
+    embedding_text: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class CartItem(BaseModel):
@@ -265,6 +268,64 @@ def detect_language(text: str) -> str:
         return 'ur'
     # Add checks for other languages if necessary
     return 'en' # Default to English
+
+async def generate_embedding(text: str) -> List[float]:
+    """Generate embedding vector for text using Gemini"""
+    try:
+        # Use genai.embed_content for embeddings
+        result = await asyncio.to_thread(
+            genai.embed_content,
+            model="models/text-embedding-004",
+            content=text,
+            task_type="retrieval_document"
+        )
+        return result['embedding']
+    except Exception as e:
+        logging.error(f"Error generating embedding: {e}")
+        return None
+    
+#----EMBEDDING FUNCTION----
+def cosine_similarity_vectors(vec1: List[float], vec2: List[float]) -> float:
+    """Calculate cosine similarity between two embedding vectors"""
+    if not vec1 or not vec2:
+        return 0.0
+    
+    # Convert to numpy arrays for efficient computation
+    v1 = np.array(vec1)
+    v2 = np.array(vec2)
+    
+    # Calculate cosine similarity
+    dot_product = np.dot(v1, v2)
+    magnitude1 = np.linalg.norm(v1)
+    magnitude2 = np.linalg.norm(v2)
+    
+    if magnitude1 == 0 or magnitude2 == 0:
+        return 0.0
+    
+    return float(dot_product / (magnitude1 * magnitude2))
+
+async def create_menu_item_text(menu_item: Dict) -> str:
+    """Create rich text representation of menu item for embedding"""
+    parts = [
+        menu_item.get('name', ''),
+        menu_item.get('description', ''),
+        menu_item.get('category', ''),
+        ' '.join(menu_item.get('tags', [])),
+        f"spice level: {menu_item.get('spice_level', 'medium')}",
+        "vegetarian" if menu_item.get('is_vegetarian') else "",
+        "halal" if menu_item.get('is_halal') else ""
+    ]
+    
+    # Get restaurant info
+    restaurant = await db.restaurants.find_one(
+        {"id": menu_item.get('restaurant_id')}, 
+        {"_id": 0, "cuisine": 1}
+    )
+    if restaurant and restaurant.get('cuisine'):
+        parts.append(' '.join(restaurant['cuisine']))
+    
+    return ' '.join(filter(None, parts))
+
 
 # --- Email Service ---
 async def send_order_confirmation_email(user_email: str, user_name: str, order: dict, order_items: List[dict]):
@@ -649,7 +710,7 @@ class RecommendationEngine:
         # Score items based on preferences
         scored_items = []
         for item in menu_items:
-            score = self.calculate_content_score(item, user_prefs) # Use modified scoring
+            score = await self.calculate_content_score(item, user_prefs) # Use modified scoring
             # Filter out items that *strongly* mismatch spice pref if possible
             if spice_pref == 'mild' and item.get('spice_level') in ['hot', 'very_hot'] and len(scored_items) > limit:
                  continue # Skip very spicy if user wants mild and we have enough options
@@ -663,7 +724,7 @@ class RecommendationEngine:
         scored_items.sort(key=lambda x: x['recommendation_score'], reverse=True)
         return scored_items[:limit]
 
-    def calculate_content_score(self, menu_item: Dict, user_prefs: Dict):
+    async def calculate_content_score(self, menu_item: Dict, user_prefs: Dict):
         """Calculate content-based score, giving more weight to explicit preferences"""
         score = 0.0
         favorite_cuisines = user_prefs.get('explicit_preferences', {}).get('favorite_cuisines', [])
@@ -676,7 +737,7 @@ class RecommendationEngine:
         # --- Stronger Preference Scoring ---
         # Cuisine match (Tags, Category, Name, Restaurant Cuisine)
         item_cuisines = set(menu_item.get('tags', []) + [menu_item.get('category', '')])
-        restaurant = asyncio.run(self.db.restaurants.find_one({"id": menu_item['restaurant_id']}, {"_id": 0, "cuisine": 1}))
+        restaurant = await self.db.restaurants.find_one({"id": menu_item['restaurant_id']}, {"_id": 0, "cuisine": 1})
         if restaurant and restaurant.get('cuisine'):
              item_cuisines.update(restaurant['cuisine'])
 
@@ -773,6 +834,446 @@ async def get_restaurant_recommendations_for_chat(message: str, user_context: Di
         logging.error(f"Error getting restaurant recommendations: {e}")
         return []
 
+async def get_embedding_based_recommendations(self, user_id: str, limit: int = 10):
+        """Get recommendations using embedding similarity"""
+        try:
+            # Get user's recent orders to understand preferences
+            orders = await self.get_user_order_history(user_id, limit=10)
+            
+            if not orders:
+                return []
+            
+            # Collect menu items from recent orders
+            ordered_item_ids = []
+            for order in orders:
+                for item in order.get('items', []):
+                    ordered_item_ids.append(item['menu_item_id'])
+            
+            # Get embeddings of items user has ordered
+            ordered_items_cursor = self.db.menu_items.find(
+                {
+                    "id": {"$in": ordered_item_ids},
+                    "embedding": {"$exists": True, "$ne": None}
+                },
+                {"_id": 0, "id": 1, "embedding": 1, "name": 1}
+            )
+            ordered_items = await ordered_items_cursor.to_list(None)
+            
+            if not ordered_items:
+                logging.info("No ordered items with embeddings found")
+                return []
+            
+            # Calculate average embedding of user's preferences
+            embeddings = [item['embedding'] for item in ordered_items if item.get('embedding')]
+            if not embeddings:
+                return []
+            
+            # Average the embeddings
+            avg_embedding = np.mean(embeddings, axis=0).tolist()
+            
+            # Get all available items with embeddings (excluding already ordered)
+            candidate_items_cursor = self.db.menu_items.find(
+                {
+                    "id": {"$nin": ordered_item_ids},
+                    "available": True,
+                    "embedding": {"$exists": True, "$ne": None}
+                },
+                {"_id": 0}
+            ).limit(200)  # Limit candidates for performance
+            
+            candidate_items = await candidate_items_cursor.to_list(None)
+            
+            # Calculate similarity scores
+            scored_items = []
+            for item in candidate_items:
+                if not item.get('embedding'):
+                    continue
+                
+                similarity = cosine_similarity_vectors(avg_embedding, item['embedding'])
+                
+                # Combine similarity with other factors
+                score = similarity * 10  # Scale up similarity
+                score += item.get('average_rating', 0) * 0.5
+                score += item.get('popularity_score', 0) * 0.3
+                
+                item['embedding_similarity'] = round(similarity, 3)
+                item['recommendation_score'] = score
+                
+                # Enrich with restaurant info
+                restaurant = await self.db.restaurants.find_one(
+                    {"id": item['restaurant_id']}, 
+                    {"_id": 0}
+                )
+                if restaurant:
+                    item["restaurant_name"] = restaurant["name"]
+                    item["restaurant_rating"] = restaurant["rating"]
+                    item["delivery_time"] = restaurant["delivery_time"]
+                    item["restaurant_cuisine"] = restaurant.get("cuisine", "")
+                
+                scored_items.append(item)
+            
+            # Sort by score
+            scored_items.sort(key=lambda x: x['recommendation_score'], reverse=True)
+            
+            logging.info(f"Found {len(scored_items)} embedding-based recommendations")
+            return scored_items[:limit]
+            
+        except Exception as e:
+            logging.error(f"Error in embedding-based recommendations: {e}")
+            import traceback
+            logging.error(traceback.format_exc())
+            return []
+async def analyze_user_order_history(user_id: str, days: int = 30):
+    """
+    Analyze user's order history for the past month to identify patterns
+    Returns cuisine frequency, favorite items, and recommendations
+    """
+    try:
+        # Get orders from the past month
+        cutoff_date = datetime.now(timezone.utc) - timedelta(days=days)
+        
+        orders_cursor = db.orders.find(
+            {
+                "user_id": user_id,
+                "created_at": {"$gte": cutoff_date}
+            },
+            {"_id": 0}
+        ).sort([("created_at", -1)])
+        
+        orders = await orders_cursor.to_list(None)
+        
+        if not orders:
+            return {
+                "has_history": False,
+                "total_orders": 0,
+                "cuisine_frequency": {},
+                "favorite_items": [],
+                "dominant_cuisine": None,
+                "tried_cuisines": []
+            }
+        
+        # Track cuisines and items
+        cuisine_count = {}
+        item_frequency = {}
+        all_cuisines_tried = set()
+        
+        for order in orders:
+            restaurant = await db.restaurants.find_one(
+                {"id": order["restaurant_id"]}, 
+                {"_id": 0, "cuisine": 1, "name": 1}
+            )
+            
+            if restaurant:
+                # Count cuisines
+                for cuisine in restaurant.get("cuisine", []):
+                    cuisine_count[cuisine] = cuisine_count.get(cuisine, 0) + 1
+                    all_cuisines_tried.add(cuisine)
+            
+            # Track individual items
+            for item in order.get("items", []):
+                menu_item = await db.menu_items.find_one(
+                    {"id": item["menu_item_id"]}, 
+                    {"_id": 0}
+                )
+                
+                if menu_item:
+                    item_key = menu_item["id"]
+                    if item_key not in item_frequency:
+                        item_frequency[item_key] = {
+                            "count": 0,
+                            "item": menu_item,
+                            "restaurant_name": restaurant.get("name", "Unknown") if restaurant else "Unknown"
+                        }
+                    item_frequency[item_key]["count"] += item["quantity"]
+        
+        # Find dominant cuisine (ordered 3+ times)
+        dominant_cuisines = [
+            cuisine for cuisine, count in cuisine_count.items() 
+            if count >= 3
+        ]
+        
+        # Sort favorite items by frequency
+        favorite_items = sorted(
+            item_frequency.values(), 
+            key=lambda x: x["count"], 
+            reverse=True
+        )[:5]  # Top 5 favorite items
+        
+        return {
+            "has_history": True,
+            "total_orders": len(orders),
+            "cuisine_frequency": cuisine_count,
+            "favorite_items": favorite_items,
+            "dominant_cuisines": dominant_cuisines,
+            "tried_cuisines": list(all_cuisines_tried),
+            "most_ordered_cuisine": max(cuisine_count.items(), key=lambda x: x[1])[0] if cuisine_count else None
+        }
+        
+    except Exception as e:
+        logging.error(f"Error analyzing order history: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+        return {
+            "has_history": False,
+            "total_orders": 0,
+            "cuisine_frequency": {},
+            "favorite_items": [],
+            "dominant_cuisines": [],
+            "tried_cuisines": []
+        }
+
+
+async def get_new_recommendations_based_on_history(user_id: str, order_history: Dict, limit: int = 3):
+    """
+    Get recommendations for NEW items/cuisines the user hasn't tried much
+    Based on their taste profile from order history
+    """
+    try:
+        tried_cuisines = order_history.get("tried_cuisines", [])
+        user = await db.users.find_one({"id": user_id}, {"_id": 0})
+        
+        if not user:
+            return []
+        
+        # Get all available cuisines
+        all_cuisines = await db.restaurants.distinct("cuisine", {"is_active": True})
+        all_cuisines_flat = []
+        for cuisine_list in all_cuisines:
+            if isinstance(cuisine_list, list):
+                all_cuisines_flat.extend(cuisine_list)
+            else:
+                all_cuisines_flat.append(cuisine_list)
+        
+        # Find cuisines they haven't tried or tried minimally
+        untried_cuisines = [c for c in set(all_cuisines_flat) if c not in tried_cuisines]
+        rarely_tried = [
+            cuisine for cuisine, count in order_history.get("cuisine_frequency", {}).items() 
+            if count < 3
+        ]
+        
+        # Prioritize untried cuisines, then rarely tried
+        target_cuisines = untried_cuisines[:2] + rarely_tried[:1] if untried_cuisines else rarely_tried[:3]
+        
+        if not target_cuisines:
+            # Fallback: suggest popular items from less-ordered cuisines
+            target_cuisines = list(set(all_cuisines_flat) - set(order_history.get("dominant_cuisines", [])))[:3]
+        
+        # Get items from these cuisines, matching user's spice preference
+        new_items = []
+        spice_pref = user.get("spice_preference", "medium")
+        
+        for cuisine in target_cuisines:
+            # Find restaurants with this cuisine
+            restaurants_cursor = db.restaurants.find({
+                "cuisine": cuisine,
+                "is_active": True
+            }, {"_id": 0}).limit(2)
+            
+            restaurants = await restaurants_cursor.to_list(None)
+            restaurant_ids = [r["id"] for r in restaurants]
+            
+            if restaurant_ids:
+                # Get highly rated items from these restaurants
+                items_cursor = db.menu_items.find({
+                    "restaurant_id": {"$in": restaurant_ids},
+                    "available": True,
+                    "average_rating": {"$gte": 3.5}
+                }, {"_id": 0}).limit(2)
+                
+                items = await items_cursor.to_list(None)
+                
+                for item in items:
+                    restaurant = await db.restaurants.find_one(
+                        {"id": item["restaurant_id"]}, 
+                        {"_id": 0}
+                    )
+                    
+                    if restaurant:
+                        item["restaurant_name"] = restaurant["name"]
+                        item["restaurant_rating"] = restaurant["rating"]
+                        item["delivery_time"] = restaurant["delivery_time"]
+                        item["restaurant_cuisine"] = restaurant.get("cuisine", [])
+                        item["recommendation_reason"] = f"New {cuisine} option for you!"
+                        
+                        # Boost score if spice level matches
+                        score = item.get("average_rating", 0) * 2 + item.get("popularity_score", 0)
+                        if item.get("spice_level") == spice_pref:
+                            score += 5
+                        
+                        item["preference_score"] = score
+                        new_items.append(item)
+        
+        # Sort by score and return top items
+        new_items.sort(key=lambda x: x.get("preference_score", 0), reverse=True)
+        return new_items[:limit]
+        
+    except Exception as e:
+        logging.error(f"Error getting new recommendations: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+        return []
+
+
+async def get_reorder_recommendations(order_history: Dict, limit: int = 3):
+    """
+    Get reorder recommendations from user's favorite items
+    """
+    try:
+        favorite_items = order_history.get("favorite_items", [])
+        
+        if not favorite_items:
+            return []
+        
+        reorder_items = []
+        for fav in favorite_items[:limit]:
+            item = fav["item"]
+            
+            # Check if item is still available
+            current_item = await db.menu_items.find_one(
+                {"id": item["id"], "available": True}, 
+                {"_id": 0}
+            )
+            
+            if current_item:
+                restaurant = await db.restaurants.find_one(
+                    {"id": current_item["restaurant_id"]}, 
+                    {"_id": 0}
+                )
+                
+                if restaurant and restaurant.get("is_active"):
+                    current_item["restaurant_name"] = restaurant["name"]
+                    current_item["restaurant_rating"] = restaurant["rating"]
+                    current_item["delivery_time"] = restaurant["delivery_time"]
+                    current_item["restaurant_cuisine"] = restaurant.get("cuisine", [])
+                    current_item["order_count_history"] = fav["count"]
+                    current_item["recommendation_reason"] = f"You've ordered this {fav['count']} times!"
+                    reorder_items.append(current_item)
+        
+        return reorder_items
+        
+    except Exception as e:
+        logging.error(f"Error getting reorder recommendations: {e}")
+        return []
+async def process_with_gemini_enhanced(
+    message: str, 
+    user_context: Dict, 
+    order_history: Dict,
+    reorder_items: List = [],
+    new_items: List = [],
+    is_new_request: bool = False
+):
+    """
+    Enhanced Gemini processing with order history context
+    """
+    username = user_context.get('username', 'User')
+    lang = detect_language(message)
+    response_instruction = f"Respond CONCISELY in {lang}." if lang == 'ur' else "Respond CONCISELY in English."
+    
+    # Build order history context
+    history_context = ""
+    if order_history.get("has_history"):
+        total_orders = order_history.get("total_orders", 0)
+        most_ordered = order_history.get("most_ordered_cuisine", "")
+        dominant_cuisines = order_history.get("dominant_cuisines", [])
+        
+        if dominant_cuisines:
+            history_context = f"\n\nOrder History: {username} has {total_orders} orders in the past month. "
+            history_context += f"Frequently orders: {', '.join(dominant_cuisines)}. "
+            
+            if most_ordered:
+                cuisine_count = order_history.get("cuisine_frequency", {}).get(most_ordered, 0)
+                history_context += f"Most loved cuisine: {most_ordered} ({cuisine_count} times). "
+    
+    # Build recommendations context
+    recs_context = ""
+    
+    if reorder_items:
+        recs_context += "\n\n**PAST FAVORITES (For Reorder)**:\n"
+        for idx, item in enumerate(reorder_items[:3], 1):
+            recs_context += f"{idx}. {item.get('name')} from {item.get('restaurant_name')} - PKR {item.get('price')} "
+            recs_context += f"(Ordered {item.get('order_count_history')} times)\n"
+    
+    if new_items and is_new_request:
+        recs_context += "\n**NEW RECOMMENDATIONS (Try Something Different)**:\n"
+        for idx, item in enumerate(new_items[:3], 1):
+            cuisines = ', '.join(item.get('restaurant_cuisine', []))
+            recs_context += f"{idx}. {item.get('name')} from {item.get('restaurant_name')} ({cuisines}) - PKR {item.get('price')}\n"
+    
+    # Construct prompt
+    if is_new_request:
+        prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
+
+User: {username}
+Preferences: {', '.join(user_context.get('favorite_cuisines', []))}
+Spice: {user_context.get('spice_preference', 'medium')}
+{history_context}
+
+User asked: "{message}"
+
+{recs_context}
+
+Task: The user wants something NEW/UNIQUE. Acknowledge their usual favorites, then enthusiastically present the new recommendations. Structure your response with "Your Favorites" section first, then "Try Something New" section. Keep it friendly and encouraging. {response_instruction}"""
+    else:
+        prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
+
+User: {username}
+Preferences: {', '.join(user_context.get('favorite_cuisines', []))}
+{history_context}
+
+User asked: "{message}"
+
+{recs_context}
+
+Task: Present their favorite items for reorder FIRST (mention how many times they've ordered). Then suggest new options. Keep response to 2-3 sentences total. {response_instruction}"""
+    
+    try:
+        logging.info(f"Sending enhanced prompt to Gemini (has_history={order_history.get('has_history')}, is_new={is_new_request})")
+        
+        model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        safety_settings = {
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        }
+        
+        response = await asyncio.to_thread(
+            model.generate_content,
+            prompt,
+            generation_config=genai.types.GenerationConfig(
+                temperature=0.7,
+                max_output_tokens=250
+            ),
+            safety_settings=safety_settings
+        )
+        
+        if not response.parts:
+            # Fallback response with history context
+            if reorder_items:
+                fallback = f"Your favorites: {reorder_items[0].get('name')} "
+                fallback += f"(ordered {reorder_items[0].get('order_count_history')} times!). "
+            else:
+                fallback = "Here are some recommendations: "
+            
+            if new_items and is_new_request:
+                fallback += f"Try something new: {new_items[0].get('name')} from {new_items[0].get('restaurant_name')}!"
+            
+            return fallback
+        
+        generated_text = response.text.strip()
+        logging.info(f"Gemini enhanced response: {generated_text}")
+        
+        return generated_text if generated_text else "Would you like to reorder your favorites or try something new?"
+        
+    except Exception as e:
+        logging.error(f"Error calling Gemini: {e}")
+        
+        # Smart fallback
+        if reorder_items:
+            return f"Your favorite: {reorder_items[0].get('name')} (PKR {reorder_items[0].get('price')}). Want to reorder?"
+        return "What would you like to order today?"
+        
+
 async def process_with_gemini(message: str, user_context: Dict = None, recommended_items: List = [], restaurants: List = []):
     """Process message with Gemini, making it more dynamic and language-aware"""
 
@@ -791,85 +1292,116 @@ async def process_with_gemini(message: str, user_context: Dict = None, recommend
 
     gemini_context = ". ".join(context_parts)
 
-    # Prepare recommendations string if available
+    # Prepare recommendations string if available - simplified to avoid safety blocks
     recs_string = ""
+    has_recommendations = False
     if recommended_items:
-        recs_string += "Here are some specific items you might like:\n"
-        for item in recommended_items[:3]: # Show top 3 items
-             recs_string += f"- {item.get('name', 'Unknown Item')} from {item.get('restaurant_name', 'Unknown Restaurant')} (PKR {item.get('price', 'N/A')})\n"
+        has_recommendations = True
+        items_list = []
+        for item in recommended_items[:3]:
+             items_list.append(f"{item.get('name', 'Item')} from {item.get('restaurant_name', 'Restaurant')} for PKR {item.get('price', 0)}")
+        recs_string = ", ".join(items_list)
     elif restaurants:
-        recs_string += "Here are some restaurants based on your request:\n"
+        has_recommendations = True
+        rest_list = []
         for r in restaurants[:3]:
-             recs_string += f"- {r.get('name', 'Unknown Restaurant')} ({', '.join(r.get('cuisine',[]))})\n"
+             rest_list.append(f"{r.get('name', 'Restaurant')} ({', '.join(r.get('cuisine',[]))})")
+        recs_string = ", ".join(rest_list)
+    
+    # Construct a cleaner prompt
+    if has_recommendations:
+        prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
 
-    # Construct the prompt
-    prompt = f"""
-    You are a friendly and concise food ordering assistant for Voice Guide in Karachi.
-    User Context: {gemini_context}.
-    User's message: "{message}"
+User: {username}
+Preferences: {', '.join(user_context.get('favorite_cuisines', []))}
+Spice: {user_context.get('spice_preference', 'medium')}
+Dietary: {', '.join(user_context.get('dietary_restrictions', []))}
 
-    Instructions:
-    1. Understand the user's request (order, recommendation, general chat).
-    2. If the user asks for recommendations or expresses hunger/mood for food, and specific items/restaurants were found ({bool(recommended_items or restaurants)}), briefly mention them like this: {recs_string if recs_string else "Mention the found items/restaurants"}.
-    3. If no specific items/restaurants were found but the user asked for food, acknowledge the request and suggest alternatives based on their preferences (e.g., "I couldn't find exactly that, but since you like [preference], how about trying..."). If no preferences, suggest popular options like Biryani or Burgers.
-    4. If it's a general greeting or non-food query, respond conversationally and briefly.
-    5. If the user asks to order something specific mentioned in the items/restaurants found, confirm you can help place the order (e.g., "Sure, I can help you order [Item Name]!"). The backend will handle the actual order card display.
-    6. Always use Pakistani Rupees (PKR) for currency.
-    7. {response_instruction} Keep responses very short (1-2 sentences).
-    """
+User asked: "{message}"
+
+Available items: {recs_string}
+
+Task: Briefly mention these items as recommendations in a friendly way. Keep it to 1-2 sentences. {response_instruction}"""
+    else:
+        prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
+
+User: {username}
+Preferences: {', '.join(user_context.get('favorite_cuisines', []))}
+
+User asked: "{message}"
+
+Task: No specific items found. Suggest popular options based on their preferences or suggest Biryani or Burgers. Keep it to 1-2 sentences. {response_instruction}"""
 
     try:
-        logging.info(f"Sending prompt to Gemini (lang={lang}): {prompt[:200]}...") # Log truncated prompt
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        logging.info(f"Sending prompt to Gemini (lang={lang}, has_recs={has_recommendations})")
+        logging.debug(f"Full prompt: {prompt[:500]}...") # Log first 500 chars
+        
+        model = genai.GenerativeModel('gemini-2.0-flash-exp')  # Using a more stable model
         safety_settings = {
-            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
         }
         response = await asyncio.to_thread(
              model.generate_content,
              prompt,
              generation_config=genai.types.GenerationConfig(
-                  temperature=0.6, # Slightly less creative for consistency
-                  max_output_tokens=100 # Keep it concise
+                  temperature=0.7,
+                  max_output_tokens=150
              ),
              safety_settings=safety_settings
         )
+        
         # Handle potential safety blocks or empty responses
         if not response.parts:
              block_reason = "Unknown"
-             safety_ratings = "N/A"
-             if response.prompt_feedback and response.prompt_feedback.block_reason:
-                 block_reason = response.prompt_feedback.block_reason
-                 safety_ratings = response.prompt_feedback.safety_ratings
-             logging.warning("Gemini response has no parts (potentially blocked).")
-             # Provide a safe fallback based on language
-             if lang == 'ur':
-                  return "معاف کیجئے گا، میں اس وقت مدد نہیں کر سکتا۔ کیا آپ کچھ اور آزمانا چاہیں گے؟" # Sorry, I cannot assist right now. Would you like to try something else?
+             if hasattr(response, 'prompt_feedback'):
+                 block_reason = str(response.prompt_feedback.block_reason) if response.prompt_feedback.block_reason else "Unknown"
+                 logging.error(f"Gemini blocked response. Reason: {block_reason}")
+                 logging.error(f"Safety ratings: {response.prompt_feedback.safety_ratings}")
+             
+             # Provide a helpful fallback with actual recommendations if available
+             if has_recommendations and recommended_items:
+                 fallback = "Here are some recommendations for you: "
+                 items = [f"{item.get('name')} from {item.get('restaurant_name')} (PKR {item.get('price')})" 
+                         for item in recommended_items[:3]]
+                 return fallback + ", ".join(items)
+             elif lang == 'ur':
+                  return "یہاں کچھ مشہور اختیارات ہیں: بریانی، برگر، یا پیزا۔ کیا آپ کچھ آرڈر کرنا چاہیں گے?"
              else:
-                  return "Sorry, I couldn't process that request right now. Could you please rephrase or try asking for recommendations?"
+                  return "Here are some popular options: Biryani, Burgers, or Pizza. Would you like to order something?"
         
         generated_text = response.text.strip()
         logging.info(f"Gemini response: {generated_text}")
         
-        # Simple fallback if Gemini gives an unexpectedly empty response
         if not generated_text:
              logging.warning("Gemini returned empty text.")
-             if lang == 'ur':
-                 return "میں آپ کی درخواست سمجھ نہیں پایا۔ کیا آپ دوبارہ کوشش کر سکتے ہیں؟" # I didn't understand your request. Can you try again?
+             if has_recommendations and recommended_items:
+                 fallback = "Check out these items: "
+                 items = [item.get('name') for item in recommended_items[:3]]
+                 return fallback + ", ".join(items)
+             elif lang == 'ur':
+                 return "کیا آپ بریانی یا برگر آزمانا چاہیں گے؟"
              else:
-                 return "I didn't quite catch that. Could you try asking in a different way?"
+                 return "Would you like to try Biryani or a Burger?"
                  
         return generated_text
 
     except Exception as e:
         logging.error(f"Error calling Gemini: {e}")
-        # Fallback response on error
-        if lang == 'ur':
-            return "معذرت، کچھ غلط ہو گیا۔ براہ کرم دوبارہ کوشش کریں।" # Sorry, something went wrong. Please try again.
+        import traceback
+        logging.error(traceback.format_exc())
+        
+        # Better fallback with actual recommendations
+        if has_recommendations and recommended_items:
+            fallback = "I found these for you: "
+            items = [f"{item.get('name')} (PKR {item.get('price')})" for item in recommended_items[:2]]
+            return fallback + ", ".join(items)
+        elif lang == 'ur':
+            return "کچھ غلط ہو گیا۔ کیا آپ بریانی یا برگر آزمانا چاہیں گے؟"
         else:
-            return "Apologies, something went wrong. Please try again."
+            return "Something went wrong. Would you like to try Biryani or Burgers?"
 
 # --- API Routes ---
 
@@ -1408,13 +1940,13 @@ async def chat_with_assistant(
         "spice_preference": current_user.spice_preference,
         "preferences_set": current_user.preferences_set,
         "default_address": None,
-        # Pass explicit preferences directly for Gemini context
         "explicit_preferences": {
-             "favorite_cuisines": current_user.favorite_cuisines,
-             "dietary_restrictions": current_user.dietary_restrictions,
-             "spice_preference": current_user.spice_preference,
+            "favorite_cuisines": current_user.favorite_cuisines,
+            "dietary_restrictions": current_user.dietary_restrictions,
+            "spice_preference": current_user.spice_preference,
         }
     }
+    
     for address in current_user.addresses:
         if address.get('is_default'):
             user_context['default_address'] = address
@@ -1423,76 +1955,75 @@ async def chat_with_assistant(
     message_lower = chat_request.message.lower()
     lang = detect_language(chat_request.message)
 
+    # Analyze order history (past 30 days)
+    order_history = await analyze_user_order_history(current_user.id, days=30)
+    
+    # Detect intent
     food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest', 'want', 'show', 'mood for']
-
-    cuisine_keywords = {
-        'pakistani': ['Pakistani'], 'biryani': ['Pakistani'], 'karahi': ['Pakistani'],
-        'chinese': ['Chinese'], 'chowmein': ['Chinese'], 'fried rice': ['Chinese'],
-        'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'],
-        'bbq': ['BBQ'], 'kebab': ['BBQ'], 'tikka': ['BBQ'],
-        'dessert': ['Desserts'], 'desserts': ['Desserts'], 'sweet': ['Desserts'], 'sweets': ['Desserts'],
-        'ice cream': ['Desserts'], 'cake': ['Desserts'],
-        'japanese': ['Japanese'], 'sushi': ['Japanese'], 'ramen': ['Japanese'],
-        'thai': ['Thai'], 'pad thai': ['Thai'], 'curry': ['Thai'],
-        'indian': ['Indian'], 'tandoori': ['Indian'],
-        'italian': ['Italian'], 'pasta': ['Italian'],
-        'mexican': ['Mexican'], 'taco': ['Mexican']
-    }
-
-    # Determine intent (simplified)
-    is_food_request = any(keyword in message_lower for keyword in food_keywords + list(cuisine_keywords.keys()))
+    new_keywords = ['new', 'different', 'unique', 'change', 'something else', 'try something', 'never tried', 'haven\'t tried']
+    
+    is_food_request = any(keyword in message_lower for keyword in food_keywords)
+    is_new_request = any(keyword in message_lower for keyword in new_keywords)
     is_order_intent = any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order', 'get this'])
 
-    restaurants = []
-    recommended_items = []
+    reorder_items = []
+    new_items = []
     show_order_card = False
 
-    if is_order_intent:
-        # If user confirms an order, backend logic handles showing card via `handle_direct_order_request`
-        # We just need Gemini to provide confirmation text.
-        pass # Let Gemini handle confirmation based on prompt
-    elif is_food_request:
-        logging.info(f"Food request detected for: '{chat_request.message}'")
-        # Detect specific cuisines requested
-        detected_cuisines = []
-        for keyword, cuisines in cuisine_keywords.items():
-            if keyword in message_lower:
-                detected_cuisines.extend(cuisines)
-        detected_cuisines = list(set(detected_cuisines))
-
-        # Use preferences if no specific cuisine detected or general request
-        if not detected_cuisines and any(word in message_lower for word in ['hungry', 'recommend', 'suggestion', 'food', 'eat', 'mood for']):
-             if current_user.favorite_cuisines:
-                 detected_cuisines = current_user.favorite_cuisines[:3] # Use top 3 preferences
-                 logging.info(f"Using user preferences for cuisines: {detected_cuisines}")
-             else:
-                 # Fallback if no preferences set
-                 detected_cuisines = ["Pakistani", "Fast Food"] # Default popular fallback
-                 logging.info(f"No user preferences, using default fallback: {detected_cuisines}")
-
-
-        # Get menu items using the preference-aware function
-        if detected_cuisines:
-            recommended_items = await get_menu_items_by_cuisine(
-                detected_cuisines,
-                limit=3,
-                user_preferences=user_context['explicit_preferences'] # Pass explicit prefs for scoring
+    # Get recommendations based on order history
+    if is_food_request:
+        logging.info(f"Food request detected. Has history: {order_history.get('has_history')}, Is new request: {is_new_request}")
+        
+        # Always get reorder recommendations if they have history
+        if order_history.get("has_history"):
+            reorder_items = await get_reorder_recommendations(order_history, limit=3)
+            logging.info(f"Found {len(reorder_items)} reorder items")
+        
+        # Get new recommendations if they ask for something new OR if getting general recommendations
+        if is_new_request or (is_food_request and order_history.get("has_history")):
+            new_items = await get_new_recommendations_based_on_history(
+                current_user.id, 
+                order_history, 
+                limit=3
             )
-            # Fetch associated restaurants if items were found
-            if recommended_items:
-                 restaurant_ids = list(set(item['restaurant_id'] for item in recommended_items))
-                 restaurants_cursor = db.restaurants.find({"id": {"$in": restaurant_ids}}, {"_id": 0})
-                 restaurants = await restaurants_cursor.to_list(None)
+            logging.info(f"Found {len(new_items)} new recommendation items")
+        
+        # If no history, use the existing cuisine-based search
+        if not order_history.get("has_history"):
+            # Use existing logic for users without order history
+            detected_cuisines = []
+            cuisine_keywords = {
+                'pakistani': ['Pakistani'], 'biryani': ['Pakistani'], 'karahi': ['Pakistani'],
+                'chinese': ['Chinese'], 'chowmein': ['Chinese'], 'fried rice': ['Chinese'],
+                'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'],
+                'bbq': ['BBQ'], 'kebab': ['BBQ'], 'tikka': ['BBQ'],
+                'dessert': ['Desserts'], 'desserts': ['Desserts'], 'sweet': ['Desserts'],
+            }
+            
+            for keyword, cuisines in cuisine_keywords.items():
+                if keyword in message_lower:
+                    detected_cuisines.extend(cuisines)
+            
+            if not detected_cuisines and current_user.favorite_cuisines:
+                detected_cuisines = current_user.favorite_cuisines[:3]
+            
+            if detected_cuisines:
+                new_items = await get_menu_items_by_cuisine(
+                    detected_cuisines,
+                    limit=3,
+                    user_preferences=user_context['explicit_preferences']
+                )
+        
+        show_order_card = len(reorder_items) > 0 or len(new_items) > 0
 
-            show_order_card = len(recommended_items) > 0 # Show card only if specific items found
-
-
-    # Process with Gemini (passing fetched items/restaurants for context)
-    response_text = await process_with_gemini(
-         chat_request.message,
-         user_context,
-         recommended_items,
-         restaurants
+    # Process with enhanced Gemini
+    response_text = await process_with_gemini_enhanced(
+        chat_request.message,
+        user_context,
+        order_history,
+        reorder_items,
+        new_items,
+        is_new_request
     )
 
     # Save chat message
@@ -1506,8 +2037,14 @@ async def chat_with_assistant(
 
     return {
         "response": response_text,
-        "restaurants": restaurants, # Return restaurants for potential card display (frontend logic decides)
-        "recommended_items": recommended_items, # Return specific items for the order card
+        "reorder_items": reorder_items,  # Past favorites for reorder
+        "new_items": new_items,  # New recommendations
+        "order_history_summary": {
+            "has_history": order_history.get("has_history"),
+            "total_orders": order_history.get("total_orders", 0),
+            "dominant_cuisines": order_history.get("dominant_cuisines", []),
+            "most_ordered_cuisine": order_history.get("most_ordered_cuisine")
+        } if order_history.get("has_history") else None,
         "show_order_card": show_order_card,
         "has_default_address": user_context['default_address'] is not None,
         "default_address": user_context['default_address'],
@@ -1867,6 +2404,84 @@ async def process_voice_order(
 @api_router.get("/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc)}
+
+@api_router.post("/admin/generate-embeddings")
+async def generate_all_embeddings(background_tasks: BackgroundTasks):
+    """Generate embeddings for all menu items (run once during setup)"""
+    try:
+        # Get all menu items without embeddings
+        menu_items_cursor = db.menu_items.find(
+            {"$or": [{"embedding": None}, {"embedding": {"$exists": False}}]},
+            {"_id": 0}
+        )
+        menu_items = await menu_items_cursor.to_list(None)
+        
+        logging.info(f"Found {len(menu_items)} items without embeddings")
+        
+        # Generate embeddings in background
+        background_tasks.add_task(process_embeddings_batch, menu_items)
+        
+        return {
+            "message": f"Started generating embeddings for {len(menu_items)} items",
+            "status": "processing"
+        }
+    except Exception as e:
+        logging.error(f"Error starting embedding generation: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def process_embeddings_batch(menu_items: List[Dict]):
+    """Process embeddings for a batch of menu items"""
+    success_count = 0
+    error_count = 0
+    
+    for item in menu_items:
+        try:
+            # Create text representation
+            item_text = await create_menu_item_text(item)
+            
+            # Generate embedding
+            embedding = await generate_embedding(item_text)
+            
+            if embedding:
+                # Update in database
+                await db.menu_items.update_one(
+                    {"id": item['id']},
+                    {
+                        "$set": {
+                            "embedding": embedding,
+                            "embedding_text": item_text
+                        }
+                    }
+                )
+                success_count += 1
+                logging.info(f"✅ Generated embedding for: {item.get('name')}")
+            else:
+                error_count += 1
+                logging.error(f"❌ Failed to generate embedding for: {item.get('name')}")
+            
+            # Small delay to avoid rate limits
+            await asyncio.sleep(0.1)
+            
+        except Exception as e:
+            error_count += 1
+            logging.error(f"Error processing item {item.get('name')}: {e}")
+    
+    logging.info(f"Embedding generation complete: {success_count} success, {error_count} errors")
+
+@api_router.get("/admin/embedding-status")
+async def get_embedding_status():
+    """Check how many items have embeddings"""
+    total_items = await db.menu_items.count_documents({})
+    items_with_embeddings = await db.menu_items.count_documents({
+        "embedding": {"$exists": True, "$ne": None}
+    })
+    
+    return {
+        "total_items": total_items,
+        "items_with_embeddings": items_with_embeddings,
+        "items_without_embeddings": total_items - items_with_embeddings,
+        "percentage_complete": round((items_with_embeddings / total_items * 100), 2) if total_items > 0 else 0
+    }
 
 # Include router
 app.include_router(api_router)
