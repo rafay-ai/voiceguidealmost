@@ -326,6 +326,20 @@ async def create_menu_item_text(menu_item: Dict) -> str:
     
     return ' '.join(filter(None, parts))
 
+def deduplicate_items_by_name(items: List[Dict]) -> List[Dict]:
+        """Remove duplicate items with same name, keep highest scoring one"""
+        seen_names = {}
+        unique_items = []
+    
+        for item in items:
+            name = item.get('name', '')
+            score = item.get('preference_score', 0) or item.get('recommendation_score', 0)
+        
+            if name not in seen_names or score > seen_names[name]['score']:
+                seen_names[name] = {'item': item, 'score': score}
+    
+        return [data['item'] for data in seen_names.values()]
+
 
 # --- Email Service ---
 async def send_order_confirmation_email(user_email: str, user_name: str, order: dict, order_items: List[dict]):
@@ -1104,7 +1118,8 @@ async def get_new_recommendations_based_on_history(user_id: str, order_history: 
                         new_items.append(item)
         
         # Sort by score and return top items
-        new_items.sort(key=lambda x: x.get("preference_score", 0), reverse=True)
+        new_items = deduplicate_items_by_name(new_items)  # Add this line
+        new_items.sort(key=lambda x: x.get("preference_score", 0), reverse=True) 
         return new_items[:limit]
         
     except Exception as e:

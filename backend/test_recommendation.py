@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 import json
 
 # Configuration
-BASE_URL = "http://0.0.0.0:8001"  # Change to your server URL
+BASE_URL = "http://127.0.0.1:8001/api"  # Change to your server URL
 TEST_USERS_COUNT = 5
 ORDERS_PER_USER = 20
 
@@ -484,5 +484,5 @@ if __name__ == "__main__":
 ║  5. Test new item suggestions                            ║
 ╚═══════════════════════════════════════════════════════════╝
     """)
-    
+
     asyncio.run(main())
