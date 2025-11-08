@@ -288,13 +288,14 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Fix chatbot mentioning past orders for new users"
     - "Enhanced chatbot recommendation logic"
     - "Currency display - Dashboard"
     - "Currency display - Restaurants Page"
     - "Currency display - Profile Page"
   stuck_tasks: []
   test_all: false
-  test_priority: "high_first"
+  test_priority: "critical_first"
 
 agent_communication:
   - agent: "main"
