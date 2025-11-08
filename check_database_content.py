@@ -8,7 +8,7 @@ import requests
 import json
 
 class DatabaseChecker:
-    def __init__(self, base_url="https://munchmate-voice.preview.emergentagent.com"):
+    def __init__(self, base_url="https://newuser-fix.preview.emergentagent.com"):
         self.base_url = base_url
         self.session = requests.Session()
         self.session.headers.update({'Content-Type': 'application/json'})

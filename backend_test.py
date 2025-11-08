@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any
 
 class VoiceGuideAPITester:
-    def __init__(self, base_url="https://munchmate-voice.preview.emergentagent.com"):
+    def __init__(self, base_url="https://newuser-fix.preview.emergentagent.com"):
         self.base_url = base_url
         self.token = None
         self.user_id = None
