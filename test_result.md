@@ -299,6 +299,45 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: |
+      🔧 NEW FIX APPLIED - Bot Mentioning Past Orders for New Users
+      
+      ISSUE: User reported that when a new user (with no order history) signs in and asks the bot 
+      for recommendations, the bot incorrectly says "you have ordered certain things" even though 
+      the user is new and hasn't placed any orders.
+      
+      ROOT CAUSE: The `process_with_gemini_enhanced` function was constructing prompts that always 
+      instructed Gemini to mention order history, causing it to hallucinate past orders for new users.
+      
+      FIX APPLIED:
+      ✅ Modified process_with_gemini_enhanced() function (lines 1172-1290)
+      ✅ Added explicit checks for has_order_history and has_reorder_items
+      ✅ Created 4 different prompt scenarios based on user's actual order history
+      ✅ NEW USER scenario explicitly instructs: "DO NOT mention any past orders or favorites"
+      ✅ Updated all fallback responses to only mention history when it exists
+      ✅ Enhanced logging to track which prompt scenario is being used
+      
+      🧪 TESTING REQUIREMENTS:
+      Priority: CRITICAL - This directly affects user experience
+      
+      Test Scenario 1 - New User Without Orders:
+      1. Create a new user account (or use existing user with 0 orders)
+      2. Set user preferences to [Japanese, Thai, Desserts]
+      3. Ask chatbot: "I'm hungry" or "recommend me something"
+      4. EXPECTED: Response should NOT mention any past orders or favorites
+      5. VERIFY: reorder_items array should be empty in API response
+      6. VERIFY: order_history_summary should be null or has_history=false
+      
+      Test Scenario 2 - Existing User With Orders:
+      1. Use a user account that has placed orders before
+      2. Ask chatbot: "I'm hungry"
+      3. EXPECTED: Response SHOULD mention their favorites with order counts
+      4. VERIFY: reorder_items array should contain their past favorite items
+      5. VERIFY: order_history_summary should show has_history=true
+      
+      Backend has been restarted and is running successfully.
+      
+  - agent: "main"
+    message: |
       IMPLEMENTATION SUMMARY:
       
       ✅ COMPLETED:
