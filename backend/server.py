@@ -1184,9 +1184,13 @@ async def process_with_gemini_enhanced(
     lang = detect_language(message)
     response_instruction = f"Respond CONCISELY in {lang}." if lang == 'ur' else "Respond CONCISELY in English."
     
-    # Build order history context
+    has_order_history = order_history.get("has_history", False)
+    has_reorder_items = len(reorder_items) > 0
+    has_new_items = len(new_items) > 0
+    
+    # Build order history context ONLY if user actually has history
     history_context = ""
-    if order_history.get("has_history"):
+    if has_order_history and has_reorder_items:
         total_orders = order_history.get("total_orders", 0)
         most_ordered = order_history.get("most_ordered_cuisine", "")
         dominant_cuisines = order_history.get("dominant_cuisines", [])
@@ -1202,20 +1206,34 @@ async def process_with_gemini_enhanced(
     # Build recommendations context
     recs_context = ""
     
-    if reorder_items:
+    if has_reorder_items:
         recs_context += "\n\n**PAST FAVORITES (For Reorder)**:\n"
         for idx, item in enumerate(reorder_items[:3], 1):
             recs_context += f"{idx}. {item.get('name')} from {item.get('restaurant_name')} - PKR {item.get('price')} "
             recs_context += f"(Ordered {item.get('order_count_history')} times)\n"
     
-    if new_items and is_new_request:
-        recs_context += "\n**NEW RECOMMENDATIONS (Try Something Different)**:\n"
+    if has_new_items:
+        recs_context += "\n**RECOMMENDATIONS FOR YOU**:\n"
         for idx, item in enumerate(new_items[:3], 1):
             cuisines = ', '.join(item.get('restaurant_cuisine', []))
             recs_context += f"{idx}. {item.get('name')} from {item.get('restaurant_name')} ({cuisines}) - PKR {item.get('price')}\n"
     
-    # Construct prompt
-    if is_new_request:
+    # Construct prompt based on whether user has order history
+    if not has_order_history:
+        # NEW USER - No order history, don't mention past orders
+        prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
+
+User: {username}
+Preferences: {', '.join(user_context.get('favorite_cuisines', []))}
+Spice: {user_context.get('spice_preference', 'medium')}
+
+User asked: "{message}"
+
+{recs_context}
+
+Task: This is a NEW USER with no order history. Present the recommendations based on their stated preferences. DO NOT mention any past orders or favorites. Keep response friendly and inviting, 2-3 sentences. {response_instruction}"""
+    elif is_new_request and has_reorder_items:
+        # User wants something NEW but has order history
         prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
 
 User: {username}
@@ -1227,8 +1245,9 @@ User asked: "{message}"
 
 {recs_context}
 
-Task: The user wants something NEW/UNIQUE. Acknowledge their usual favorites, then enthusiastically present the new recommendations. Structure your response with "Your Favorites" section first, then "Try Something New" section. Keep it friendly and encouraging. {response_instruction}"""
-    else:
+Task: The user wants something NEW/UNIQUE. Briefly acknowledge their usual favorites if available, then enthusiastically present the new recommendations. Keep it friendly and encouraging, 2-3 sentences. {response_instruction}"""
+    elif has_reorder_items:
+        # User has history and we have reorder items to show
         prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
 
 User: {username}
@@ -1239,7 +1258,19 @@ User asked: "{message}"
 
 {recs_context}
 
-Task: Present their favorite items for reorder FIRST (mention how many times they've ordered). Then suggest new options. Keep response to 2-3 sentences total. {response_instruction}"""
+Task: Present their favorite items for reorder (mention how many times they've ordered). Then suggest new options if available. Keep response to 2-3 sentences total. {response_instruction}"""
+    else:
+        # Has history but no specific reorder items available
+        prompt = f"""You are a friendly food ordering assistant for Voice Guide in Karachi.
+
+User: {username}
+Preferences: {', '.join(user_context.get('favorite_cuisines', []))}
+
+User asked: "{message}"
+
+{recs_context}
+
+Task: Present the available recommendations in a friendly way. Keep response to 2-3 sentences. {response_instruction}"""
     
     try:
         logging.info(f"Sending enhanced prompt to Gemini (has_history={order_history.get('has_history')}, is_new={is_new_request})")
