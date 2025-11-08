@@ -1273,7 +1273,7 @@ User asked: "{message}"
 Task: Present the available recommendations in a friendly way. Keep response to 2-3 sentences. {response_instruction}"""
     
     try:
-        logging.info(f"Sending enhanced prompt to Gemini (has_history={order_history.get('has_history')}, is_new={is_new_request})")
+        logging.info(f"Sending enhanced prompt to Gemini (has_history={has_order_history}, has_reorder={has_reorder_items}, has_new={has_new_items}, is_new_request={is_new_request})")
         
         model = genai.GenerativeModel('gemini-2.0-flash-exp')
         safety_settings = {
@@ -1294,29 +1294,41 @@ Task: Present the available recommendations in a friendly way. Keep response to 
         )
         
         if not response.parts:
-            # Fallback response with history context
-            if reorder_items:
+            # Fallback response - only mention order history if it exists
+            if has_reorder_items:
                 fallback = f"Your favorites: {reorder_items[0].get('name')} "
                 fallback += f"(ordered {reorder_items[0].get('order_count_history')} times!). "
             else:
-                fallback = "Here are some recommendations: "
+                fallback = "Here are some recommendations for you: "
             
-            if new_items and is_new_request:
-                fallback += f"Try something new: {new_items[0].get('name')} from {new_items[0].get('restaurant_name')}!"
+            if has_new_items:
+                if has_reorder_items:
+                    fallback += f"Or try something new: {new_items[0].get('name')} from {new_items[0].get('restaurant_name')}!"
+                else:
+                    fallback += f"{new_items[0].get('name')} from {new_items[0].get('restaurant_name')}!"
             
             return fallback
         
         generated_text = response.text.strip()
         logging.info(f"Gemini enhanced response: {generated_text}")
         
-        return generated_text if generated_text else "Would you like to reorder your favorites or try something new?"
+        # Return appropriate default if empty
+        if not generated_text:
+            if has_order_history:
+                return "Would you like to reorder your favorites or try something new?"
+            else:
+                return "What would you like to order today?"
+        
+        return generated_text
         
     except Exception as e:
         logging.error(f"Error calling Gemini: {e}")
         
-        # Smart fallback
-        if reorder_items:
+        # Smart fallback - only mention history if it exists
+        if has_reorder_items:
             return f"Your favorite: {reorder_items[0].get('name')} (PKR {reorder_items[0].get('price')}). Want to reorder?"
+        elif has_new_items:
+            return f"How about trying {new_items[0].get('name')} from {new_items[0].get('restaurant_name')}?"
         return "What would you like to order today?"
         
 
