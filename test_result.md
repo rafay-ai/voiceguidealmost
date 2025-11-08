@@ -106,8 +106,55 @@ user_problem_statement: |
   Fix chatbot recommendations to correctly reflect user preferences (Japanese, Thai, Desserts) 
   instead of defaulting to "Student Biryani". Ensure all currency displays consistently show "PKR" 
   instead of "₹".
+  
+  NEW ISSUE: When new user (with no order history) asks for recommendations, the bot incorrectly 
+  mentions that they have ordered certain things before.
 
 backend:
+  - task: "Fix chatbot mentioning past orders for new users"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          ISSUE IDENTIFIED AND FIXED:
+          
+          Problem: New users (with no order history) were seeing responses from the bot that mentioned 
+          past orders like "you have ordered certain things". This was confusing and incorrect.
+          
+          Root Cause: The `process_with_gemini_enhanced` function (lines 1172-1290) was constructing 
+          prompts that ALWAYS instructed Gemini to mention order history and favorites, even when:
+          - order_history.has_history = False (new user)
+          - reorder_items = [] (no past orders)
+          
+          The prompts included instructions like:
+          - "Acknowledge their usual favorites" (even when none exist)
+          - "Present their favorite items for reorder FIRST (mention how many times they've ordered)"
+          
+          This caused Gemini to hallucinate/fabricate order history data.
+          
+          FIX APPLIED:
+          1. Added explicit checks for has_order_history and has_reorder_items at the start
+          2. Created conditional prompt construction with 4 different scenarios:
+             a) NEW USER (no order history) - Explicitly instructs: "DO NOT mention any past orders"
+             b) User with history wanting something NEW - Acknowledges favorites then shows new items
+             c) User with history - Shows favorites with order counts
+             d) User with history but no reorder items available - Generic recommendations
+          3. Updated all fallback responses to only mention order history when it actually exists
+          4. Enhanced logging to track which scenario is being used
+          
+          TESTING NEEDED:
+          - Test with a NEW user (no orders in database)
+          - User asks "I'm hungry" or "recommend me something"
+          - Response should NOT mention any past orders or favorites
+          - Response should only present recommendations based on stated preferences
+          - Verify reorder_items is empty in the API response for new users
+  
   - task: "Enhanced chatbot recommendation logic"
     implemented: true
     working: false
