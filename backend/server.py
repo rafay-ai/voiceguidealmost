@@ -27,6 +27,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import re
 
+# Import our enhanced modules
+from recommendation_engine import RecommendationEngine
+from enhanced_chatbot import EnhancedChatbot, Intent
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
