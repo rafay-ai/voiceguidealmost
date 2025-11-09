@@ -62,21 +62,26 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 hours
 security = HTTPBearer()
 executor = ThreadPoolExecutor(max_workers=4)
 
-# Initialize Enhanced Components
-recommendation_engine = RecommendationEngine(db)
+# Initialize Enhanced Components (will be initialized on startup)
+recommendation_engine = None
 enhanced_chatbot = EnhancedChatbot()
 
 # Initialize embeddings on startup
 @app.on_event("startup")
 async def startup_event():
-    """Initialize embeddings for menu items on server startup"""
+    """Initialize recommendation engine and embeddings for menu items on server startup"""
+    global recommendation_engine
+    
     logging.info("Initializing recommendation engine...")
     try:
-        # Generate embeddings for items that don't have them yet
-        count = await recommendation_engine.generate_item_embeddings(limit=100)  # Limit to 100 for initial setup
+        recommendation_engine = RecommendationEngine(db)
+        # Generate embeddings for items that don't have them yet (limited for faster startup)
+        count = await recommendation_engine.generate_item_embeddings(limit=50)
         logging.info(f"Initialized {count} menu item embeddings")
     except Exception as e:
         logging.error(f"Error initializing embeddings: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
 
 # Karachi Areas Data
 KARACHI_AREAS = {
