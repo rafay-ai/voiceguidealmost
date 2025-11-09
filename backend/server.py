@@ -2009,125 +2009,141 @@ async def chat_with_assistant(
     chat_request: ChatRequest,
     current_user: User = Depends(get_current_user)
 ):
-    # Get user context
-    user_context = {
-        "user_id": current_user.id,
-        "username": current_user.username,
-        "favorite_cuisines": current_user.favorite_cuisines,
-        "dietary_restrictions": current_user.dietary_restrictions,
-        "spice_preference": current_user.spice_preference,
-        "preferences_set": current_user.preferences_set,
-        "default_address": None,
-        "explicit_preferences": {
+    """
+    Enhanced chat endpoint with embeddings-based recommendations and better intent detection
+    """
+    try:
+        # Get user context
+        user_context = {
+            "user_id": current_user.id,
+            "username": current_user.username,
             "favorite_cuisines": current_user.favorite_cuisines,
             "dietary_restrictions": current_user.dietary_restrictions,
             "spice_preference": current_user.spice_preference,
-        }
-    }
-    
-    for address in current_user.addresses:
-        if address.get('is_default'):
-            user_context['default_address'] = address
-            break
-
-    message_lower = chat_request.message.lower()
-    lang = detect_language(chat_request.message)
-
-    # Analyze order history (past 30 days)
-    order_history = await analyze_user_order_history(current_user.id, days=30)
-    
-    # Detect intent
-    food_keywords = ['food', 'hungry', 'eat', 'order', 'restaurant', 'recommend', 'suggestion', 'suggest', 'want', 'show', 'mood for']
-    new_keywords = ['new', 'different', 'unique', 'change', 'something else', 'try something', 'never tried', 'haven\'t tried']
-    
-    is_food_request = any(keyword in message_lower for keyword in food_keywords)
-    is_new_request = any(keyword in message_lower for keyword in new_keywords)
-    is_order_intent = any(phrase in message_lower for phrase in ['order this', 'order that', 'place order', 'yes order', 'get this'])
-
-    reorder_items = []
-    new_items = []
-    show_order_card = False
-
-    # Get recommendations based on order history
-    if is_food_request:
-        logging.info(f"Food request detected. Has history: {order_history.get('has_history')}, Is new request: {is_new_request}")
-        
-        # Always get reorder recommendations if they have history
-        if order_history.get("has_history"):
-            reorder_items = await get_reorder_recommendations(order_history, limit=3)
-            logging.info(f"Found {len(reorder_items)} reorder items")
-        
-        # Get new recommendations if they ask for something new OR if getting general recommendations
-        if is_new_request or (is_food_request and order_history.get("has_history")):
-            new_items = await get_new_recommendations_based_on_history(
-                current_user.id, 
-                order_history, 
-                limit=3
-            )
-            logging.info(f"Found {len(new_items)} new recommendation items")
-        
-        # If no history, use the existing cuisine-based search
-        if not order_history.get("has_history"):
-            # Use existing logic for users without order history
-            detected_cuisines = []
-            cuisine_keywords = {
-                'pakistani': ['Pakistani'], 'biryani': ['Pakistani'], 'karahi': ['Pakistani'],
-                'chinese': ['Chinese'], 'chowmein': ['Chinese'], 'fried rice': ['Chinese'],
-                'fast food': ['Fast Food'], 'burger': ['Fast Food'], 'pizza': ['Fast Food'],
-                'bbq': ['BBQ'], 'kebab': ['BBQ'], 'tikka': ['BBQ'],
-                'dessert': ['Desserts'], 'desserts': ['Desserts'], 'sweet': ['Desserts'],
+            "preferences_set": current_user.preferences_set,
+            "default_address": None,
+            "explicit_preferences": {
+                "favorite_cuisines": current_user.favorite_cuisines,
+                "dietary_restrictions": current_user.dietary_restrictions,
+                "spice_preference": current_user.spice_preference,
             }
-            
-            for keyword, cuisines in cuisine_keywords.items():
-                if keyword in message_lower:
-                    detected_cuisines.extend(cuisines)
-            
-            if not detected_cuisines and current_user.favorite_cuisines:
-                detected_cuisines = current_user.favorite_cuisines[:3]
-            
-            if detected_cuisines:
-                new_items = await get_menu_items_by_cuisine(
-                    detected_cuisines,
-                    limit=3,
-                    user_preferences=user_context['explicit_preferences']
-                )
+        }
         
+        for address in current_user.addresses:
+            if address.get('is_default'):
+                user_context['default_address'] = address
+                break
+
+        # Get session ID
+        session_id = chat_request.session_id or str(uuid.uuid4())
+        
+        # Detect intent using enhanced chatbot
+        intent, extracted_data = await enhanced_chatbot.detect_intent(
+            chat_request.message,
+            user_context
+        )
+        
+        logging.info(f"Detected intent: {intent}, extracted: {extracted_data}")
+        
+        # Get order history
+        order_history = await recommendation_engine.get_user_order_history(
+            current_user.id,
+            days=30
+        )
+        
+        # Get recommendations using the enhanced recommendation engine
+        reorder_items = []
+        new_items = []
+        restaurants_data = []
+        
+        if intent in [Intent.FOOD_RECOMMENDATION, Intent.REORDER, Intent.NEW_ITEMS, Intent.SPECIFIC_CUISINE]:
+            # Determine query for embeddings
+            query = chat_request.message
+            exclude_ordered = (intent == Intent.NEW_ITEMS)
+            
+            # Get recommendations from the engine
+            reorder_items, new_items = await recommendation_engine.get_recommendations(
+                user_id=current_user.id,
+                user_preferences=user_context['explicit_preferences'],
+                query=query,
+                limit=6,
+                exclude_ordered=exclude_ordered
+            )
+            
+            logging.info(f"Got {len(reorder_items)} reorder items and {len(new_items)} new items")
+            
+            # Get unique restaurants from recommendations
+            restaurant_ids = set()
+            all_items = reorder_items + new_items
+            for item in all_items:
+                restaurant_ids.add(item['restaurant_id'])
+            
+            # Fetch restaurant details
+            for rest_id in restaurant_ids:
+                restaurant = await db.restaurants.find_one(
+                    {"id": rest_id, "is_active": True},
+                    {"_id": 0}
+                )
+                if restaurant:
+                    restaurants_data.append(restaurant)
+            
+            logging.info(f"Found {len(restaurants_data)} unique restaurants")
+        
+        # Generate response using enhanced chatbot
+        response_text = await enhanced_chatbot.generate_response(
+            message=chat_request.message,
+            user_context=user_context,
+            intent=intent,
+            order_history=order_history,
+            reorder_items=reorder_items,
+            new_items=new_items,
+            session_id=session_id
+        )
+        
+        # Save chat message
+        chat_message = ChatMessage(
+            user_id=current_user.id,
+            message=chat_request.message,
+            response=response_text,
+            session_id=session_id
+        )
+        await db.chat_messages.insert_one(chat_message.dict())
+        
+        # Prepare response
         show_order_card = len(reorder_items) > 0 or len(new_items) > 0
-
-    # Process with enhanced Gemini
-    response_text = await process_with_gemini_enhanced(
-        chat_request.message,
-        user_context,
-        order_history,
-        reorder_items,
-        new_items,
-        is_new_request
-    )
-
-    # Save chat message
-    chat_message = ChatMessage(
-        user_id=current_user.id,
-        message=chat_request.message,
-        response=response_text,
-        session_id=chat_request.session_id or str(uuid.uuid4())
-    )
-    await db.chat_messages.insert_one(chat_message.dict())
-
-    return {
-        "response": response_text,
-        "reorder_items": reorder_items,  # Past favorites for reorder
-        "new_items": new_items,  # New recommendations
-        "order_history_summary": {
-            "has_history": order_history.get("has_history"),
-            "total_orders": order_history.get("total_orders", 0),
-            "dominant_cuisines": order_history.get("dominant_cuisines", []),
-            "most_ordered_cuisine": order_history.get("most_ordered_cuisine")
-        } if order_history.get("has_history") else None,
-        "show_order_card": show_order_card,
-        "has_default_address": user_context['default_address'] is not None,
-        "default_address": user_context['default_address'],
-        "session_id": chat_message.session_id
-    }
+        
+        return {
+            "response": response_text,
+            "intent": intent.value,
+            "reorder_items": reorder_items,
+            "new_items": new_items,
+            "restaurants": restaurants_data,  # Include restaurant cards
+            "order_history_summary": {
+                "has_history": order_history.get("has_history", False),
+                "total_orders": order_history.get("total_orders", 0),
+                "cuisine_preferences": order_history.get("cuisine_preferences", {}),
+            } if order_history.get("has_history") else None,
+            "show_order_card": show_order_card,
+            "has_default_address": user_context['default_address'] is not None,
+            "default_address": user_context['default_address'],
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        logging.error(f"Error in chat endpoint: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+        
+        # Return a friendly error response
+        return {
+            "response": "Sorry, I encountered an issue. Please try again.",
+            "intent": "error",
+            "reorder_items": [],
+            "new_items": [],
+            "restaurants": [],
+            "show_order_card": False,
+            "session_id": session_id
+        }
 
 async def handle_direct_order_request(current_user, message):
     """Handle direct order placement from chat"""
