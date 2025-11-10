@@ -28,7 +28,7 @@ from email.mime.multipart import MIMEMultipart
 import re
 
 # Import our enhanced modules
-from recommendation_engine import RecommendationEngine
+from matrix_factorization_engine import MatrixFactorizationEngine
 from enhanced_chatbot import EnhancedChatbot, Intent
 
 ROOT_DIR = Path(__file__).parent
