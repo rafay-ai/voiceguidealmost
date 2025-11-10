@@ -66,22 +66,36 @@ executor = ThreadPoolExecutor(max_workers=4)
 recommendation_engine = None
 enhanced_chatbot = EnhancedChatbot()
 
-# Initialize embeddings on startup
+# Initialize recommendation engine on startup
 @app.on_event("startup")
 async def startup_event():
-    """Initialize recommendation engine and embeddings for menu items on server startup"""
+    """Initialize recommendation engine - NON-BLOCKING"""
     global recommendation_engine
     
-    logging.info("Initializing recommendation engine...")
+    logging.info("Initializing Matrix Factorization recommendation engine...")
     try:
-        recommendation_engine = RecommendationEngine(db)
-        # Generate embeddings for items that don't have them yet (limited for faster startup)
-        count = await recommendation_engine.generate_item_embeddings(limit=50)
-        logging.info(f"Initialized {count} menu item embeddings")
+        recommendation_engine = MatrixFactorizationEngine(db)
+        # Build matrix in background - don't block startup
+        logging.info("Recommendation engine initialized. Matrix will be built on first use.")
     except Exception as e:
-        logging.error(f"Error initializing embeddings: {e}")
+        logging.error(f"Error initializing recommendation engine: {e}")
         import traceback
         logging.error(traceback.format_exc())
+
+@app.on_event("startup")
+async def build_recommendation_model():
+    """Build matrix factorization model in background"""
+    try:
+        await asyncio.sleep(5)  # Wait for server to start
+        if recommendation_engine:
+            logging.info("Building matrix factorization model...")
+            success = await recommendation_engine.build_user_item_matrix()
+            if success:
+                logging.info("Matrix factorization model ready!")
+            else:
+                logging.warning("Not enough data for matrix factorization. Using content-based fallback.")
+    except Exception as e:
+        logging.error(f"Error building recommendation model: {e}")
 
 # Karachi Areas Data
 KARACHI_AREAS = {
