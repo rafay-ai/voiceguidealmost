@@ -2518,28 +2518,30 @@ async def process_voice_order(
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc)}
 
-@api_router.post("/admin/generate-embeddings")
-async def generate_all_embeddings(background_tasks: BackgroundTasks):
-    """Generate embeddings for all menu items (run once during setup)"""
+@api_router.post("/admin/build-matrix")
+async def build_recommendation_matrix():
+    """Build Matrix Factorization model from order history"""
     try:
-        # Get all menu items without embeddings
-        menu_items_cursor = db.menu_items.find(
-            {"$or": [{"embedding": None}, {"embedding": {"$exists": False}}]},
-            {"_id": 0}
-        )
-        menu_items = await menu_items_cursor.to_list(None)
+        if not recommendation_engine:
+            raise HTTPException(status_code=503, detail="Recommendation engine not initialized")
         
-        logging.info(f"Found {len(menu_items)} items without embeddings")
+        logging.info("Building matrix factorization model...")
+        success = await recommendation_engine.build_user_item_matrix()
         
-        # Generate embeddings in background
-        background_tasks.add_task(process_embeddings_batch, menu_items)
-        
-        return {
-            "message": f"Started generating embeddings for {len(menu_items)} items",
-            "status": "processing"
-        }
+        if success:
+            return {
+                "message": "Matrix factorization model built successfully",
+                "status": "success",
+                "users": len(recommendation_engine.user_mapping),
+                "items": len(recommendation_engine.item_mapping)
+            }
+        else:
+            return {
+                "message": "Not enough data to build model. Need more orders.",
+                "status": "insufficient_data"
+            }
     except Exception as e:
-        logging.error(f"Error starting embedding generation: {e}")
+        logging.error(f"Error building matrix: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 async def process_embeddings_batch(menu_items: List[Dict]):
