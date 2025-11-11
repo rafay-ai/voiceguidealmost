@@ -2023,11 +2023,49 @@ async def reorder(
 # Recommendation Routes
 @api_router.get("/recommendations")
 async def get_user_recommendations(
-    limit: int = 20,
+    limit: int = 8,
     current_user: User = Depends(get_current_user)
 ):
-    recommendations = await recommendation_engine.get_recommendations(current_user.id, limit)
-    return {"recommendations": recommendations}
+    """Get personalized recommendations using Matrix Factorization"""
+    try:
+        if not recommendation_engine:
+            raise HTTPException(status_code=503, detail="Recommendation engine not ready")
+        
+        # Get user preferences
+        user_preferences = {
+            "dietary_restrictions": current_user.dietary_restrictions,
+            "favorite_cuisines": current_user.favorite_cuisines,
+            "spice_preference": current_user.spice_preference
+        }
+        
+        # Get recommendations from Matrix Factorization engine
+        reorder_items, new_items = await recommendation_engine.get_recommendations(
+            user_id=current_user.id,
+            user_preferences=user_preferences,
+            query="",
+            limit=limit,
+            exclude_ordered=False
+        )
+        
+        # Combine both lists
+        all_recommendations = reorder_items + new_items
+        
+        return {
+            "recommendations": all_recommendations[:limit],
+            "reorder_items": reorder_items,
+            "new_items": new_items
+        }
+        
+    except Exception as e:
+        logging.error(f"Error getting recommendations: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+        # Return empty list instead of error to prevent frontend crash
+        return {
+            "recommendations": [],
+            "reorder_items": [],
+            "new_items": []
+        }
 
 # Chat Routes
 @api_router.post("/chat")
