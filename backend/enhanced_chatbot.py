@@ -117,18 +117,14 @@ class EnhancedChatbot:
             'naya', 'alag', 'different', 'try karna', 'نیا', 'مختلف'
         ]
         if any(keyword in message_lower for keyword in new_keywords):
-            return Intent.NEW_ITEMS, extracted_data
-        new_keywords = ['new', 'different', 'unique', 'try something', 'haven\'t tried', 'never tried', 'نیا', 'مختلف']
-        if any(keyword in message_lower for keyword in new_keywords):
-            return Intent.NEW_ITEMS, extracted_data
         
-        # Specific cuisine detection
+        # Specific cuisine detection (English + Roman Urdu + Pure Urdu)
         cuisine_keywords = {
             'pakistani': ['pakistani', 'biryani', 'karahi', 'nihari', 'pulao', 'پاکستانی', 'بریانی'],
             'chinese': ['chinese', 'chowmein', 'fried rice', 'noodles', 'چائنیز'],
             'fast food': ['burger', 'pizza', 'fries', 'sandwich', 'برگر', 'پیزا'],
-            'bbq': ['bbq', 'tikka', 'kebab', 'grill', 'بی بی کیو'],
-            'dessert': ['dessert', 'sweet', 'ice cream', 'cake', 'kulfi', 'میٹھا', 'آئس کریم'],
+            'bbq': ['bbq', 'tikka', 'kebab', 'grill', 'بی بی کیو', 'seekh'],
+            'dessert': ['dessert', 'sweet', 'ice cream', 'cake', 'kulfi', 'میٹھا', 'آئس کریم', 'mithai'],
             'japanese': ['japanese', 'sushi', 'ramen', 'جاپانی'],
             'thai': ['thai', 'pad thai', 'curry', 'تھائی'],
             'indian': ['indian', 'curry', 'tandoori', 'masala', 'انڈین']
@@ -143,19 +139,29 @@ class EnhancedChatbot:
             extracted_data['cuisines'] = detected_cuisines
             return Intent.SPECIFIC_CUISINE, extracted_data
         
-        # Food recommendation intent (hungry, want to eat, etc.)
-        food_keywords = ['hungry', 'eat', 'food', 'order', 'recommend', 'suggestion', 'suggest', 
-                        'بھوک', 'کھانا', 'آرڈر']
+        # Food recommendation intent (English + Roman Urdu + Pure Urdu)
+        food_keywords = [
+            'hungry', 'eat', 'food', 'order', 'recommend', 'suggestion', 'suggest', 'menu',
+            'bhook', 'kha', 'khana', 'mangwa', 'dikhao', 'chahiye', 
+            'بھوک', 'کھانا', 'آرڈر'
+        ]
         if any(keyword in message_lower for keyword in food_keywords):
             return Intent.FOOD_RECOMMENDATION, extracted_data
         
-        # Order status
-        status_keywords = ['order', 'status', 'track', 'where', 'delivery', 'آرڈر', 'ڈیلیوری']
+        # Order status (English + Roman Urdu)
+        status_keywords = [
+            'order', 'status', 'track', 'where', 'delivery', 'kahan', 'aa gaya', 
+            'آرڈر', 'ڈیلیوری'
+        ]
         if any(keyword in message_lower for keyword in status_keywords):
             return Intent.ORDER_STATUS, extracted_data
         
-        # Complaint
-        complaint_keywords = ['problem', 'issue', 'complaint', 'wrong', 'bad', 'مسئلہ', 'شکایت']
+        # Complaint (English + Roman Urdu)
+        complaint_keywords = [
+            'problem', 'issue', 'complaint', 'wrong', 'bad', 'cold', 'late',
+            'masla', 'mushkil', 'thanda', 'galat', 'shikayat',
+            'مسئلہ', 'شکایت'
+        ]
         if any(keyword in message_lower for keyword in complaint_keywords):
             return Intent.COMPLAINT, extracted_data
         
