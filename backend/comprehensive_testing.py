@@ -38,31 +38,79 @@ results = {
 # ============================================================================
 
 CHATBOT_TEST_CASES = [
-    # English Tests
+    # English Tests - General Food Requests
     {"lang": "en", "prompt": "I'm hungry", "expected_intent": "food_recommendation"},
     {"lang": "en", "prompt": "Show me something to eat", "expected_intent": "food_recommendation"},
+    {"lang": "en", "prompt": "What can I order?", "expected_intent": "food_recommendation"},
+    {"lang": "en", "prompt": "I want food", "expected_intent": "food_recommendation"},
+    
+    # English Tests - Reorder
     {"lang": "en", "prompt": "I want to reorder", "expected_intent": "reorder"},
     {"lang": "en", "prompt": "Order my usual", "expected_intent": "reorder"},
+    {"lang": "en", "prompt": "Same as last time", "expected_intent": "reorder"},
+    {"lang": "en", "prompt": "Reorder my favorite", "expected_intent": "reorder"},
+    
+    # English Tests - New Items
     {"lang": "en", "prompt": "Show me something new", "expected_intent": "new_items"},
     {"lang": "en", "prompt": "I want to try something different", "expected_intent": "new_items"},
+    {"lang": "en", "prompt": "Something unique please", "expected_intent": "new_items"},
+    {"lang": "en", "prompt": "What's new on the menu?", "expected_intent": "new_items"},
+    
+    # English Tests - Specific Cuisine
     {"lang": "en", "prompt": "I want biryani", "expected_intent": "specific_cuisine"},
     {"lang": "en", "prompt": "Show me burgers", "expected_intent": "specific_cuisine"},
     {"lang": "en", "prompt": "I want Chinese food", "expected_intent": "specific_cuisine"},
+    {"lang": "en", "prompt": "Do you have pizza?", "expected_intent": "specific_cuisine"},
+    {"lang": "en", "prompt": "I'm craving BBQ", "expected_intent": "specific_cuisine"},
+    
+    # English Tests - Greetings
     {"lang": "en", "prompt": "Hello", "expected_intent": "greeting"},
     {"lang": "en", "prompt": "Hi there", "expected_intent": "greeting"},
     
-    # Urdu Tests
-    {"lang": "ur", "prompt": "بھوک لگی ہے", "expected_intent": "food_recommendation"},
-    {"lang": "ur", "prompt": "کھانا چاہیے", "expected_intent": "food_recommendation"},
-    {"lang": "ur", "prompt": "دوبارہ آرڈر کرنا ہے", "expected_intent": "reorder"},
-    {"lang": "ur", "prompt": "نیا کھانا دکھاؤ", "expected_intent": "new_items"},
-    {"lang": "ur", "prompt": "بریانی چاہیے", "expected_intent": "specific_cuisine"},
-    {"lang": "ur", "prompt": "السلام علیکم", "expected_intent": "greeting"},
+    # Roman Urdu Tests - General Food Requests
+    {"lang": "roman_urdu", "prompt": "Bhook lagi hai", "expected_intent": "food_recommendation"},
+    {"lang": "roman_urdu", "prompt": "Kuch khana chahiye", "expected_intent": "food_recommendation"},
+    {"lang": "roman_urdu", "prompt": "Kya order kar sakte hain?", "expected_intent": "food_recommendation"},
+    {"lang": "roman_urdu", "prompt": "Menu dikhao", "expected_intent": "food_recommendation"},
+    {"lang": "roman_urdu", "prompt": "Khana mangwana hai", "expected_intent": "food_recommendation"},
+    
+    # Roman Urdu Tests - Reorder
+    {"lang": "roman_urdu", "prompt": "Dobara order karna hai", "expected_intent": "reorder"},
+    {"lang": "roman_urdu", "prompt": "Pehle wala order karo", "expected_intent": "reorder"},
+    {"lang": "roman_urdu", "prompt": "Same order phir se", "expected_intent": "reorder"},
+    {"lang": "roman_urdu", "prompt": "Favourite wala de do", "expected_intent": "reorder"},
+    
+    # Roman Urdu Tests - New Items
+    {"lang": "roman_urdu", "prompt": "Kuch naya dikhao", "expected_intent": "new_items"},
+    {"lang": "roman_urdu", "prompt": "Kuch alag try karna hai", "expected_intent": "new_items"},
+    {"lang": "roman_urdu", "prompt": "Naya menu item kya hai?", "expected_intent": "new_items"},
+    {"lang": "roman_urdu", "prompt": "Different kuch chahiye", "expected_intent": "new_items"},
+    
+    # Roman Urdu Tests - Specific Cuisine
+    {"lang": "roman_urdu", "prompt": "Biryani mangwao", "expected_intent": "specific_cuisine"},
+    {"lang": "roman_urdu", "prompt": "Burger khana hai", "expected_intent": "specific_cuisine"},
+    {"lang": "roman_urdu", "prompt": "Chinese food hai kya?", "expected_intent": "specific_cuisine"},
+    {"lang": "roman_urdu", "prompt": "Pizza order karna hai", "expected_intent": "specific_cuisine"},
+    {"lang": "roman_urdu", "prompt": "BBQ ka mood hai", "expected_intent": "specific_cuisine"},
+    
+    # Roman Urdu Tests - Greetings
+    {"lang": "roman_urdu", "prompt": "Salam", "expected_intent": "greeting"},
+    {"lang": "roman_urdu", "prompt": "Assalam o Alaikum", "expected_intent": "greeting"},
+    {"lang": "roman_urdu", "prompt": "Hello kaise hain?", "expected_intent": "greeting"},
     
     # Edge Cases
     {"lang": "en", "prompt": "What's the status of my order?", "expected_intent": "order_status"},
+    {"lang": "en", "prompt": "Where is my order?", "expected_intent": "order_status"},
+    {"lang": "roman_urdu", "prompt": "Mera order kahan hai?", "expected_intent": "order_status"},
+    
     {"lang": "en", "prompt": "I have a complaint", "expected_intent": "complaint"},
     {"lang": "en", "prompt": "The food was cold", "expected_intent": "complaint"},
+    {"lang": "roman_urdu", "prompt": "Khana thanda tha", "expected_intent": "complaint"},
+    
+    # Mixed Language (Common in Pakistan)
+    {"lang": "mixed", "prompt": "Yaar kuch spicy khana hai", "expected_intent": "food_recommendation"},
+    {"lang": "mixed", "prompt": "Boss biryani order karo", "expected_intent": "specific_cuisine"},
+    {"lang": "mixed", "prompt": "Bhai something new try karte hain", "expected_intent": "new_items"},
 ]
 
 
