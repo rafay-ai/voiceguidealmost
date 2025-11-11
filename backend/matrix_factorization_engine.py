@@ -41,12 +41,15 @@ class MatrixFactorizationEngine:
         try:
             logger.info("Building user-item interaction matrix...")
             
-            # Get all completed orders
+            # Get ALL orders (not just delivered/completed)
+            # This allows training on all historical data
             orders_cursor = self.db.orders.find(
-                {"status": {"$in": ["delivered", "completed"]}},
+                {},  # No filter - get all orders
                 {"_id": 0, "user_id": 1, "items": 1}
             )
             orders = await orders_cursor.to_list(None)
+            
+            logger.info(f"Found {len(orders)} orders for matrix building")
             
             if not orders:
                 logger.warning("No orders found for matrix factorization")
