@@ -72,32 +72,52 @@ class EnhancedChatbot:
         self.contexts: Dict[str, ConversationContext] = {}
     
     def detect_language(self, text: str) -> str:
-        """Detect if text is in Urdu or English"""
-        # Check for Urdu characters
+        """Detect if text is in Urdu, Roman Urdu, or English"""
+        # Check for Urdu characters (pure Urdu script)
         urdu_chars = set('آابپتٹثجچحخدڈذرڑزژسشصضطظعغفقکگلمنںوہھءیےأإؤئ')
         if any(char in urdu_chars for char in text):
             return "ur"
+        
+        # Check for Roman Urdu keywords (Urdu written in English)
+        roman_urdu_keywords = [
+            'hai', 'hain', 'kya', 'kuch', 'chahiye', 'bhook', 'khana', 
+            'order', 'dikhao', 'mangwao', 'karo', 'de', 'do', 'naya',
+            'dobara', 'pehle', 'wala', 'favourite', 'salam', 'yaar', 'bhai'
+        ]
+        text_lower = text.lower()
+        if any(keyword in text_lower for keyword in roman_urdu_keywords):
+            return "ur"  # Treat Roman Urdu same as Urdu for response language
+        
         return "en"
     
     async def detect_intent(self, message: str, user_context: Dict) -> Tuple[Intent, Dict]:
         """
-        Detect user intent from message
+        Detect user intent from message (supports English and Roman Urdu)
         Returns: (Intent, extracted_data)
         """
         message_lower = message.lower()
         extracted_data = {}
         
-        # Greeting detection
-        greetings = ['hello', 'hi', 'hey', 'salam', 'السلام', 'assalam']
+        # Greeting detection (English + Roman Urdu + Pure Urdu)
+        greetings = ['hello', 'hi', 'hey', 'salam', 'السلام', 'assalam', 'kaise', 'kya hal']
         if any(greeting in message_lower for greeting in greetings):
             return Intent.GREETING, extracted_data
         
-        # Reorder intent
-        reorder_keywords = ['reorder', 'same', 'again', 'previous', 'last time', 'before', 'دوبارہ', 'پہلے']
+        # Reorder intent (English + Roman Urdu + Pure Urdu)
+        reorder_keywords = [
+            'reorder', 'same', 'again', 'previous', 'last time', 'before', 'usual',
+            'dobara', 'pehle', 'wala', 'favourite', 'phir se', 'دوبارہ', 'پہلے'
+        ]
         if any(keyword in message_lower for keyword in reorder_keywords):
             return Intent.REORDER, extracted_data
         
-        # New items intent
+        # New items intent (English + Roman Urdu + Pure Urdu)
+        new_keywords = [
+            'new', 'different', 'unique', 'try something', 'haven\'t tried', 'never tried',
+            'naya', 'alag', 'different', 'try karna', 'نیا', 'مختلف'
+        ]
+        if any(keyword in message_lower for keyword in new_keywords):
+            return Intent.NEW_ITEMS, extracted_data
         new_keywords = ['new', 'different', 'unique', 'try something', 'haven\'t tried', 'never tried', 'نیا', 'مختلف']
         if any(keyword in message_lower for keyword in new_keywords):
             return Intent.NEW_ITEMS, extracted_data
