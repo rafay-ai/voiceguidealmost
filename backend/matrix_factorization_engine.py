@@ -122,8 +122,8 @@ class MatrixFactorizationEngine:
             orders_cursor = self.db.orders.find(
                 {
                     "user_id": user_id,
-                    "created_at": {"$gte": cutoff_date},
-                    "status": {"$in": ["delivered", "completed"]}
+                    "created_at": {"$gte": cutoff_date}
+                    # Removed status filter - use all orders
                 },
                 {"_id": 0}
             ).sort([("created_at", -1)])
