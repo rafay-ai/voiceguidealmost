@@ -65,37 +65,44 @@ executor = ThreadPoolExecutor(max_workers=4)
 # Initialize Enhanced Components (will be initialized on startup)
 recommendation_engine = None
 enhanced_chatbot = EnhancedChatbot()
+matrix_building_task = None
 
 # Initialize recommendation engine on startup
 @app.on_event("startup")
 async def startup_event():
     """Initialize recommendation engine - NON-BLOCKING"""
-    global recommendation_engine
+    global recommendation_engine, matrix_building_task
     
     logging.info("Initializing Matrix Factorization recommendation engine...")
     try:
         recommendation_engine = MatrixFactorizationEngine(db)
-        # Build matrix in background - don't block startup
-        logging.info("Recommendation engine initialized. Matrix will be built on first use.")
+        logging.info("Recommendation engine initialized.")
+        
+        # Schedule matrix building as background task (don't await it!)
+        matrix_building_task = asyncio.create_task(build_matrix_background())
+        
     except Exception as e:
         logging.error(f"Error initializing recommendation engine: {e}")
         import traceback
         logging.error(traceback.format_exc())
 
-@app.on_event("startup")
-async def build_recommendation_model():
-    """Build matrix factorization model in background"""
+async def build_matrix_background():
+    """Build matrix in background without blocking startup"""
     try:
-        await asyncio.sleep(5)  # Wait for server to start
+        # Wait for server to fully start
+        await asyncio.sleep(10)
+        
         if recommendation_engine:
-            logging.info("Building matrix factorization model...")
+            logging.info("Building matrix factorization model in background...")
             success = await recommendation_engine.build_user_item_matrix()
             if success:
-                logging.info("Matrix factorization model ready!")
+                logging.info("✅ Matrix factorization model ready!")
             else:
-                logging.warning("Not enough data for matrix factorization. Using content-based fallback.")
+                logging.warning("⚠️ Not enough delivered orders for matrix factorization. Using content-based fallback.")
     except Exception as e:
         logging.error(f"Error building recommendation model: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
 
 # Karachi Areas Data
 KARACHI_AREAS = {
