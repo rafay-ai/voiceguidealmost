@@ -502,6 +502,11 @@ def save_results_to_file(results):
         # Recommendation Tests
         f.write("\n## 3. Recommendation System Evaluation\n\n")
         rec_eval = results.get("recommendation_tests", {})
+        
+        # Handle if rec_eval is not a dict
+        if not isinstance(rec_eval, dict):
+            rec_eval = {}
+        
         f.write(f"**Overall Score:** {rec_eval.get('overall_score', 'N/A')}\n\n")
         f.write("### Metrics:\n\n")
         f.write(f"- **Reorder Accuracy:** {rec_eval.get('reorder_accuracy', 'N/A')}\n")
