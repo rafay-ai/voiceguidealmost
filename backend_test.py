@@ -1118,23 +1118,34 @@ class VoiceGuideAPITester:
         ]
         
         for query, expected_status, description in edge_cases:
-            search_data = {"query": query}
+            # Send as form data for edge cases too
+            url = f"{self.base_url}/api/menu/search"
+            headers = self.session.headers.copy()
             
-            success, response = self.run_api_test(
-                f"Edge Case: {description}",
-                "POST",
-                "api/menu/search",
-                expected_status,
-                search_data
-            )
-            
-            if expected_status == 200 and success:
-                # For non-existent items, should return 0 results
-                count = response.get('count', -1)
-                if count == 0:
-                    self.log_test(f"Non-existent Search Result", True, "Correctly returned 0 items")
-                else:
-                    self.log_test(f"Non-existent Search Result", False, f"Expected 0 items, got {count}")
+            try:
+                response = self.session.post(url, data={"query": query}, headers=headers)
+                success = response.status_code == expected_status
+                details = f"Status: {response.status_code}"
+                
+                if not success:
+                    try:
+                        error_detail = response.json()
+                        details += f", Error: {error_detail}"
+                    except:
+                        details += f", Response: {response.text[:200]}"
+                
+                self.log_test(f"Edge Case: {description}", success, details)
+                
+                if expected_status == 200 and success:
+                    response_data = response.json()
+                    # For non-existent items, should return 0 results
+                    count = response_data.get('count', -1)
+                    if count == 0:
+                        self.log_test(f"Non-existent Search Result", True, "Correctly returned 0 items")
+                    else:
+                        self.log_test(f"Non-existent Search Result", False, f"Expected 0 items, got {count}")
+            except Exception as e:
+                self.log_test(f"Edge Case: {description}", False, f"Exception: {str(e)}")
         
         return search_success
 
