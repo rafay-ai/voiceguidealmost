@@ -2852,6 +2852,182 @@ async def get_user_disliked_items(user_id: str) -> list:
 
 
 # ============================================================================
+# EVALUATION METRICS ENDPOINTS
+# ============================================================================
+
+@api_router.post("/admin/evaluate-system")
+async def evaluate_recommendation_system(k: int = 10):
+    """
+    Run comprehensive evaluation of recommendation system
+    Calculates all 6 academic metrics for FYP
+    """
+    try:
+        from evaluation_metrics import RecommendationEvaluator
+        
+        evaluator = RecommendationEvaluator(db)
+        
+        logging.info(f"Starting evaluation with k={k}...")
+        
+        # Run evaluation
+        results = await evaluator.evaluate_all_metrics(k=k)
+        
+        # Save results to database for later retrieval
+        evaluation_doc = {
+            "id": str(uuid.uuid4()),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "k": k,
+            "metrics": results,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        await db.evaluation_results.insert_one(evaluation_doc)
+        
+        logging.info(f"Evaluation complete. Results saved with ID: {evaluation_doc['id']}")
+        
+        return {
+            "message": "Evaluation completed successfully",
+            "evaluation_id": evaluation_doc['id'],
+            "summary": {
+                "precision": round(results['precision_at_k']['mean'], 4),
+                "recall": round(results['recall_at_k']['mean'], 4),
+                "ndcg": round(results['ndcg_at_k']['mean'], 4),
+                "hit_rate": round(results['hit_rate_at_k']['mean'], 4),
+                "coverage": round(results['coverage']['value'], 4),
+                "diversity": round(results['diversity_at_k']['mean'], 4),
+            },
+            "users_evaluated": results['users_evaluated'],
+            "k": k
+        }
+        
+    except Exception as e:
+        logging.error(f"Error in evaluation: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/evaluation-results")
+async def get_evaluation_results(limit: int = 10):
+    """
+    Get recent evaluation results
+    """
+    try:
+        results_cursor = db.evaluation_results.find(
+            {},
+            {"_id": 0}
+        ).sort([("created_at", -1)]).limit(limit)
+        
+        results = await results_cursor.to_list(None)
+        
+        return {
+            "count": len(results),
+            "results": results
+        }
+        
+    except Exception as e:
+        logging.error(f"Error getting evaluation results: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/evaluation-results/{evaluation_id}")
+async def get_evaluation_by_id(evaluation_id: str):
+    """
+    Get specific evaluation result by ID
+    """
+    try:
+        result = await db.evaluation_results.find_one(
+            {"id": evaluation_id},
+            {"_id": 0}
+        )
+        
+        if not result:
+            raise HTTPException(status_code=404, detail="Evaluation not found")
+        
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error getting evaluation: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/admin/evaluation-report/{evaluation_id}")
+async def download_evaluation_report(evaluation_id: str):
+    """
+    Download evaluation report as formatted text
+    Suitable for FYP report inclusion
+    """
+    try:
+        result = await db.evaluation_results.find_one(
+            {"id": evaluation_id},
+            {"_id": 0}
+        )
+        
+        if not result:
+            raise HTTPException(status_code=404, detail="Evaluation not found")
+        
+        metrics = result['metrics']
+        
+        # Generate formatted text report
+        report = []
+        report.append("="*80)
+        report.append("RECOMMENDATION SYSTEM EVALUATION REPORT")
+        report.append("="*80)
+        report.append(f"\nGenerated: {result['timestamp']}")
+        report.append(f"Users Evaluated: {metrics['users_evaluated']}")
+        report.append(f"Top-K: {metrics['k']}\n")
+        report.append("="*80)
+        report.append("\nMETRICS:\n")
+        
+        report.append(f"1. Precision@{metrics['k']}: {metrics['precision_at_k']['mean']:.4f}")
+        report.append(f"   {metrics['precision_at_k']['mean']*100:.2f}% of recommended items are relevant")
+        report.append(f"   Standard Deviation: {metrics['precision_at_k']['std']:.4f}\n")
+        
+        report.append(f"2. Recall@{metrics['k']}: {metrics['recall_at_k']['mean']:.4f}")
+        report.append(f"   Found {metrics['recall_at_k']['mean']*100:.2f}% of all relevant items")
+        report.append(f"   Standard Deviation: {metrics['recall_at_k']['std']:.4f}\n")
+        
+        report.append(f"3. NDCG@{metrics['k']}: {metrics['ndcg_at_k']['mean']:.4f}")
+        report.append(f"   Ranking quality: {metrics['ndcg_at_k']['mean']*100:.2f}%")
+        report.append(f"   Standard Deviation: {metrics['ndcg_at_k']['std']:.4f}\n")
+        
+        report.append(f"4. Hit Rate@{metrics['k']}: {metrics['hit_rate_at_k']['mean']:.4f}")
+        report.append(f"   {metrics['hit_rate_at_k']['mean']*100:.2f}% of users got relevant recommendations")
+        report.append(f"   Standard Deviation: {metrics['hit_rate_at_k']['std']:.4f}\n")
+        
+        report.append(f"5. Coverage: {metrics['coverage']['value']:.4f}")
+        report.append(f"   Can recommend {metrics['coverage']['value']*100:.2f}% of catalog\n")
+        
+        report.append(f"6. Diversity@{metrics['k']}: {metrics['diversity_at_k']['mean']:.4f}")
+        report.append(f"   Variety score: {metrics['diversity_at_k']['mean']*100:.2f}%")
+        report.append(f"   Standard Deviation: {metrics['diversity_at_k']['std']:.4f}\n")
+        
+        report.append("="*80)
+        report.append("\nFOR FYP PRESENTATION:\n")
+        report.append("These metrics demonstrate:")
+        report.append("- High precision means accurate recommendations")
+        report.append("- High recall means comprehensive coverage")
+        report.append("- High NDCG means good ranking quality")
+        report.append("- High hit rate means most users find relevant items")
+        report.append("- High coverage means system isn't biased to few items")
+        report.append("- High diversity means varied recommendations")
+        report.append("\n" + "="*80)
+        
+        return {
+            "evaluation_id": evaluation_id,
+            "report": "\n".join(report),
+            "metrics": metrics
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error generating report: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
 # MENU SEARCH ENDPOINT
 # ============================================================================
 
