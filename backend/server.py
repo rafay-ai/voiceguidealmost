@@ -17,7 +17,6 @@ import uuid
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
 import google.generativeai as genai
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
