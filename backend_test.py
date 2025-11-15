@@ -1281,18 +1281,12 @@ class VoiceGuideAPITester:
         
         print(f"   📝 Target item for combined test: {target_item_name}")
         
-        # Step 2: Rate this item poorly (1 star) using form data
-        rating_data = {
-            "menu_item_id": target_item_id,
-            "rating": 1,
-            "review": "Combined flow test - disliking this item"
-        }
-        
-        url = f"{self.base_url}/api/ratings"
+        # Step 2: Rate this item poorly (1 star) using query parameters
+        url = f"{self.base_url}/api/ratings?menu_item_id={target_item_id}&rating=1&review=Combined flow test - disliking this item"
         headers = self.session.headers.copy()
         
         try:
-            response = self.session.post(url, data=rating_data, headers=headers)
+            response = self.session.post(url, headers=headers)
             success = response.status_code == 200
             details = f"Status: {response.status_code}"
             
