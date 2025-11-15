@@ -918,14 +918,10 @@ class VoiceGuideAPITester:
         ]
         
         for invalid_rating, test_name in invalid_rating_tests:
-            invalid_data = {
-                "menu_item_id": menu_item_id,
-                "rating": invalid_rating,
-                "review": "Invalid test"
-            }
+            invalid_url = f"{self.base_url}/api/ratings?menu_item_id={menu_item_id}&rating={invalid_rating}&review=Invalid test"
             
             try:
-                response = self.session.post(url, data=invalid_data, headers=headers)
+                response = self.session.post(invalid_url, headers=headers)
                 success = response.status_code == 400
                 details = f"Status: {response.status_code}"
                 
