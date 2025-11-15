@@ -1084,8 +1084,8 @@ class VoiceGuideAPITester:
                 response_data = {}
             
             if success:
-                items = response.get('items', [])
-                count = response.get('count', 0)
+                items = response_data.get('items', [])
+                count = response_data.get('count', 0)
                 
                 print(f"   📝 Query '{query}': Found {count} items")
                 
