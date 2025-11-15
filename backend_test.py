@@ -1298,8 +1298,13 @@ class VoiceGuideAPITester:
         print("🚀 PHASE 1 TESTING: RATING SYSTEM + DISLIKE FEATURE + MENU SEARCH")
         print("="*80)
         
-        # Authentication first
-        if not self.test_demo_login():
+        # Authentication first - try demo login, fallback to registration
+        auth_success = self.test_demo_login()
+        if not auth_success:
+            print("   📝 Demo login failed, trying user registration...")
+            auth_success = self.test_user_registration()
+        
+        if not auth_success:
             print("❌ Cannot proceed without authentication")
             return False
         
