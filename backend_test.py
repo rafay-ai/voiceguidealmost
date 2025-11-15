@@ -869,14 +869,10 @@ class VoiceGuideAPITester:
             return False
         
         # Test 2: Update rating to 2 stars (dislike)
-        rating_data_update = {
-            "menu_item_id": menu_item_id,
-            "rating": 2,
-            "review": "Changed my mind, not that great"
-        }
+        url_update = f"{self.base_url}/api/ratings?menu_item_id={menu_item_id}&rating=2&review=Changed my mind, not that great"
         
         try:
-            response = self.session.post(url, data=rating_data_update, headers=headers)
+            response = self.session.post(url_update, headers=headers)
             success = response.status_code == 200
             details = f"Status: {response.status_code}"
             
