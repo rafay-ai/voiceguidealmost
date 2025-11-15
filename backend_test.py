@@ -1280,12 +1280,12 @@ class VoiceGuideAPITester:
         
         # Step 1: Search for chicken items
         search_data = {"query": "chicken"}
-        # Search for chicken using form data
-        url = f"{self.base_url}/api/menu/search"
+        # Search for chicken using query parameter
+        url = f"{self.base_url}/api/menu/search?query=chicken"
         headers = self.session.headers.copy()
         
         try:
-            response = self.session.post(url, data={"query": "chicken"}, headers=headers)
+            response = self.session.post(url, headers=headers)
             success = response.status_code == 200
             search_response = response.json() if success else {}
             
