@@ -1275,13 +1275,17 @@ class VoiceGuideAPITester:
             return False
         
         # Step 3: Search again for chicken - disliked item should be excluded
-        success, search_response_after = self.run_api_test(
-            "Search Chicken After Rating",
-            "POST",
-            "api/menu/search",
-            200,
-            search_data
-        )
+        # Search again using form data
+        try:
+            response = self.session.post(url, data={"query": "chicken"}, headers=headers)
+            success = response.status_code == 200
+            search_response_after = response.json() if success else {}
+            
+            self.log_test("Search Chicken After Rating", success, f"Status: {response.status_code}")
+        except Exception as e:
+            success = False
+            search_response_after = {}
+            self.log_test("Search Chicken After Rating", False, f"Exception: {str(e)}")
         
         if success:
             items_after = search_response_after.get('items', [])
