@@ -937,14 +937,10 @@ class VoiceGuideAPITester:
                 self.log_test(f"Invalid Rating ({test_name})", False, f"Exception: {str(e)}")
         
         # Test 5: Rate non-existent item
-        fake_item_data = {
-            "menu_item_id": "fake-item-id-12345",
-            "rating": 4,
-            "review": "This should fail"
-        }
+        fake_url = f"{self.base_url}/api/ratings?menu_item_id=fake-item-id-12345&rating=4&review=This should fail"
         
         try:
-            response = self.session.post(url, data=fake_item_data, headers=headers)
+            response = self.session.post(fake_url, headers=headers)
             success = response.status_code == 404
             details = f"Status: {response.status_code}"
             
