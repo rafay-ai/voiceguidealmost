@@ -1105,12 +1105,12 @@ class VoiceGuideAPITester:
         search_success = True
         
         for query, description in search_queries:
-            # Send as form data, not JSON
-            url = f"{self.base_url}/api/menu/search"
+            # Try as query parameter
+            url = f"{self.base_url}/api/menu/search?query={query}"
             headers = self.session.headers.copy()
             
             try:
-                response = self.session.post(url, data={"query": query}, headers=headers)
+                response = self.session.post(url, headers=headers)
                 success = response.status_code == 200
                 details = f"Status: {response.status_code}"
                 
