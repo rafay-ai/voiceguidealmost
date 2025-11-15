@@ -844,20 +844,32 @@ class VoiceGuideAPITester:
         
         print(f"   📝 Testing with item: {menu_item_name}")
         
-        # Test 1: Rate item with 5 stars
+        # Test 1: Rate item with 5 stars (using form data)
+        url = f"{self.base_url}/api/ratings"
+        headers = self.session.headers.copy()
+        
         rating_data = {
             "menu_item_id": menu_item_id,
             "rating": 5,
             "review": "Excellent biryani! Really loved it."
         }
         
-        success, response = self.run_api_test(
-            "Rate Item (5 stars)",
-            "POST",
-            "api/ratings",
-            200,
-            rating_data
-        )
+        try:
+            response = self.session.post(url, data=rating_data, headers=headers)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            
+            if not success:
+                try:
+                    error_detail = response.json()
+                    details += f", Error: {error_detail}"
+                except:
+                    details += f", Response: {response.text[:200]}"
+            
+            self.log_test("Rate Item (5 stars)", success, details)
+        except Exception as e:
+            success = False
+            self.log_test("Rate Item (5 stars)", False, f"Exception: {str(e)}")
         
         if not success:
             return False
