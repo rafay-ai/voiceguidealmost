@@ -844,8 +844,10 @@ class VoiceGuideAPITester:
         
         print(f"   📝 Testing with item: {menu_item_name}")
         
-        # Test 1: Rate item with 5 stars (using query parameters)
-        url = f"{self.base_url}/api/ratings?menu_item_id={menu_item_id}&rating=5&review=Excellent biryani! Really loved it."
+        # Test 1: Rate item with 5 stars (using query parameters with URL encoding)
+        import urllib.parse
+        review_text = urllib.parse.quote("Excellent biryani! Really loved it.")
+        url = f"{self.base_url}/api/ratings?menu_item_id={menu_item_id}&rating=5&review={review_text}"
         headers = self.session.headers.copy()
         
         try:
