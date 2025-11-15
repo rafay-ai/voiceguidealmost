@@ -282,6 +282,11 @@ class MatrixFactorizationEngine:
                 for item_idx, score in item_scores[:limit * 3]:  # Get more to filter by dietary
                     item_id = self.reverse_item_mapping[item_idx]
                     
+                    # Skip disliked items
+                    if item_id in disliked_set:
+                        logger.info(f"Skipping disliked item from recommendations: {item_id}")
+                        continue
+                    
                     menu_item = await self.db.menu_items.find_one(
                         {"id": item_id, "available": True},
                         {"_id": 0}
