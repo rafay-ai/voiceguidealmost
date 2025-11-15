@@ -26,6 +26,7 @@ class Intent(Enum):
     REORDER = "reorder"
     NEW_ITEMS = "new_items"
     SPECIFIC_CUISINE = "specific_cuisine"
+    SPECIFIC_ITEM_SEARCH = "specific_item_search"  # NEW: Search for specific menu item
     RESTAURANT_QUERY = "restaurant_query"
     ORDER_STATUS = "order_status"
     COMPLAINT = "complaint"
