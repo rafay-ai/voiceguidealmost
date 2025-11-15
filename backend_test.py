@@ -881,13 +881,22 @@ class VoiceGuideAPITester:
             "review": "Changed my mind, not that great"
         }
         
-        success, response = self.run_api_test(
-            "Update Rating (2 stars - dislike)",
-            "POST",
-            "api/ratings",
-            200,
-            rating_data_update
-        )
+        try:
+            response = self.session.post(url, data=rating_data_update, headers=headers)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            
+            if not success:
+                try:
+                    error_detail = response.json()
+                    details += f", Error: {error_detail}"
+                except:
+                    details += f", Response: {response.text[:200]}"
+            
+            self.log_test("Update Rating (2 stars - dislike)", success, details)
+        except Exception as e:
+            success = False
+            self.log_test("Update Rating (2 stars - dislike)", False, f"Exception: {str(e)}")
         
         if not success:
             return False
