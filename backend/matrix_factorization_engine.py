@@ -218,11 +218,16 @@ class MatrixFactorizationEngine:
             # Convert disliked_items to set for faster lookup
             disliked_set = set(disliked_items) if disliked_items else set()
             
-            # REORDER ITEMS - from order history
+            # REORDER ITEMS - from order history (excluding disliked items)
             reorder_items = []
             if order_history["has_history"] and not exclude_ordered:
                 for ordered in order_history["ordered_items"][:3]:
                     item = ordered["item"]
+                    
+                    # Skip disliked items
+                    if item["id"] in disliked_set:
+                        logger.info(f"Skipping disliked item from reorder: {item['name']}")
+                        continue
                     
                     if self._check_dietary_compatibility(item, dietary_restrictions):
                         reorder_items.append({
