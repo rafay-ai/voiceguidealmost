@@ -957,13 +957,21 @@ class VoiceGuideAPITester:
             "review": "This should fail"
         }
         
-        success, response = self.run_api_test(
-            "Rate Non-existent Item",
-            "POST",
-            "api/ratings",
-            404,  # Should return 404 Not Found
-            fake_item_data
-        )
+        try:
+            response = self.session.post(url, data=fake_item_data, headers=headers)
+            success = response.status_code == 404
+            details = f"Status: {response.status_code}"
+            
+            if not success:
+                try:
+                    error_detail = response.json()
+                    details += f", Error: {error_detail}"
+                except:
+                    details += f", Response: {response.text[:200]}"
+            
+            self.log_test("Rate Non-existent Item", success, details)
+        except Exception as e:
+            self.log_test("Rate Non-existent Item", False, f"Exception: {str(e)}")
         
         return True
 
