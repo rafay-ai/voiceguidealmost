@@ -1167,12 +1167,12 @@ class VoiceGuideAPITester:
         ]
         
         for query, expected_status, description in edge_cases:
-            # Send as form data for edge cases too
-            url = f"{self.base_url}/api/menu/search"
+            # Try as query parameter for edge cases too
+            url = f"{self.base_url}/api/menu/search?query={query}"
             headers = self.session.headers.copy()
             
             try:
-                response = self.session.post(url, data={"query": query}, headers=headers)
+                response = self.session.post(url, headers=headers)
                 success = response.status_code == expected_status
                 details = f"Status: {response.status_code}"
                 
