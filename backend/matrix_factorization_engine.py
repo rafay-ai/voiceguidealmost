@@ -381,6 +381,10 @@ class MatrixFactorizationEngine:
             items = await items_cursor.to_list(None)
             
             for item in items:
+                # Skip disliked items
+                if item["id"] in disliked_set:
+                    continue
+                    
                 if not self._check_dietary_compatibility(item, dietary_restrictions):
                     continue
                 
