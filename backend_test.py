@@ -808,14 +808,542 @@ class VoiceGuideAPITester:
             print("❌ Chatbot recommendation system has significant issues.")
             return False
 
+    def test_rating_system(self):
+        """Test Phase 1: Rating System Implementation"""
+        print("\n🎯 TESTING RATING SYSTEM (Phase 1)")
+        
+        if not self.token:
+            return self.log_test("Rating System", False, "No authentication token")
+        
+        # First, get a menu item to rate
+        success, menu_response = self.run_api_test(
+            "Get Menu Items for Rating",
+            "GET", 
+            "api/restaurants?page=1&limit=1",
+            200
+        )
+        
+        if not success or not menu_response.get('restaurants'):
+            return self.log_test("Rating System Setup", False, "No restaurants found")
+        
+        restaurant_id = menu_response['restaurants'][0]['id']
+        
+        # Get menu items from this restaurant
+        success, items_response = self.run_api_test(
+            "Get Restaurant Menu Items",
+            "GET",
+            f"api/restaurants/{restaurant_id}/menu",
+            200
+        )
+        
+        if not success or not items_response.get('menu_items'):
+            return self.log_test("Rating System Setup", False, "No menu items found")
+        
+        menu_item_id = items_response['menu_items'][0]['id']
+        menu_item_name = items_response['menu_items'][0]['name']
+        
+        print(f"   📝 Testing with item: {menu_item_name}")
+        
+        # Test 1: Rate item with 5 stars
+        rating_data = {
+            "menu_item_id": menu_item_id,
+            "rating": 5,
+            "review": "Excellent biryani! Really loved it."
+        }
+        
+        success, response = self.run_api_test(
+            "Rate Item (5 stars)",
+            "POST",
+            "api/ratings",
+            200,
+            rating_data
+        )
+        
+        if not success:
+            return False
+        
+        # Test 2: Update rating to 2 stars (dislike)
+        rating_data_update = {
+            "menu_item_id": menu_item_id,
+            "rating": 2,
+            "review": "Changed my mind, not that great"
+        }
+        
+        success, response = self.run_api_test(
+            "Update Rating (2 stars - dislike)",
+            "POST",
+            "api/ratings",
+            200,
+            rating_data_update
+        )
+        
+        if not success:
+            return False
+        
+        # Test 3: Get my ratings
+        success, ratings_response = self.run_api_test(
+            "Get My Ratings",
+            "GET",
+            "api/ratings/my-ratings",
+            200
+        )
+        
+        if success and ratings_response.get('ratings'):
+            ratings = ratings_response['ratings']
+            print(f"   📝 Found {len(ratings)} ratings")
+            
+            # Verify the rating was updated, not duplicated
+            item_ratings = [r for r in ratings if r['menu_item_id'] == menu_item_id]
+            if len(item_ratings) == 1 and item_ratings[0]['rating'] == 2:
+                self.log_test("Rating Update (No Duplication)", True, "Rating updated correctly")
+            else:
+                self.log_test("Rating Update (No Duplication)", False, f"Found {len(item_ratings)} ratings for same item")
+        
+        # Test 4: Test invalid ratings
+        invalid_rating_tests = [
+            (0, "Rating too low"),
+            (6, "Rating too high"),
+            (-1, "Negative rating")
+        ]
+        
+        for invalid_rating, test_name in invalid_rating_tests:
+            invalid_data = {
+                "menu_item_id": menu_item_id,
+                "rating": invalid_rating,
+                "review": "Invalid test"
+            }
+            
+            success, response = self.run_api_test(
+                f"Invalid Rating ({test_name})",
+                "POST",
+                "api/ratings",
+                400,  # Should return 400 Bad Request
+                invalid_data
+            )
+        
+        # Test 5: Rate non-existent item
+        fake_item_data = {
+            "menu_item_id": "fake-item-id-12345",
+            "rating": 4,
+            "review": "This should fail"
+        }
+        
+        success, response = self.run_api_test(
+            "Rate Non-existent Item",
+            "POST",
+            "api/ratings",
+            404,  # Should return 404 Not Found
+            fake_item_data
+        )
+        
+        return True
+
+    def test_dislike_filtering(self):
+        """Test Phase 1: Dislike Feature - Items rated < 3 stars filtered from recommendations"""
+        print("\n🎯 TESTING DISLIKE FILTERING (Phase 1)")
+        
+        if not self.token:
+            return self.log_test("Dislike Filtering", False, "No authentication token")
+        
+        # First, find a menu item to dislike
+        success, menu_response = self.run_api_test(
+            "Get Menu Items for Dislike Test",
+            "GET", 
+            "api/restaurants?page=1&limit=2",
+            200
+        )
+        
+        if not success or not menu_response.get('restaurants'):
+            return self.log_test("Dislike Test Setup", False, "No restaurants found")
+        
+        # Get menu items from first restaurant
+        restaurant_id = menu_response['restaurants'][0]['id']
+        success, items_response = self.run_api_test(
+            "Get Menu Items",
+            "GET",
+            f"api/restaurants/{restaurant_id}/menu",
+            200
+        )
+        
+        if not success or not items_response.get('menu_items'):
+            return self.log_test("Dislike Test Setup", False, "No menu items found")
+        
+        # Pick first item to dislike
+        dislike_item = items_response['menu_items'][0]
+        dislike_item_id = dislike_item['id']
+        dislike_item_name = dislike_item['name']
+        
+        print(f"   📝 Will dislike item: {dislike_item_name}")
+        
+        # Rate the item with 1 star (strong dislike)
+        dislike_rating = {
+            "menu_item_id": dislike_item_id,
+            "rating": 1,
+            "review": "Really didn't like this item"
+        }
+        
+        success, response = self.run_api_test(
+            "Rate Item as Disliked (1 star)",
+            "POST",
+            "api/ratings",
+            200,
+            dislike_rating
+        )
+        
+        if not success:
+            return False
+        
+        # Now test recommendations - disliked item should NOT appear
+        recommendation_messages = [
+            "I'm hungry",
+            "recommend me something",
+            "what should I order"
+        ]
+        
+        dislike_filtering_works = True
+        
+        for message in recommendation_messages:
+            chat_data = {
+                "message": message,
+                "user_id": self.user_id
+            }
+            
+            success, chat_response = self.run_api_test(
+                f"Chat Recommendation Test: '{message}'",
+                "POST",
+                "api/chat",
+                200,
+                chat_data
+            )
+            
+            if success:
+                # Check if disliked item appears in recommendations
+                reorder_items = chat_response.get('reorder_items', [])
+                new_items = chat_response.get('new_items', [])
+                
+                all_recommended_ids = []
+                all_recommended_ids.extend([item.get('id') for item in reorder_items])
+                all_recommended_ids.extend([item.get('id') for item in new_items])
+                
+                if dislike_item_id in all_recommended_ids:
+                    self.log_test(f"Dislike Filtering - '{message}'", False, 
+                                f"Disliked item '{dislike_item_name}' appeared in recommendations")
+                    dislike_filtering_works = False
+                else:
+                    self.log_test(f"Dislike Filtering - '{message}'", True, 
+                                "Disliked item correctly excluded from recommendations")
+                    
+                print(f"   📝 Recommended {len(reorder_items)} reorder items, {len(new_items)} new items")
+        
+        return dislike_filtering_works
+
+    def test_menu_search_api(self):
+        """Test Phase 1: Menu Search Direct API"""
+        print("\n🎯 TESTING MENU SEARCH API (Phase 1)")
+        
+        if not self.token:
+            return self.log_test("Menu Search API", False, "No authentication token")
+        
+        # Test various search queries
+        search_queries = [
+            ("biryani", "Should find biryani items"),
+            ("burger", "Should find burger items"), 
+            ("chicken", "Should find chicken items"),
+            ("pizza", "Should find pizza items"),
+            ("karahi", "Should find karahi items")
+        ]
+        
+        search_success = True
+        
+        for query, description in search_queries:
+            search_data = {"query": query}
+            
+            success, response = self.run_api_test(
+                f"Search Menu: '{query}'",
+                "POST",
+                "api/menu/search",
+                200,
+                search_data
+            )
+            
+            if success:
+                items = response.get('items', [])
+                count = response.get('count', 0)
+                
+                print(f"   📝 Query '{query}': Found {count} items")
+                
+                if items:
+                    # Verify search results contain the query term
+                    relevant_items = 0
+                    for item in items[:3]:  # Check first 3 items
+                        name = item.get('name', '').lower()
+                        description = item.get('description', '').lower()
+                        tags = ' '.join(item.get('tags', [])).lower()
+                        
+                        if query.lower() in name or query.lower() in description or query.lower() in tags:
+                            relevant_items += 1
+                    
+                    if relevant_items > 0:
+                        self.log_test(f"Search Relevance - '{query}'", True, 
+                                    f"{relevant_items}/{min(len(items), 3)} items relevant")
+                    else:
+                        self.log_test(f"Search Relevance - '{query}'", False, 
+                                    "No relevant items found")
+                        search_success = False
+            else:
+                search_success = False
+        
+        # Test edge cases
+        edge_cases = [
+            ("", 400, "Empty query should return 400"),
+            ("a", 400, "Too short query should return 400"),
+            ("nonexistentfooditem12345", 200, "Non-existent item should return empty results")
+        ]
+        
+        for query, expected_status, description in edge_cases:
+            search_data = {"query": query}
+            
+            success, response = self.run_api_test(
+                f"Edge Case: {description}",
+                "POST",
+                "api/menu/search",
+                expected_status,
+                search_data
+            )
+            
+            if expected_status == 200 and success:
+                # For non-existent items, should return 0 results
+                count = response.get('count', -1)
+                if count == 0:
+                    self.log_test(f"Non-existent Search Result", True, "Correctly returned 0 items")
+                else:
+                    self.log_test(f"Non-existent Search Result", False, f"Expected 0 items, got {count}")
+        
+        return search_success
+
+    def test_menu_search_via_chatbot(self):
+        """Test Phase 1: Menu Search via Chatbot Intent"""
+        print("\n🎯 TESTING MENU SEARCH VIA CHATBOT (Phase 1)")
+        
+        if not self.token:
+            return self.log_test("Menu Search Chatbot", False, "No authentication token")
+        
+        # Test search queries that should trigger SPECIFIC_ITEM_SEARCH intent
+        search_messages = [
+            ("find biryani", "biryani"),
+            ("show me pizza", "pizza"),
+            ("looking for ice cream", "ice cream"),
+            ("I want burger", "burger"),
+            ("dhundo karahi", "karahi"),  # Roman Urdu
+            ("search for chicken", "chicken")
+        ]
+        
+        chatbot_search_success = True
+        
+        for message, expected_item in search_messages:
+            chat_data = {
+                "message": message,
+                "user_id": self.user_id
+            }
+            
+            success, response = self.run_api_test(
+                f"Chatbot Search: '{message}'",
+                "POST",
+                "api/chat",
+                200,
+                chat_data
+            )
+            
+            if success:
+                intent = response.get('intent')
+                new_items = response.get('new_items', [])
+                
+                # Check if intent was detected correctly
+                if intent == "specific_item_search":
+                    self.log_test(f"Intent Detection - '{message}'", True, 
+                                f"Correctly detected intent: {intent}")
+                else:
+                    self.log_test(f"Intent Detection - '{message}'", False, 
+                                f"Expected 'specific_item_search', got '{intent}'")
+                    chatbot_search_success = False
+                
+                # Check if relevant items were returned
+                if new_items:
+                    print(f"   📝 Found {len(new_items)} items for '{message}'")
+                    
+                    # Check if items are relevant to the search
+                    relevant_count = 0
+                    for item in new_items[:3]:
+                        name = item.get('name', '').lower()
+                        if expected_item.lower() in name:
+                            relevant_count += 1
+                    
+                    if relevant_count > 0:
+                        self.log_test(f"Search Results - '{message}'", True, 
+                                    f"{relevant_count} relevant items found")
+                    else:
+                        self.log_test(f"Search Results - '{message}'", False, 
+                                    "No relevant items in results")
+                        chatbot_search_success = False
+                else:
+                    self.log_test(f"Search Results - '{message}'", False, 
+                                "No items returned")
+                    chatbot_search_success = False
+            else:
+                chatbot_search_success = False
+        
+        return chatbot_search_success
+
+    def test_combined_rating_search_flow(self):
+        """Test Phase 1: Combined Flow - Rate item low, then verify it's excluded from search"""
+        print("\n🎯 TESTING COMBINED RATING + SEARCH FLOW (Phase 1)")
+        
+        if not self.token:
+            return self.log_test("Combined Flow", False, "No authentication token")
+        
+        # Step 1: Search for chicken items
+        search_data = {"query": "chicken"}
+        success, search_response = self.run_api_test(
+            "Initial Search for Chicken",
+            "POST",
+            "api/menu/search",
+            200,
+            search_data
+        )
+        
+        if not success or not search_response.get('items'):
+            return self.log_test("Combined Flow Setup", False, "No chicken items found for test")
+        
+        # Pick the first chicken item
+        target_item = search_response['items'][0]
+        target_item_id = target_item['id']
+        target_item_name = target_item['name']
+        
+        print(f"   📝 Target item for combined test: {target_item_name}")
+        
+        # Step 2: Rate this item poorly (1 star)
+        rating_data = {
+            "menu_item_id": target_item_id,
+            "rating": 1,
+            "review": "Combined flow test - disliking this item"
+        }
+        
+        success, response = self.run_api_test(
+            "Rate Target Item (1 star)",
+            "POST",
+            "api/ratings",
+            200,
+            rating_data
+        )
+        
+        if not success:
+            return False
+        
+        # Step 3: Search again for chicken - disliked item should be excluded
+        success, search_response_after = self.run_api_test(
+            "Search Chicken After Rating",
+            "POST",
+            "api/menu/search",
+            200,
+            search_data
+        )
+        
+        if success:
+            items_after = search_response_after.get('items', [])
+            item_ids_after = [item.get('id') for item in items_after]
+            
+            if target_item_id in item_ids_after:
+                self.log_test("Search Excludes Disliked Items", False, 
+                            f"Disliked item '{target_item_name}' still appears in search results")
+                return False
+            else:
+                self.log_test("Search Excludes Disliked Items", True, 
+                            "Disliked item correctly excluded from search results")
+        
+        # Step 4: Get recommendations - disliked item should not appear
+        chat_data = {
+            "message": "recommend me something",
+            "user_id": self.user_id
+        }
+        
+        success, chat_response = self.run_api_test(
+            "Recommendations After Dislike",
+            "POST",
+            "api/chat",
+            200,
+            chat_data
+        )
+        
+        if success:
+            reorder_items = chat_response.get('reorder_items', [])
+            new_items = chat_response.get('new_items', [])
+            
+            all_recommended_ids = []
+            all_recommended_ids.extend([item.get('id') for item in reorder_items])
+            all_recommended_ids.extend([item.get('id') for item in new_items])
+            
+            if target_item_id in all_recommended_ids:
+                self.log_test("Recommendations Exclude Disliked Items", False, 
+                            f"Disliked item '{target_item_name}' appears in recommendations")
+                return False
+            else:
+                self.log_test("Recommendations Exclude Disliked Items", True, 
+                            "Disliked item correctly excluded from recommendations")
+        
+        return True
+
+    def run_phase1_rating_and_search_tests(self):
+        """Run comprehensive Phase 1 tests: Rating System + Dislike Feature + Menu Search"""
+        print("\n" + "="*80)
+        print("🚀 PHASE 1 TESTING: RATING SYSTEM + DISLIKE FEATURE + MENU SEARCH")
+        print("="*80)
+        
+        # Authentication first
+        if not self.test_demo_login():
+            print("❌ Cannot proceed without authentication")
+            return False
+        
+        # Run all Phase 1 tests
+        test_results = []
+        
+        # Test 1: Rating System
+        test_results.append(self.test_rating_system())
+        
+        # Test 2: Dislike Filtering
+        test_results.append(self.test_dislike_filtering())
+        
+        # Test 3: Menu Search API
+        test_results.append(self.test_menu_search_api())
+        
+        # Test 4: Menu Search via Chatbot
+        test_results.append(self.test_menu_search_via_chatbot())
+        
+        # Test 5: Combined Flow
+        test_results.append(self.test_combined_rating_search_flow())
+        
+        # Summary
+        passed_tests = sum(test_results)
+        total_tests = len(test_results)
+        
+        print(f"\n📊 PHASE 1 TEST RESULTS:")
+        print(f"✅ Passed: {passed_tests}/{total_tests}")
+        print(f"📈 Success Rate: {(passed_tests/total_tests)*100:.1f}%")
+        
+        if passed_tests >= 4:  # At least 4/5 major test categories should pass
+            print("🎉 Phase 1 implementation is working well!")
+            return True
+        else:
+            print("❌ Phase 1 implementation has significant issues.")
+            return False
+
 def main():
     tester = VoiceGuideAPITester()
     
-    # Run focused chatbot tests as requested in review
-    print("🎯 Running FOCUSED CHATBOT RECOMMENDATION TESTS as per review request...")
-    focused_success = tester.run_focused_chatbot_tests()
+    # Run Phase 1 tests as requested in review
+    print("🎯 Running PHASE 1 TESTS: Rating System + Dislike Feature + Menu Search...")
+    phase1_success = tester.run_phase1_rating_and_search_tests()
     
-    return 0 if focused_success else 1
+    return 0 if phase1_success else 1
 
 if __name__ == "__main__":
     sys.exit(main())
