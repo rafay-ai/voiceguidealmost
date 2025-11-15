@@ -2729,7 +2729,7 @@ async def rate_menu_item(
         existing_rating = await db.ratings.find_one({
             "user_id": current_user.id,
             "menu_item_id": menu_item_id
-        })
+        }, {"_id": 0})
         
         rating_data = {
             "id": str(uuid.uuid4()),
