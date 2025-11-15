@@ -1336,9 +1336,9 @@ class VoiceGuideAPITester:
             return False
         
         # Step 3: Search again for chicken - disliked item should be excluded
-        # Search again using form data
+        # Search again using query parameter
         try:
-            response = self.session.post(url, data={"query": "chicken"}, headers=headers)
+            response = self.session.post(url, headers=headers)
             success = response.status_code == 200
             search_response_after = response.json() if success else {}
             
