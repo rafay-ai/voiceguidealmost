@@ -306,6 +306,28 @@ User requested: "{message}"
 
 Task: Present the cuisine-specific recommendations. Keep it brief and appetizing (1-2 sentences). Respond in {response_lang}."""
 
+        elif intent == Intent.SPECIFIC_ITEM_SEARCH:
+            if not new_items:
+                prompt = f"""You are a friendly food assistant for Voice Guide in Karachi.
+
+User: {username}
+
+User searched for: "{message}"
+
+No items found for this search.
+
+Task: Apologize politely and suggest similar popular items or ask them to try a different search. Keep it helpful (1-2 sentences). Respond in {response_lang}."""
+            else:
+                prompt = f"""You are a friendly food assistant for Voice Guide in Karachi.
+
+User: {username}
+
+User searched for: "{message}"
+
+{recs_context}
+
+Task: Present the search results enthusiastically. Mention how many items were found. Keep it brief (1-2 sentences). Respond in {response_lang}."""
+
         elif intent == Intent.FOOD_RECOMMENDATION:
             if not reorder_items and not new_items:
                 prompt = f"""You are a friendly food assistant for Voice Guide in Karachi.
