@@ -2757,9 +2757,21 @@ async def rate_menu_item(
         # Update item's average rating
         await update_item_average_rating(menu_item_id)
         
+        # Return only safe data (no ObjectId fields)
+        safe_rating_data = {
+            "id": rating_data["id"],
+            "user_id": rating_data["user_id"],
+            "menu_item_id": rating_data["menu_item_id"],
+            "restaurant_id": rating_data["restaurant_id"],
+            "rating": rating_data["rating"],
+            "review": rating_data["review"],
+            "created_at": rating_data["created_at"],
+            "updated_at": rating_data["updated_at"]
+        }
+        
         return {
             "message": message,
-            "rating": rating_data
+            "rating": safe_rating_data
         }
         
     except HTTPException:
