@@ -118,6 +118,27 @@ class EnhancedChatbot:
             'naya', 'alag', 'different', 'try karna', 'نیا', 'مختلف'
         ]
         if any(keyword in message_lower for keyword in new_keywords):
+            return Intent.NEW_ITEMS, extracted_data
+        
+        # Specific item search intent (English + Roman Urdu)
+        search_keywords = [
+            'search for', 'find', 'looking for', 'want', 'show me', 'get me', 
+            'do you have', 'have you got',
+            'dhundo', 'mil sakta', 'hai kya', 'dikhao', 'chahiye'
+        ]
+        # Check if user is asking for a specific item (not just general food)
+        if any(keyword in message_lower for keyword in search_keywords):
+            # Extract the item name (words after the search keyword)
+            for keyword in search_keywords:
+                if keyword in message_lower:
+                    parts = message_lower.split(keyword)
+                    if len(parts) > 1:
+                        item_query = parts[1].strip()
+                        # Remove common words
+                        item_query = item_query.replace('?', '').replace('please', '').replace('pls', '').strip()
+                        if item_query:
+                            extracted_data['item_query'] = item_query
+                            return Intent.SPECIFIC_ITEM_SEARCH, extracted_data
         
         # Specific cuisine detection (English + Roman Urdu + Pure Urdu)
         cuisine_keywords = {
