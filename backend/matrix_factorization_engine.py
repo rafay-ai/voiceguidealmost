@@ -334,7 +334,8 @@ class MatrixFactorizationEngine:
                     dietary_restrictions,
                     favorite_cuisines,
                     order_history,
-                    limit - len(new_recommendations)
+                    limit - len(new_recommendations),
+                    disliked_set  # Pass disliked items to content-based too
                 )
                 new_recommendations.extend(fallback_items)
             
