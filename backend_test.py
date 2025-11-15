@@ -994,18 +994,12 @@ class VoiceGuideAPITester:
         
         print(f"   📝 Will dislike item: {dislike_item_name}")
         
-        # Rate the item with 1 star (strong dislike) using form data
-        dislike_rating = {
-            "menu_item_id": dislike_item_id,
-            "rating": 1,
-            "review": "Really didn't like this item"
-        }
-        
-        url = f"{self.base_url}/api/ratings"
+        # Rate the item with 1 star (strong dislike) using query parameters
+        url = f"{self.base_url}/api/ratings?menu_item_id={dislike_item_id}&rating=1&review=Really didn't like this item"
         headers = self.session.headers.copy()
         
         try:
-            response = self.session.post(url, data=dislike_rating, headers=headers)
+            response = self.session.post(url, headers=headers)
             success = response.status_code == 200
             details = f"Status: {response.status_code}"
             
