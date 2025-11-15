@@ -199,11 +199,14 @@ class MatrixFactorizationEngine:
         user_preferences: Dict,
         query: str = "",
         limit: int = 6,
-        exclude_ordered: bool = False
+        exclude_ordered: bool = False,
+        disliked_items: List[str] = None
     ) -> Tuple[List[Dict], List[Dict]]:
         """
         Get recommendations using Matrix Factorization
         Returns: (reorder_items, new_recommendations)
+        Args:
+            disliked_items: List of menu item IDs user has disliked (rating < 3)
         """
         try:
             # Get order history
@@ -211,6 +214,9 @@ class MatrixFactorizationEngine:
             
             dietary_restrictions = user_preferences.get("dietary_restrictions", [])
             favorite_cuisines = user_preferences.get("favorite_cuisines", [])
+            
+            # Convert disliked_items to set for faster lookup
+            disliked_set = set(disliked_items) if disliked_items else set()
             
             # REORDER ITEMS - from order history
             reorder_items = []
