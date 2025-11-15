@@ -934,13 +934,21 @@ class VoiceGuideAPITester:
                 "review": "Invalid test"
             }
             
-            success, response = self.run_api_test(
-                f"Invalid Rating ({test_name})",
-                "POST",
-                "api/ratings",
-                400,  # Should return 400 Bad Request
-                invalid_data
-            )
+            try:
+                response = self.session.post(url, data=invalid_data, headers=headers)
+                success = response.status_code == 400
+                details = f"Status: {response.status_code}"
+                
+                if not success:
+                    try:
+                        error_detail = response.json()
+                        details += f", Error: {error_detail}"
+                    except:
+                        details += f", Response: {response.text[:200]}"
+                
+                self.log_test(f"Invalid Rating ({test_name})", success, details)
+            except Exception as e:
+                self.log_test(f"Invalid Rating ({test_name})", False, f"Exception: {str(e)}")
         
         # Test 5: Rate non-existent item
         fake_item_data = {
