@@ -352,11 +352,13 @@ class MatrixFactorizationEngine:
         dietary_restrictions: List[str],
         favorite_cuisines: List[str],
         order_history: Dict,
-        limit: int
+        limit: int,
+        disliked_set: set = None
     ) -> List[Dict]:
         """Fallback content-based recommendations for new users"""
         try:
             recommendations = []
+            disliked_set = disliked_set if disliked_set is not None else set()
             
             # Build query based on preferences
             query = {"available": True}
