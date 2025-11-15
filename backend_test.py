@@ -1231,13 +1231,20 @@ class VoiceGuideAPITester:
         
         # Step 1: Search for chicken items
         search_data = {"query": "chicken"}
-        success, search_response = self.run_api_test(
-            "Initial Search for Chicken",
-            "POST",
-            "api/menu/search",
-            200,
-            search_data
-        )
+        # Search for chicken using form data
+        url = f"{self.base_url}/api/menu/search"
+        headers = self.session.headers.copy()
+        
+        try:
+            response = self.session.post(url, data={"query": "chicken"}, headers=headers)
+            success = response.status_code == 200
+            search_response = response.json() if success else {}
+            
+            self.log_test("Initial Search for Chicken", success, f"Status: {response.status_code}")
+        except Exception as e:
+            success = False
+            search_response = {}
+            self.log_test("Initial Search for Chicken", False, f"Exception: {str(e)}")
         
         if not success or not search_response.get('items'):
             return self.log_test("Combined Flow Setup", False, "No chicken items found for test")
