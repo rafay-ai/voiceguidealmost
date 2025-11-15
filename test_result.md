@@ -297,7 +297,168 @@ test_plan:
   test_all: false
   test_priority: "critical_first"
 
+  - task: "Rating system integration"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: |
+          IMPLEMENTATION COMPLETED - Phase 1:
+          
+          ✅ RATING SYSTEM:
+          1. Added POST /api/ratings endpoint - Rate menu items 1-5 stars
+          2. Added GET /api/ratings/my-ratings endpoint - Get user's rating history
+          3. Added helper function update_item_average_rating() - Updates item's average rating
+          4. Added helper function get_user_disliked_items() - Gets items rated < 3 stars
+          
+          ✅ DISLIKE FEATURE:
+          1. Modified matrix_factorization_engine.py:
+             - Updated get_recommendations() to accept disliked_items parameter
+             - Added filtering to exclude disliked items from reorder_items
+             - Added filtering to exclude disliked items from new_recommendations
+             - Updated content-based fallback to also filter disliked items
+          2. Modified server.py /api/chat endpoint:
+             - Gets user's disliked items before generating recommendations
+             - Passes disliked_items to recommendation engine
+             - Ensures disliked items never appear in recommendations
+          
+          ✅ MENU SEARCH FEATURE:
+          1. Added POST /api/menu/search endpoint - Search for specific menu items
+          2. Enhanced enhanced_chatbot.py:
+             - Added SPECIFIC_ITEM_SEARCH intent to Intent enum
+             - Updated detect_intent() to recognize search keywords
+             - Extracts item query from user message
+             - Added response generation for SPECIFIC_ITEM_SEARCH intent
+          3. Updated /api/chat endpoint to handle SPECIFIC_ITEM_SEARCH:
+             - Searches menu items by name, description, tags
+             - Excludes disliked items from search results
+             - Returns enriched results with restaurant info
+          
+          TESTING NEEDED:
+          - Test POST /api/ratings with various ratings (1-5 stars)
+          - Verify items rated < 3 are not recommended
+          - Test GET /api/ratings/my-ratings returns correct data
+          - Test POST /api/menu/search with various queries
+          - Test chatbot intent detection for search queries
+          - Verify search results exclude disliked items
+          - Test complete flow: rate item low -> verify it's not recommended anymore
+  
+  - task: "Evaluation metrics integration"
+    implemented: false
+    working: "NA"
+    file: "/app/backend/evaluation_metrics.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          NOT YET IMPLEMENTED - Phase 2 Pending:
+          
+          File exists with all 6 metrics implemented:
+          1. Precision@K
+          2. Recall@K
+          3. NDCG@K
+          4. Hit Rate@K
+          5. Coverage
+          6. Diversity@K
+          
+          PENDING WORK:
+          - Create API endpoint /api/admin/evaluate to trigger evaluation
+          - Create API endpoint /api/admin/evaluation-results to fetch results
+          - Potentially create dashboard UI to display metrics
+          - Integration with recommendation engine for real-time evaluation
+
 agent_communication:
+  - agent: "main"
+    message: |
+      ✅ PHASE 1 IMPLEMENTATION COMPLETE - Rating + Dislike + Menu Search
+      
+      WHAT WAS IMPLEMENTED:
+      
+      1. **RATING SYSTEM** (2 endpoints + 2 helper functions):
+         - POST /api/ratings - Users can rate menu items 1-5 stars with optional review
+         - GET /api/ratings/my-ratings - Get user's rating history with item details
+         - Automatic average rating calculation for menu items
+         - Ratings stored with user_id, menu_item_id, rating, review, timestamps
+      
+      2. **DISLIKE FEATURE** (Automatic filtering):
+         - Items rated < 3 stars are considered "disliked"
+         - get_user_disliked_items() helper extracts disliked item IDs
+         - Matrix Factorization engine filters disliked items from:
+           * Reorder items (past favorites)
+           * New recommendations (CF-based)
+           * Content-based fallback recommendations
+         - Chat endpoint gets disliked items and passes to recommendation engine
+         - **Result**: Disliked items NEVER appear in any recommendations
+      
+      3. **MENU SEARCH FEATURE** (New intent + endpoint):
+         - New Intent: SPECIFIC_ITEM_SEARCH for "find biryani", "show me pizza", etc.
+         - POST /api/menu/search - Direct search endpoint (search by name/description/tags)
+         - Enhanced chatbot intent detection recognizes search queries in both English and Roman Urdu
+         - Extracts item name from queries like "find X", "looking for Y", "dhundo Z"
+         - Search results:
+           * Automatically exclude disliked items
+           * Include restaurant name, rating, cuisine
+           * Support both direct API calls and chatbot integration
+      
+      4. **BILINGUAL SUPPORT**:
+         - Search keywords support both English ("find", "show me") and Roman Urdu ("dhundo", "dikhao")
+         - Response generation handles both languages
+      
+      🧪 TESTING REQUIREMENTS - Phase 1 (Backend Testing):
+      
+      **Test Scenario 1: Rating System**
+      1. POST /api/ratings with menu_item_id, rating=5, review="Excellent!"
+         - Expected: 201 success, rating saved
+      2. POST /api/ratings with same item, rating=2 (update to dislike)
+         - Expected: Rating updated, average recalculated
+      3. GET /api/ratings/my-ratings
+         - Expected: Returns all user's ratings with item details
+      4. Verify menu item's average_rating and total_ratings updated
+      
+      **Test Scenario 2: Dislike Filtering**
+      1. Rate item A with rating=1 (dislike it)
+      2. Send chat message: "I'm hungry" or "recommend me something"
+      3. Expected: Item A should NOT appear in reorder_items or new_items
+      4. Verify API response excludes Item A completely
+      
+      **Test Scenario 3: Menu Search via Chat**
+      1. Send chat message: "find biryani"
+         - Expected: intent="specific_item_search", item_query="biryani"
+         - new_items contains biryani items from various restaurants
+      2. Send: "show me pizza"
+         - Expected: Returns pizza items
+      3. Send: "looking for ice cream"
+         - Expected: Returns dessert items matching ice cream
+      
+      **Test Scenario 4: Menu Search Direct API**
+      1. POST /api/menu/search with query="karahi"
+         - Expected: Returns items with "karahi" in name/description/tags
+      2. POST /api/menu/search with query="burger"
+         - Expected: Returns burger items from multiple restaurants
+      
+      **Test Scenario 5: Combined Flow (Rate + Dislike + Search)**
+      1. Search for "biryani" -> Note Item ID
+      2. Rate that item with rating=1
+      3. Search again for "biryani"
+         - Expected: That specific item excluded from results
+      4. Ask chatbot: "recommend me something"
+         - Expected: Disliked biryani doesn't appear
+      
+      📝 NEXT PHASES:
+      - Phase 2: Evaluation Metrics Dashboard/API
+      - Phase 3: Data Generation & Testing
+      - Phase 4: End-to-end Testing
+      
+      Backend has been restarted and is running. Ready for testing!
+  
   - agent: "main"
     message: |
       🔧 NEW FIX APPLIED - Bot Mentioning Past Orders for New Users
