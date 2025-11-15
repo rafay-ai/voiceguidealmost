@@ -520,6 +520,33 @@ test_plan:
           - Dislike feature validation
 
 agent_communication:
+  - agent: "testing"
+    message: |
+      🧪 FRONTEND TESTING COMPLETED - MIXED RESULTS
+      
+      ✅ SUCCESSFUL TESTS:
+      1. **Currency Display Fix**: All three pages (Dashboard, Restaurants, Profile) now correctly show PKR currency instead of ₹. This fix is working perfectly across the application.
+      
+      2. **Authentication & Navigation**: Login system works correctly, user registration successful, navigation between pages functional.
+      
+      3. **UI Rendering**: All pages render correctly with proper styling and layout.
+      
+      ❌ CRITICAL ISSUE IDENTIFIED:
+      **Clear Cart Button**: Could not complete full testing due to inability to add items to cart. The Clear Cart button implementation exists in code and appears correct, but functional testing was blocked by Add to Cart issues.
+      
+      🔍 TECHNICAL ANALYSIS:
+      - Clear Cart button exists with correct data-testid="clear-cart" in CartDrawer.js
+      - clearCart function properly implemented in CartContext.js
+      - API endpoint DELETE /api/cart/clear should work
+      - Issue appears to be with Add to Cart functionality preventing cart testing
+      
+      📋 RECOMMENDATIONS FOR MAIN AGENT:
+      1. **PRIORITY 1**: Investigate Add to Cart functionality - items not being added during testing
+      2. **PRIORITY 2**: Test Clear Cart manually or fix cart item addition first
+      3. **PRIORITY 3**: Consider adding more robust error handling for cart operations
+      
+      The user's reported issue about Clear Cart button may be related to broader cart functionality problems rather than just the clear button itself.
+  
   - agent: "main"
     message: |
       ✅ PHASE 1 IMPLEMENTATION COMPLETE - Rating + Dislike + Menu Search
