@@ -2115,23 +2115,80 @@ async def chat_with_assistant(
             days=30
         )
         
+        # Get user's disliked items (rated < 3 stars)
+        disliked_items = await get_user_disliked_items(current_user.id)
+        logging.info(f"User has {len(disliked_items)} disliked items")
+        
         # Get recommendations using the enhanced recommendation engine
         reorder_items = []
         new_items = []
         restaurants_data = []
+        search_results = []
         
-        if intent in [Intent.FOOD_RECOMMENDATION, Intent.REORDER, Intent.NEW_ITEMS, Intent.SPECIFIC_CUISINE]:
+        # Handle SPECIFIC_ITEM_SEARCH intent
+        if intent == Intent.SPECIFIC_ITEM_SEARCH:
+            item_query = extracted_data.get('item_query', '')
+            if item_query:
+                logging.info(f"Searching for specific item: {item_query}")
+                
+                # Search menu items
+                search_regex = {"$regex": item_query, "$options": "i"}
+                items_cursor = db.menu_items.find(
+                    {
+                        "available": True,
+                        "id": {"$nin": disliked_items},  # Exclude disliked items
+                        "$or": [
+                            {"name": search_regex},
+                            {"description": search_regex},
+                            {"tags": search_regex}
+                        ]
+                    },
+                    {"_id": 0}
+                ).limit(10)
+                
+                items = await items_cursor.to_list(None)
+                
+                # Enrich with restaurant info
+                for item in items:
+                    restaurant = await db.restaurants.find_one(
+                        {"id": item["restaurant_id"]},
+                        {"_id": 0, "name": 1, "rating": 1, "cuisine": 1}
+                    )
+                    
+                    if restaurant:
+                        search_results.append({
+                            "id": item["id"],
+                            "name": item["name"],
+                            "description": item.get("description", ""),
+                            "price": item["price"],
+                            "image_url": item.get("image_url", ""),
+                            "restaurant_id": item["restaurant_id"],
+                            "restaurant_name": restaurant.get("name", "Unknown"),
+                            "restaurant_rating": restaurant.get("rating", 4.0),
+                            "cuisine": restaurant.get("cuisine", []),
+                            "tags": item.get("tags", []),
+                            "spice_level": item.get("spice_level", "medium"),
+                            "is_vegetarian": item.get("is_vegetarian", False),
+                            "is_vegan": item.get("is_vegan", False),
+                            "average_rating": item.get("average_rating", 4.0)
+                        })
+                
+                new_items = search_results
+                logging.info(f"Found {len(search_results)} items for search query: {item_query}")
+        
+        elif intent in [Intent.FOOD_RECOMMENDATION, Intent.REORDER, Intent.NEW_ITEMS, Intent.SPECIFIC_CUISINE]:
             # Determine query for embeddings
             query = chat_request.message
             exclude_ordered = (intent == Intent.NEW_ITEMS)
             
-            # Get recommendations from the engine
+            # Get recommendations from the engine (with disliked items filtered)
             reorder_items, new_items = await recommendation_engine.get_recommendations(
                 user_id=current_user.id,
                 user_preferences=user_context['explicit_preferences'],
                 query=query,
                 limit=6,
-                exclude_ordered=exclude_ordered
+                exclude_ordered=exclude_ordered,
+                disliked_items=disliked_items  # Pass disliked items to filter
             )
             
             logging.info(f"Got {len(reorder_items)} reorder items and {len(new_items)} new items")
