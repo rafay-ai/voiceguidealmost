@@ -2232,11 +2232,15 @@ async def chat_with_assistant(
         # Prepare response
         show_order_card = len(reorder_items) > 0 or len(new_items) > 0
         
+        # Combine reorder and new items for frontend display
+        recommended_items = reorder_items + new_items
+        
         return {
             "response": response_text,
             "intent": intent.value,
             "reorder_items": reorder_items,
             "new_items": new_items,
+            "recommended_items": recommended_items,  # Combined list for frontend
             "restaurants": restaurants_data,  # Include restaurant cards
             "order_history_summary": {
                 "has_history": order_history.get("has_history", False),
