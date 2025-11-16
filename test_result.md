@@ -331,8 +331,90 @@ metadata:
   test_sequence: 1
   run_ui: false
 
+  - task: "Chatbot Menu Item Cards Feature"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "critical"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: |
+          COMPREHENSIVE TESTING COMPLETED - CHATBOT MENU ITEM CARDS FEATURE
+          
+          🎯 TEST SCENARIOS FROM REVIEW REQUEST:
+          
+          ❌ CRITICAL ISSUES IDENTIFIED:
+          
+          **Test 1: General Recommendation ("recommend me something")**
+          - ❌ Intent Detection: Expected 'food_recommendation', got 'greeting'
+          - ❌ Show Order Card: Expected true, got false
+          - ❌ Items Count: Expected 3-6 items, got 0 items
+          - 🔍 Root Cause: Intent detection failing for general recommendation phrases
+          
+          **Test 2: Specific Item Search - English ("Order Rasmalai")**
+          - ✅ Intent Detection: Correctly detected 'specific_item_search'
+          - ❌ Show Order Card: Expected true, got false
+          - ❌ Items Count: Expected 1-5 items, got 0 items
+          - 🔍 Root Cause: No Rasmalai items found in database (confirmed via database check)
+          
+          **Test 3: Specific Item Search - More Items ("find biryani")**
+          - ✅ Intent Detection: Correctly detected 'specific_item_search'
+          - ✅ Show Order Card: Correctly shows true
+          - ✅ Items Count: Found 2 biryani items (within expected 1-10 range)
+          - ✅ Item Structure: All required fields present (id, name, price, restaurant_name)
+          - ✅ WORKING CORRECTLY
+          
+          **Test 4: Specific Item Search - Roman Urdu ("ice cream dikhao")**
+          - ❌ Intent Detection: Expected 'specific_item_search', got 'specific_cuisine'
+          - ✅ Show Order Card: Correctly shows true
+          - ❌ Items Count: Expected 1-5 items, got 6 items (over limit)
+          - ✅ Item Structure: All required fields present
+          - 🔍 Root Cause: Roman Urdu intent detection needs improvement
+          
+          **Test 5: Generic Request ("I'm hungry")**
+          - ✅ Intent Detection: Correctly detected 'food_recommendation'
+          - ✅ Show Order Card: Correctly shows true
+          - ✅ Items Count: Found 6 items (within expected 3-6 range)
+          - ✅ Item Structure: All required fields present
+          - ✅ WORKING CORRECTLY
+          
+          📊 SUCCESS RATE: 40% (2/5 test scenarios fully working)
+          
+          🔍 DATABASE ANALYSIS FINDINGS:
+          - Total Restaurants: 4 (limited dataset)
+          - Available Cuisines: Pakistani, Chinese, Thai, Desserts, Fast Food
+          - Missing Cuisines: Japanese (0 restaurants)
+          - Specific Items Found: Biryani (2), Ice Cream (1), Burger (1)
+          - Missing Items: Rasmalai (0), Pizza (0)
+          
+          ⚠️ GEMINI API ISSUES:
+          - Quota exceeded errors causing AI response failures
+          - Fallback responses working but not optimal
+          
+          🎯 WORKING FEATURES:
+          ✅ "find biryani" - Perfect implementation
+          ✅ "I'm hungry" - Perfect implementation
+          ✅ Intent detection for most English phrases
+          ✅ Item structure and data completeness
+          ✅ show_order_card logic when items are found
+          
+          🔧 CRITICAL FIXES NEEDED:
+          1. Fix intent detection for "recommend me something" (should be 'food_recommendation')
+          2. Improve Roman Urdu intent detection ("ice cream dikhao" should be 'specific_item_search')
+          3. Add Rasmalai items to database or improve fallback handling
+          4. Fix show_order_card logic when no items found but intent is correct
+          5. Address Gemini API quota issues for better AI responses
+          
+          📈 RECOMMENDATION: 
+          Core functionality is 40% working. The recommendation engine and item retrieval work well 
+          when intent is correctly detected. Main issues are intent detection edge cases and database gaps.
+
 test_plan:
   current_focus:
+    - "Chatbot Menu Item Cards Feature"
     - "Fix chatbot mentioning past orders for new users"
     - "Enhanced chatbot recommendation logic"
     - "Clear Cart Button Functionality"
