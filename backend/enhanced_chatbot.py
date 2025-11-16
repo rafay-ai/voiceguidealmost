@@ -123,11 +123,25 @@ class EnhancedChatbot:
         # Specific item search intent (English + Roman Urdu)
         search_keywords = [
             'search for', 'find', 'looking for', 'want', 'show me', 'get me', 
-            'do you have', 'have you got',
-            'dhundo', 'mil sakta', 'hai kya', 'dikhao', 'chahiye'
+            'do you have', 'have you got', 'order', 'i want', 'give me',
+            'dhundo', 'mil sakta', 'hai kya', 'dikhao', 'chahiye', 'mangwao', 'لاؤ'
         ]
-        # Check if user is asking for a specific item (not just general food)
-        if any(keyword in message_lower for keyword in search_keywords):
+        
+        # Check if message contains specific food item names (not just generic words)
+        # Common specific food items that indicate user wants a particular dish
+        specific_items = [
+            'biryani', 'karahi', 'nihari', 'pulao', 'tikka', 'kebab', 'seekh',
+            'burger', 'pizza', 'sandwich', 'fries', 'shawarma',
+            'chowmein', 'fried rice', 'noodles', 'manchurian',
+            'rasmalai', 'gulab jamun', 'kheer', 'kulfi', 'cake', 'ice cream',
+            'رس ملائی', 'گلاب جامن', 'کھیر', 'بریانی'
+        ]
+        
+        # If message contains "order" or "want" + specific item name, treat as search
+        has_specific_item = any(item in message_lower for item in specific_items)
+        has_search_keyword = any(keyword in message_lower for keyword in search_keywords)
+        
+        if has_search_keyword and (has_specific_item or len(message.split()) <= 4):
             # Extract the item name (words after the search keyword)
             for keyword in search_keywords:
                 if keyword in message_lower:
