@@ -176,10 +176,11 @@ class EnhancedChatbot:
             return Intent.SPECIFIC_CUISINE, extracted_data
         
         # Food recommendation intent (English + Roman Urdu + Pure Urdu)
+        # Generic food requests (not specific items)
         food_keywords = [
-            'hungry', 'eat', 'food', 'order', 'recommend', 'suggestion', 'suggest', 'menu',
-            'bhook', 'kha', 'khana', 'mangwa', 'dikhao', 'chahiye', 
-            'بھوک', 'کھانا', 'آرڈر'
+            'hungry', 'eat', 'food', 'recommend', 'suggestion', 'suggest', 'menu', 'craving',
+            'bhook', 'kha', 'khana', 
+            'بھوک', 'کھانا'
         ]
         if any(keyword in message_lower for keyword in food_keywords):
             return Intent.FOOD_RECOMMENDATION, extracted_data
