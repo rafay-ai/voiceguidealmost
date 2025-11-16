@@ -824,6 +824,63 @@ agent_communication:
   
   - agent: "testing"
     message: |
+      🎯 CHATBOT MENU ITEM CARDS FEATURE TESTING COMPLETE (Review Request)
+      
+      📋 TESTED SCENARIOS AS REQUESTED:
+      1. "recommend me something" → Expected: show_order_card=true, 3-6 items
+      2. "Order Rasmalai" → Expected: intent=specific_item_search, Rasmalai items
+      3. "find biryani" → Expected: intent=specific_item_search, biryani items
+      4. "ice cream dikhao" → Expected: Roman Urdu support, ice cream items
+      5. "I'm hungry" → Expected: intent=food_recommendation, preference-based items
+      
+      📊 RESULTS SUMMARY: 40% SUCCESS RATE (2/5 scenarios fully working)
+      
+      ✅ WORKING PERFECTLY:
+      - "find biryani": ✅ Intent detection, ✅ Returns 2 biryani items, ✅ show_order_card=true
+      - "I'm hungry": ✅ Intent detection, ✅ Returns 6 preference-based items, ✅ show_order_card=true
+      
+      ❌ CRITICAL ISSUES FOUND:
+      
+      **Intent Detection Problems:**
+      - "recommend me something" → Detected as 'greeting' instead of 'food_recommendation'
+      - "ice cream dikhao" → Detected as 'specific_cuisine' instead of 'specific_item_search'
+      
+      **Database Gaps:**
+      - No Rasmalai items found in database (confirmed via database check)
+      - No Pizza items available
+      - Limited restaurant dataset (only 4 restaurants total)
+      
+      **API Response Issues:**
+      - show_order_card=false when no items found (should be true if intent correct)
+      - Gemini API quota exceeded causing fallback responses
+      
+      🔍 DATABASE ANALYSIS:
+      - Total Restaurants: 4
+      - Available: Pakistani (1), Chinese (1), Thai (1), Desserts (1)
+      - Missing: Japanese (0 restaurants)
+      - Items Found: Biryani (2), Ice Cream (1), Burger (1)
+      - Items Missing: Rasmalai (0), Pizza (0)
+      
+      🎯 CORE FUNCTIONALITY ASSESSMENT:
+      ✅ Recommendation engine works when intent detected correctly
+      ✅ Item structure complete (id, name, price, restaurant_name)
+      ✅ show_order_card logic works when items are found
+      ✅ recommended_items field properly populated
+      ❌ Intent detection needs improvement for edge cases
+      ❌ Database needs more diverse menu items
+      
+      🔧 IMMEDIATE FIXES NEEDED:
+      1. Fix intent detection for "recommend me something" 
+      2. Improve Roman Urdu intent detection
+      3. Add Rasmalai and other missing menu items to database
+      4. Fix show_order_card logic for correct intents with no items
+      5. Address Gemini API quota issues
+      
+      💡 RECOMMENDATION: The core menu item cards functionality is working (40% success rate). 
+      Main issues are intent detection edge cases and database content gaps, not fundamental system problems.
+  
+  - agent: "testing"
+    message: |
       🎉 PHASE 1 TESTING COMPLETE - RATING SYSTEM + DISLIKE FEATURE + MENU SEARCH
       
       ✅ EXCELLENT RESULTS: 80% SUCCESS RATE (4/5 major test categories passed)
