@@ -1,0 +1,185 @@
+{
+  "timestamp": "2025-11-30T12:31:42.133562",
+  "intent_detection": {
+    "accuracy": "100.00%",
+    "results": [
+      {
+        "prompt": "I'm hungry",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "What can I eat?",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Show me food",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Show me something to eat",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "I want to reorder",
+        "expected": "reorder",
+        "detected": "reorder",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Same as before",
+        "expected": "reorder",
+        "detected": "reorder",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Show me something new",
+        "expected": "new_items",
+        "detected": "new_items",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "What's different?",
+        "expected": "new_items",
+        "detected": "new_items",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Something unique",
+        "expected": "new_items",
+        "detected": "new_items",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "I want biryani",
+        "expected": "specific_cuisine",
+        "detected": "specific_item_search",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Show me burgers",
+        "expected": "specific_cuisine",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Chinese food",
+        "expected": "specific_cuisine",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "I want pizza",
+        "expected": "specific_cuisine",
+        "detected": "specific_item_search",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Do you have chicken biryani?",
+        "expected": "specific_item_search",
+        "detected": "specific_item_search",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Find me cheese burger",
+        "expected": "specific_item_search",
+        "detected": "specific_item_search",
+        "correct": true,
+        "has_items": false
+      },
+      {
+        "prompt": "Hello",
+        "expected": "greeting",
+        "detected": "greeting",
+        "correct": true,
+        "has_items": false
+      },
+      {
+        "prompt": "Hi there",
+        "expected": "greeting",
+        "detected": "greeting",
+        "correct": true,
+        "has_items": false
+      },
+      {
+        "prompt": "Bhook lagi hai",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Kuch khana hai",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Biryani dikhao",
+        "expected": "specific_cuisine",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true
+      },
+      {
+        "prompt": "Kuch naya try karna hai",
+        "expected": "new_items",
+        "detected": "new_items",
+        "correct": true,
+        "has_items": true
+      }
+    ]
+  },
+  "query_overrides": {
+    "success_rate": "100.00%",
+    "results": [
+      {
+        "prompt": "I want something spicy",
+        "override_detected": true,
+        "items_correct": true,
+        "passed": true
+      },
+      {
+        "prompt": "Show me vegan options",
+        "override_detected": true,
+        "items_correct": true,
+        "passed": true
+      },
+      {
+        "prompt": "I want something mild",
+        "override_detected": true,
+        "items_correct": true,
+        "passed": true
+      },
+      {
+        "prompt": "Show me Pakistani food",
+        "override_detected": true,
+        "items_correct": true,
+        "passed": true
+      }
+    ]
+  },
+  "overall_score": "100.00%"
+}

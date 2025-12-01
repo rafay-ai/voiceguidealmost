@@ -1,0 +1,40 @@
+RECOMMENDATION SYSTEM EVALUATION REPORT
+================================================================================
+
+Generated: 2025-11-19T15:41:36.411101
+Users Evaluated: 50
+Top-K: 10
+
+================================================================================
+
+METRICS:
+
+1. Precision@10: 0.0000
+   0.00% of recommended items are relevant
+
+2. Recall@10: 0.0000
+   Found 0.00% of all relevant items
+
+3. NDCG@10: 0.0000
+   Ranking quality: 0.00%
+
+4. Hit Rate@10: 0.0000
+   0.00% of users got relevant recommendations
+
+5. Coverage: 0.1947
+   Can recommend 19.47% of catalog
+
+6. Diversity@10: 0.6093
+   Variety score: 60.93%
+
+================================================================================
+
+FOR FYP PRESENTATION:
+
+These metrics demonstrate:
+- High precision means accurate recommendations
+- High recall means comprehensive coverage
+- High NDCG means good ranking quality
+- High hit rate means most users find relevant items
+- High coverage means system isn't biased to few items
+- High diversity means varied recommendations

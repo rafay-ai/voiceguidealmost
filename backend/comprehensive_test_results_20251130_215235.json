@@ -1,0 +1,322 @@
+{
+  "timestamp": "2025-11-30T21:52:35.595956",
+  "challenging_intent_detection": {
+    "accuracy": "56.00%",
+    "results": [
+      {
+        "prompt": "Something good",
+        "difficulty": "hard",
+        "expected": "food_recommendation",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "Very vague - could mean anything"
+      },
+      {
+        "prompt": "What do you have?",
+        "difficulty": "medium",
+        "expected": "food_recommendation",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "General question"
+      },
+      {
+        "prompt": "Surprise me",
+        "difficulty": "hard",
+        "expected": "new_items",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "No specific intent"
+      },
+      {
+        "prompt": "Kuch spicy food dikhao",
+        "difficulty": "medium",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true,
+        "note": "Mixed Urdu-English"
+      },
+      {
+        "prompt": "Burger hai kya tasty wala?",
+        "difficulty": "medium",
+        "expected": "specific_item_search",
+        "detected": "specific_item_search",
+        "correct": false,
+        "has_items": false,
+        "note": "Roman Urdu + English item"
+      },
+      {
+        "prompt": "Bhook lag rahi hai, fast food chahiye",
+        "difficulty": "medium",
+        "expected": "specific_cuisine",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true,
+        "note": "Mixed language with cuisine"
+      },
+      {
+        "prompt": "Order again",
+        "difficulty": "easy",
+        "expected": "reorder",
+        "detected": "reorder",
+        "correct": true,
+        "has_items": true,
+        "note": "Reorder synonym"
+      },
+      {
+        "prompt": "Get me what I had last time",
+        "difficulty": "medium",
+        "expected": "reorder",
+        "detected": "reorder",
+        "correct": true,
+        "has_items": true,
+        "note": "Indirect reorder"
+      },
+      {
+        "prompt": "Different stuff",
+        "difficulty": "hard",
+        "expected": "new_items",
+        "detected": "new_items",
+        "correct": true,
+        "has_items": true,
+        "note": "Very casual phrasing"
+      },
+      {
+        "prompt": "I want biryani but not rice",
+        "difficulty": "hard",
+        "expected": "specific_item_search",
+        "detected": "specific_item_search",
+        "correct": true,
+        "has_items": false,
+        "note": "Contradictory request"
+      },
+      {
+        "prompt": "Show me pizza without cheese",
+        "difficulty": "hard",
+        "expected": "specific_item_search",
+        "detected": "specific_cuisine",
+        "correct": false,
+        "has_items": true,
+        "note": "Unusual requirement"
+      },
+      {
+        "prompt": "Healthy junk food",
+        "difficulty": "hard",
+        "expected": "food_recommendation",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true,
+        "note": "Oxymoron"
+      },
+      {
+        "prompt": "I'm really hungry and I want something spicy but not too spicy maybe medium spicy with chicken or beef and rice would be nice but pasta is also okay I guess",
+        "difficulty": "hard",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true,
+        "note": "Run-on sentence with multiple requests"
+      },
+      {
+        "prompt": "Can you please show me some good food that I can order right now because I'm very hungry and I don't know what to eat maybe something new that I haven't tried before",
+        "difficulty": "hard",
+        "expected": "new_items",
+        "detected": "reorder",
+        "correct": false,
+        "has_items": true,
+        "note": "Long rambling query"
+      },
+      {
+        "prompt": "I wnt bryani",
+        "difficulty": "medium",
+        "expected": "specific_cuisine",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "Multiple typos"
+      },
+      {
+        "prompt": "Show me burgers pls",
+        "difficulty": "easy",
+        "expected": "specific_cuisine",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true,
+        "note": "Common abbreviation"
+      },
+      {
+        "prompt": "gimme smthing gud",
+        "difficulty": "medium",
+        "expected": "food_recommendation",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "SMS-style typing"
+      },
+      {
+        "prompt": "More of that",
+        "difficulty": "hard",
+        "expected": "reorder",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "Requires conversation context"
+      },
+      {
+        "prompt": "Add more",
+        "difficulty": "hard",
+        "expected": "reorder",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "Assumes previous selection"
+      },
+      {
+        "prompt": "I don't want biryani",
+        "difficulty": "hard",
+        "expected": "food_recommendation",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true,
+        "note": "Negative preference"
+      },
+      {
+        "prompt": "Not spicy please",
+        "difficulty": "medium",
+        "expected": "food_recommendation",
+        "detected": "general_query",
+        "correct": false,
+        "has_items": false,
+        "note": "Negative requirement"
+      },
+      {
+        "prompt": "Anything but pizza",
+        "difficulty": "hard",
+        "expected": "food_recommendation",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true,
+        "note": "Exclusion request"
+      },
+      {
+        "prompt": "I'm hungry",
+        "difficulty": "easy",
+        "expected": "food_recommendation",
+        "detected": "food_recommendation",
+        "correct": true,
+        "has_items": true,
+        "note": "Clear intent"
+      },
+      {
+        "prompt": "Show me biryani",
+        "difficulty": "easy",
+        "expected": "specific_cuisine",
+        "detected": "specific_cuisine",
+        "correct": true,
+        "has_items": true,
+        "note": "Direct request"
+      },
+      {
+        "prompt": "Reorder",
+        "difficulty": "easy",
+        "expected": "reorder",
+        "detected": "reorder",
+        "correct": true,
+        "has_items": true,
+        "note": "One word command"
+      }
+    ]
+  },
+  "conflict_detection": {
+    "detection_rate": "50.00%",
+    "results": [
+      {
+        "prompt": "I want something very spicy with meat",
+        "setup": {
+          "favorite_cuisines": [
+            "Desserts",
+            "Fast Food"
+          ],
+          "dietary_restrictions": [
+            "Vegetarian"
+          ],
+          "spice_preference": "mild"
+        },
+        "expected_conflicts": [
+          "spice",
+          "dietary"
+        ],
+        "detected_conflicts": [
+          "spice"
+        ],
+        "has_conflict": true,
+        "asks_confirmation": true,
+        "passed": true
+      },
+      {
+        "prompt": "Show me chicken biryani",
+        "setup": {
+          "favorite_cuisines": [
+            "Pakistani"
+          ],
+          "dietary_restrictions": [
+            "Vegan"
+          ],
+          "spice_preference": "medium"
+        },
+        "expected_conflicts": [
+          "dietary"
+        ],
+        "detected_conflicts": [],
+        "has_conflict": false,
+        "asks_confirmation": false,
+        "passed": false
+      },
+      {
+        "prompt": "I want Pakistani food that's not spicy",
+        "setup": {
+          "favorite_cuisines": [
+            "Chinese",
+            "Thai"
+          ],
+          "dietary_restrictions": [],
+          "spice_preference": "hot"
+        },
+        "expected_conflicts": [
+          "cuisine",
+          "spice"
+        ],
+        "detected_conflicts": [],
+        "has_conflict": false,
+        "asks_confirmation": false,
+        "passed": false
+      },
+      {
+        "prompt": "Show me BBQ tikka extra spicy",
+        "setup": {
+          "favorite_cuisines": [
+            "Desserts"
+          ],
+          "dietary_restrictions": [
+            "Halal"
+          ],
+          "spice_preference": "mild"
+        },
+        "expected_conflicts": [
+          "cuisine",
+          "spice"
+        ],
+        "detected_conflicts": [
+          "spice"
+        ],
+        "has_conflict": true,
+        "asks_confirmation": true,
+        "passed": true
+      }
+    ]
+  },
+  "overall_score": "54.20%"
+}

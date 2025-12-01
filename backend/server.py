@@ -1886,7 +1886,7 @@ async def checkout_order(
         "delivery_address": user_address,
         "payment_method": checkout_request.payment_method,
         "payment_status": "pending" if checkout_request.payment_method == "easypaisa" else "cash_on_delivery",
-        "order_status": "placed",
+        "order_status": "Delivered",
         "pricing": {
             "subtotal": float(subtotal),
             "delivery_fee": float(delivery_fee),
@@ -2073,7 +2073,8 @@ async def chat_with_assistant(
     current_user: User = Depends(get_current_user)
 ):
     """
-    Enhanced chat endpoint with embeddings-based recommendations and better intent detection
+    IMPROVED chat endpoint with query override support
+    Handles cases like: "I want spicy food" (user prefers desserts)
     """
     try:
         # Get user context
@@ -2097,7 +2098,6 @@ async def chat_with_assistant(
                 user_context['default_address'] = address
                 break
 
-        # Get session ID
         session_id = chat_request.session_id or str(uuid.uuid4())
         
         # Detect intent using enhanced chatbot
@@ -2106,7 +2106,41 @@ async def chat_with_assistant(
             user_context
         )
         
-        logging.info(f"Detected intent: {intent}, extracted: {extracted_data}")
+        logger.info(f"Detected intent: {intent}, extracted: {extracted_data}")
+        
+        # Get query overrides (THIS IS THE KEY FIX!)
+        query_overrides = extracted_data.get('query_overrides', {})
+
+        conflicts = {}
+        if query_overrides:
+            conflicts = enhanced_chatbot.query_modifier.detect_preference_conflict(
+                query_overrides,
+                {
+                    'spice_preference': current_user.spice_preference,
+                    'dietary_restrictions': current_user.dietary_restrictions,
+                    'favorite_cuisines': current_user.favorite_cuisines
+                }
+            )
+            logger.info(f"🔍 Conflicts detected: {conflicts}")
+        
+        # Apply overrides to user context (PRIORITY: query > user preference)
+        effective_preferences = user_context['explicit_preferences'].copy()
+        
+        if 'spice_override' in query_overrides:
+            effective_preferences['spice_preference'] = query_overrides['spice_override']
+            logger.info(f"🌶️ Overriding spice preference to: {query_overrides['spice_override']}")
+        
+        if 'dietary_override' in query_overrides:
+            effective_preferences['dietary_restrictions'] = query_overrides['dietary_override']
+            logger.info(f"🥗 Overriding dietary to: {query_overrides['dietary_override']}")
+        
+        if 'cuisine_override' in query_overrides:
+            effective_preferences['favorite_cuisines'] = query_overrides['cuisine_override']
+            logger.info(f"🍽️ Overriding cuisines to: {query_overrides['cuisine_override']}")
+        
+        # Add overrides to user_context for response generation
+        user_context['query_overrides'] = query_overrides
+        user_context['preference_conflicts'] = conflicts  # ADD THIS LINE
         
         # Get order history
         order_history = await recommendation_engine.get_user_order_history(
@@ -2114,11 +2148,11 @@ async def chat_with_assistant(
             days=30
         )
         
-        # Get user's disliked items (rated < 3 stars)
+        # Get user's disliked items
         disliked_items = await get_user_disliked_items(current_user.id)
-        logging.info(f"User has {len(disliked_items)} disliked items")
+        logger.info(f"User has {len(disliked_items)} disliked items")
         
-        # Get recommendations using the enhanced recommendation engine
+        # Get recommendations using EFFECTIVE preferences (with overrides)
         reorder_items = []
         new_items = []
         restaurants_data = []
@@ -2128,26 +2162,40 @@ async def chat_with_assistant(
         if intent == Intent.SPECIFIC_ITEM_SEARCH:
             item_query = extracted_data.get('item_query', '')
             if item_query:
-                logging.info(f"Searching for specific item: {item_query}")
+                logger.info(f"Searching for specific item: {item_query}")
                 
-                # Search menu items
                 search_regex = {"$regex": item_query, "$options": "i"}
-                items_cursor = db.menu_items.find(
-                    {
-                        "available": True,
-                        "id": {"$nin": disliked_items},  # Exclude disliked items
-                        "$or": [
-                            {"name": search_regex},
-                            {"description": search_regex},
-                            {"tags": search_regex}
-                        ]
-                    },
-                    {"_id": 0}
-                ).limit(10)
                 
+                # Build query with effective preferences
+                search_query = {
+                    "available": True,
+                    "id": {"$nin": disliked_items},
+                    "$or": [
+                        {"name": search_regex},
+                        {"description": search_regex},
+                        {"tags": search_regex}
+                    ]
+                }
+                
+                # Apply dietary overrides to search
+                if effective_preferences.get('dietary_restrictions'):
+                    for restriction in effective_preferences['dietary_restrictions']:
+                        if restriction.lower() == 'vegetarian':
+                            search_query['is_vegetarian'] = True
+                        elif restriction.lower() == 'vegan':
+                            search_query['is_vegan'] = True
+                        elif restriction.lower() == 'halal':
+                            search_query['is_halal'] = True
+                
+                items_cursor = db.menu_items.find(search_query, {"_id": 0}).limit(10)
                 items = await items_cursor.to_list(None)
                 
-                # Enrich with restaurant info
+                # Filter by spice if override exists
+                if 'spice_override' in query_overrides:
+                    spice_level = query_overrides['spice_override']
+                    items = [item for item in items if item.get('spice_level') == spice_level]
+                    logger.info(f"Filtered to {len(items)} items with {spice_level} spice")
+                
                 for item in items:
                     restaurant = await db.restaurants.find_one(
                         {"id": item["restaurant_id"]},
@@ -2173,32 +2221,30 @@ async def chat_with_assistant(
                         })
                 
                 new_items = search_results
-                logging.info(f"Found {len(search_results)} items for search query: {item_query}")
+                logger.info(f"Found {len(search_results)} items for search: {item_query}")
         
         elif intent in [Intent.FOOD_RECOMMENDATION, Intent.REORDER, Intent.NEW_ITEMS, Intent.SPECIFIC_CUISINE]:
-            # Determine query for embeddings
             query = chat_request.message
             exclude_ordered = (intent == Intent.NEW_ITEMS)
             
-            # Get recommendations from the engine (with disliked items filtered)
+            # Get recommendations with EFFECTIVE preferences (including overrides)
             reorder_items, new_items = await recommendation_engine.get_recommendations(
                 user_id=current_user.id,
-                user_preferences=user_context['explicit_preferences'],
+                user_preferences=effective_preferences,  # Use effective preferences!
                 query=query,
                 limit=6,
                 exclude_ordered=exclude_ordered,
-                disliked_items=disliked_items  # Pass disliked items to filter
+                disliked_items=disliked_items
             )
             
-            logging.info(f"Got {len(reorder_items)} reorder items and {len(new_items)} new items")
+            logger.info(f"Got {len(reorder_items)} reorder items and {len(new_items)} new items")
             
-            # Get unique restaurants from recommendations
+            # Get unique restaurants
             restaurant_ids = set()
             all_items = reorder_items + new_items
             for item in all_items:
                 restaurant_ids.add(item['restaurant_id'])
             
-            # Fetch restaurant details
             for rest_id in restaurant_ids:
                 restaurant = await db.restaurants.find_one(
                     {"id": rest_id, "is_active": True},
@@ -2207,9 +2253,9 @@ async def chat_with_assistant(
                 if restaurant:
                     restaurants_data.append(restaurant)
             
-            logging.info(f"Found {len(restaurants_data)} unique restaurants")
+            logger.info(f"Found {len(restaurants_data)} unique restaurants")
         
-        # Generate response using enhanced chatbot
+        # Generate response
         response_text = await enhanced_chatbot.generate_response(
             message=chat_request.message,
             user_context=user_context,
@@ -2231,8 +2277,6 @@ async def chat_with_assistant(
         
         # Prepare response
         show_order_card = len(reorder_items) > 0 or len(new_items) > 0
-        
-        # Combine reorder and new items for frontend display
         recommended_items = reorder_items + new_items
         
         return {
@@ -2240,8 +2284,10 @@ async def chat_with_assistant(
             "intent": intent.value,
             "reorder_items": reorder_items,
             "new_items": new_items,
-            "recommended_items": recommended_items,  # Combined list for frontend
-            "restaurants": restaurants_data,  # Include restaurant cards
+            "recommended_items": recommended_items,
+            "preference_conflicts": conflicts,  # ADD THIS LINE
+            "restaurants": restaurants_data,
+            "query_overrides": query_overrides,  # Send overrides to frontend
             "order_history_summary": {
                 "has_history": order_history.get("has_history", False),
                 "total_orders": order_history.get("total_orders", 0),
@@ -2254,11 +2300,10 @@ async def chat_with_assistant(
         }
         
     except Exception as e:
-        logging.error(f"Error in chat endpoint: {e}")
+        logger.error(f"Error in chat endpoint: {e}")
         import traceback
-        logging.error(traceback.format_exc())
+        logger.error(traceback.format_exc())
         
-        # Return a friendly error response
         return {
             "response": "Sorry, I encountered an issue. Please try again.",
             "intent": "error",
@@ -2623,31 +2668,6 @@ async def process_voice_order(
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc)}
 
-@api_router.post("/admin/build-matrix")
-async def build_recommendation_matrix():
-    """Build Matrix Factorization model from order history"""
-    try:
-        if not recommendation_engine:
-            raise HTTPException(status_code=503, detail="Recommendation engine not initialized")
-        
-        logging.info("Building matrix factorization model...")
-        success = await recommendation_engine.build_user_item_matrix()
-        
-        if success:
-            return {
-                "message": "Matrix factorization model built successfully",
-                "status": "success",
-                "users": len(recommendation_engine.user_mapping),
-                "items": len(recommendation_engine.item_mapping)
-            }
-        else:
-            return {
-                "message": "Not enough data to build model. Need more orders.",
-                "status": "insufficient_data"
-            }
-    except Exception as e:
-        logging.error(f"Error building matrix: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 async def process_embeddings_batch(menu_items: List[Dict]):
     """Process embeddings for a batch of menu items"""
